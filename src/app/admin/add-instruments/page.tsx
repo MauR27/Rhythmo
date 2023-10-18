@@ -229,11 +229,7 @@ const AddInstruments = () => {
                         URL.revokeObjectURL(file.preview);
                       }}
                     />
-                    <Button
-                      type="button"
-                      className="w-7 h-7 bg-white"
-                      onClick={() => removeFile(file.name)}
-                    >
+                    <Button type="button" onClick={() => removeFile(file.name)}>
                       X
                     </Button>
                   </ListItem>

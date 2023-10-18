@@ -3,7 +3,17 @@
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Link,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 
 const Register = () => {
   const [error, setError] = useState("");
@@ -20,6 +30,7 @@ const Register = () => {
         description: "Password do not match",
         duration: 3000,
         isClosable: true,
+        position: "top",
       });
     }
 
@@ -54,40 +65,85 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmir}>
-        {error && <div className="bg-red-500 text-white p-2"> {error}</div>}
-        <h1>Register</h1>
-
-        <input
-          className="bg-zinc-800 px-4 py-2 black mb-2 text-white"
-          type="text"
-          placeholder="Rom Galler"
-          name="name"
-        />
-        <input
-          className="bg-zinc-800 px-4 py-2 black mb-2 text-white"
-          type="email"
-          placeholder="romgaller@gmail.com"
-          name="email"
-        />
-        <input
-          className="bg-zinc-800 px-4 py-2 black mb-2 text-white"
-          type="password"
-          placeholder="********"
-          name="password"
-        />
-        <input
-          className="bg-zinc-800 px-4 py-2 black mb-2 text-white"
-          type="password"
-          placeholder="********"
-          name="confirmPassword"
-        />
-        <button className="bg-cyan-300 text-black py-2 px-4 rounded-md">
-          Register
-        </button>
-      </form>
-    </div>
+    <Flex
+      minH="calc(100vh - 11rem)"
+      justify="center"
+      align="center"
+      flexDir="column"
+    >
+      <Box>
+        <Text
+          textAlign="center"
+          fontSize="2em"
+          fontWeight="semibold"
+          color="cyan.600"
+        >
+          Sign Up
+        </Text>
+      </Box>
+      <Flex bg="white" p={10} maxW="600px" borderRadius="md" boxShadow="lg">
+        <form onSubmit={handleSubmir}>
+          {error && <Text> {error}</Text>}
+          <FormControl minW="400px" mb={4}>
+            <FormLabel>Full Name</FormLabel>
+            <Input
+              type="text"
+              placeholder="Monica Geller"
+              name="name"
+              variant="flushed"
+            />
+          </FormControl>
+          <FormControl mb={4}>
+            <FormLabel>Email address</FormLabel>
+            <Input
+              type="email"
+              placeholder="MonicaGeller@gmail.com"
+              name="email"
+              variant="flushed"
+            />
+          </FormControl>
+          <FormControl mb={4}>
+            <FormLabel>Password</FormLabel>
+            <Input
+              type="password"
+              placeholder="********"
+              name="password"
+              variant="outline"
+            />
+          </FormControl>
+          <FormControl mb={4}>
+            <FormLabel>Repeat Password</FormLabel>
+            <Input
+              type="password"
+              placeholder="********"
+              name="confirmPassword"
+              variant="filled"
+            />
+          </FormControl>
+          <Flex align="center">
+            <Button
+              type="submit"
+              variant="ghost"
+              borderRadius="none"
+              _hover={{
+                bg: "cyan.600",
+                color: "white",
+                borderRadius: "none",
+              }}
+            >
+              Sign Up
+            </Button>
+            <Text fontSize="sm">
+              Do you already have an account? then{" "}
+              <Link href="/" color="cyan.600">
+                Login
+              </Link>{" "}
+              now!
+            </Text>
+          </Flex>
+        </form>
+      </Flex>
+    </Flex>
   );
 };
 

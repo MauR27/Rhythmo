@@ -1,36 +1,75 @@
-// import Link from "next/link";
 import NextLink from "next/link";
-import { Link } from "@chakra-ui/react";
+import { Flex, Icon, useBreakpointValue } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { PiUserThin } from "react-icons/pi";
 import { useSession, signOut } from "next-auth/react";
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import LoginModal from "./LoginModal";
 
 const DropDownButton = () => {
-  const [toggle, setToggle] = useState(false);
   const { data: session } = useSession();
 
-  const handleToggle = () => {
-    setToggle(!toggle);
-  };
+  const widthMenuBox = useBreakpointValue({
+    base: "100px",
+    sm: "150px",
+  });
+
   return (
     <Menu>
-      <MenuButton as={Button}>
-        <PiUserThin size="25px" />
+      <MenuButton _hover={{ color: "cyan.600" }} transition=".3s">
+        <Icon
+          display="flex"
+          as={PiUserThin}
+          w={[6, 7]}
+          h={[6, 7]}
+          _hover={{ color: "blue" }}
+        />
       </MenuButton>
       {session ? (
-        <MenuList minW="150px">
-          <MenuItem onClick={() => signOut()}>Logout</MenuItem>
-          <MenuItem as={NextLink} href="/profile">
+        <MenuList minW={widthMenuBox} borderRadius="none">
+          <MenuItem
+            onClick={() => signOut()}
+            fontWeight="semibold"
+            _hover={{
+              bg: "cyan.700",
+              color: "white",
+            }}
+          >
+            Logout
+          </MenuItem>
+          <MenuItem
+            as={NextLink}
+            href="/profile"
+            fontWeight="semibold"
+            _hover={{
+              bg: "cyan.700",
+              color: "white",
+            }}
+          >
             Profile
           </MenuItem>
         </MenuList>
       ) : (
-        <MenuList minW="150px">
-          <MenuItem as={NextLink} href="/login">
-            Sign In
+        <MenuList minW={widthMenuBox} borderRadius="none">
+          <MenuItem
+            p={0}
+            m={0}
+            _hover={{
+              bg: "cyan.700",
+              color: "white",
+            }}
+          >
+            <LoginModal />
           </MenuItem>
-          <MenuItem as={NextLink} href="/register">
+          <MenuItem
+            as={NextLink}
+            href="/register"
+            fontWeight="semibold"
+            _hover={{
+              bg: "cyan.700",
+              color: "white",
+            }}
+          >
             Sign Up
           </MenuItem>
         </MenuList>

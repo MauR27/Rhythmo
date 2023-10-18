@@ -10,7 +10,7 @@ const ProfilePage = () => {
 
   return (
     <Box>
-      <Text>{user?.name}</Text>
+      <Text>{user?.email}</Text>
     </Box>
   );
 };

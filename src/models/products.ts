@@ -9,6 +9,7 @@ interface IProductsSchema {
       brand: string;
       images: string;
       instrumentType: string;
+      amount: number;
     }
   ];
 }
@@ -41,6 +42,9 @@ const productsSchema = new mongoose.Schema<IProductsSchema, UserModel>(
           lowercase: true,
         },
         amount: { type: Number, required: [true, "Amount is required"] },
+      },
+      {
+        timestamps: true,
       },
     ],
   },

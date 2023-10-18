@@ -1,8 +1,13 @@
-"use client";
-import { Box } from "@chakra-ui/react";
+import ProductsByType from "@/components/ProductsByType";
 
-const page = ({ params }: { params: { instruments: string } }) => {
-  return <Box>{params.instruments}</Box>;
+const InstrumentsPage = ({ params }: { params: { instruments: string } }) => {
+  const paramsName: string = params.instruments;
+
+  return (
+    <>
+      <ProductsByType params={paramsName} />
+    </>
+  );
 };
 
-export default page;
+export default InstrumentsPage;

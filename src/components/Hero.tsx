@@ -4,23 +4,9 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 
 const Hero = () => {
   return (
-    <Flex
-      minH="calc(100vh - 11rem)"
-      bg="blue.100"
-      justify="center"
-      alignItems="center"
-    >
+    <Flex minH="calc(100vh - 11rem)" alignItems="center" justify="center">
       <Box>
-        <Text>Today Offerts</Text>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam
-          cupiditate labore qui dolores hic reiciendis est explicabo facere.
-          Vitae culpa unde perspiciatis voluptatem beatae sit totam magni
-          inventore esse maxime.
-        </Text>
-      </Box>
-      <Box>
-        <Image src="/banner.png" alt="banner" />
+        <Image src="/Banner3.png" alt="banner" borderRadius="md" />
       </Box>
     </Flex>
   );

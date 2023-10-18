@@ -1,15 +1,17 @@
-"use client";
+import { ProductsResponse } from "../../types";
+import NewProductCard from "./NewProductCard";
 
-import { Box, Flex, Text } from "@chakra-ui/react";
+async function fetchInstruments() {
+  const response = await fetch("http://localhost:3000/api/get-all-products");
 
-const NewProducts = () => {
-  return (
-    <Flex justify="center" minH="calc(100vh - 11rem)" bg="red.800">
-      <Box>
-        <Text>New Products</Text>
-      </Box>
-    </Flex>
-  );
+  const products: ProductsResponse = await response.json();
+  return products.splice(0, 4);
+}
+
+const NewProducts = async () => {
+  const products: ProductsResponse = await fetchInstruments();
+
+  return <NewProductCard products={products} />;
 };
 
 export default NewProducts;

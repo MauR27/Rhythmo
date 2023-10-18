@@ -12,6 +12,7 @@ interface IUserSchema {
       description: string;
       brand: string;
       image: string;
+      amount: number;
     }
   ];
 }
@@ -36,9 +37,11 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
       {
         name: String,
         price: Number,
-        description: String,
         brand: String,
-        image: String,
+        images: [String],
+        instrumentType: String,
+        productId: String,
+        amount: Number,
       },
     ],
   },

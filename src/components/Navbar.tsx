@@ -1,106 +1,59 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { useState } from "react";
-import { PiShoppingCartSimpleThin } from "react-icons/pi";
-import { CiSearch } from "react-icons/ci";
-import { RxCross1 } from "react-icons/rx";
 import DropDownButton from "@/utils/DropDownButton";
 import {
   Box,
   Flex,
-  HStack,
   Heading,
-  Icon,
-  List,
-  ListItem,
+  Link,
   Text,
+  useBreakpointValue,
+  useMediaQuery,
 } from "@chakra-ui/react";
+import DrawerButton from "@/utils/DrawerButton";
+import SearchCollapse from "@/utils/SearchCollapse";
+import CategoriesNavbar from "./CategoriesNavbar";
+import CartNavButton from "./CartNavButton";
 
 const Navbar = () => {
-  const [toggle, setToggle] = useState(false);
+  // Responsive break points
 
-  const toggleInput = () => {
-    setToggle(!toggle);
-  };
+  const titleText = useBreakpointValue({
+    base: "1.5em",
+    sm: "2em",
+  });
+  const [isLargerThan480] = useMediaQuery("(min-width: 480px)");
 
   return (
     <Flex
       as="nav"
       flexDir="column"
-      bg="red.400"
       px="6"
       py="4"
-      shadow="md"
       h="44"
       justify="space-between"
+      bg="white"
+      boxShadow="md"
     >
-      <Flex justify="space-between" bg="red.200" alignItems="center">
-        <Link href="/">
-          <Heading color="black">
-            <Text fontSize={{ base: "1.5rem", sm: "2rem", md: "2.5rem" }}>
-              Rhythmo
-            </Text>
+      <Flex justify="space-between" alignItems="center">
+        <Link href="/" _hover={{}}>
+          <Heading color="cyan.600" fontSize={titleText}>
+            <Text>Rhythmo</Text>
           </Heading>
         </Link>
-        <HStack gap={4}>
-          <Box>
-            <AnimatePresence>
-              {toggle && (
-                <motion.input
-                  type="text"
-                  key="input"
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 30 }}
-                  transition={{ duration: 0.1 }}
-                />
-              )}
-            </AnimatePresence>
-
-            {!toggle ? (
-              <Icon
-                as={CiSearch}
-                w={6}
-                h={6}
-                onClick={toggleInput}
-                _hover={{ cursor: "pointer" }}
-              />
-            ) : (
-              <Icon
-                as={RxCross1}
-                w={5}
-                h={5}
-                onClick={toggleInput}
-                _hover={{ cursor: "pointer" }}
-              />
-            )}
-          </Box>
-
+        <Flex gap={4}>
+          <SearchCollapse />
           <DropDownButton />
-
-          <Link href="/">
-            <Icon as={PiShoppingCartSimpleThin} w={6} h={6} />
-          </Link>
-        </HStack>
+          <CartNavButton />
+        </Flex>
       </Flex>
-      <Flex justify="center" bg="blue.100" p={2}>
-        <List as={Flex} gap={10}>
-          <ListItem>
-            <Link href="/products/electric-guitars">Electric Guitars</Link>
-          </ListItem>
-          <ListItem>
-            <Link href="/products/electric-bass">Electric Bass</Link>
-          </ListItem>
-          <ListItem>
-            <Link href="/products/electric-drums">Electric Drums</Link>
-          </ListItem>
-          <ListItem>
-            <Link href="/products/acoustic-drums">Acoustic Drums</Link>
-          </ListItem>
-        </List>
-      </Flex>
+      {isLargerThan480 ? (
+        <CategoriesNavbar />
+      ) : (
+        <Box>
+          <DrawerButton />
+        </Box>
+      )}
     </Flex>
   );
 };
