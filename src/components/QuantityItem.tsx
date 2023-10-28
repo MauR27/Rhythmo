@@ -1,11 +1,105 @@
-import { Button, Text } from "@chakra-ui/react";
+import { Button, Flex, GridItem, Text, useToast } from "@chakra-ui/react";
+import { FC, useState } from "react";
+import OrderSummary from "./OrderSummary";
 
-const QuantityItem = () => {
+interface IAmount {
+  cart: {
+    brand: string;
+    images: string[];
+    instrumentType: string;
+    name: string;
+    price: number;
+    productId: string;
+    _id: string;
+    amount: number;
+    itemQuantity: number;
+  };
+}
+const QuantityItem: FC<IAmount> = ({ cart }) => {
+  const valueInitial = cart.itemQuantity;
+  const [number, setNumber] = useState(valueInitial);
+  const [totalPrice, setTotalPrice] = useState(cart.price * valueInitial);
+  const toast = useToast({
+    status: "error",
+    description: "Max stock limit",
+    isClosable: true,
+    position: "top",
+    duration: 3000,
+  });
+
+  const incrementAmount = async (_id: string) => {
+    try {
+      if (number < cart.amount) {
+        const action = "add";
+        await fetch("http://localhost:3000/api/item-quantity", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ _id, action }),
+        });
+        setNumber((prev) => prev + 1);
+        setTotalPrice((prev) => prev + cart.price);
+      } else {
+        toast();
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  };
+
+  const decrementAmount = async (_id: string) => {
+    try {
+      if (number > 1) {
+        const action = "sub";
+        await fetch("http://localhost:3000/api/item-quantity", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ _id, action }),
+        });
+        setNumber((prev) => prev - 1);
+        setTotalPrice((prev) => prev - cart.price);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  };
+
   return (
     <>
-      <Button>-</Button>
-      <Text>1</Text>
-      <Button>+</Button>
+      <GridItem colSpan={1} alignContent="center">
+        <Flex align="center" h="full" justify="center">
+          <Text>{cart.price},00$</Text>
+        </Flex>
+      </GridItem>
+      <GridItem colSpan={1} alignContent="center">
+        <Flex align="center" h="full" justify="center">
+          <Button
+            onClick={() => decrementAmount(cart.productId)}
+            variant="ghost"
+          >
+            -
+          </Button>
+          <Text>{number}</Text>
+          <Button
+            onClick={() => incrementAmount(cart.productId)}
+            variant="ghost"
+          >
+            +
+          </Button>
+        </Flex>
+      </GridItem>
+      <GridItem colSpan={1} alignContent="center">
+        <Flex align="center" h="full" justify="center">
+          <Text>{totalPrice},00$</Text>
+        </Flex>
+      </GridItem>
     </>
   );
 };

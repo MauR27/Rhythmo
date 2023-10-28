@@ -23,6 +23,7 @@ export type ICart = [
     productId: string;
     _id: string;
     amount: number;
+    itemQuantity: number;
   }
 ];
 

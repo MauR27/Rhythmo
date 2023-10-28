@@ -1,5 +1,3 @@
-"use client";
-
 import { useContext } from "react";
 import {
   Button,
@@ -24,7 +22,6 @@ import QuantityItem from "./QuantityItem";
 
 const CartPageCard = () => {
   const { cart } = useContext(GlobalContext);
-  console.log(cart);
 
   return (
     <>
@@ -46,6 +43,7 @@ const CartPageCard = () => {
               direction="row"
             >
               <Image
+                alt={product.images[0]}
                 src={product.images[0]}
                 maxW="150px"
                 maxH="150px"
@@ -100,21 +98,7 @@ const CartPageCard = () => {
               </Stack>
             </Card>
           </GridItem>
-          <GridItem colSpan={1} alignContent="center">
-            <Flex align="center" h="full" justify="center">
-              <Text>{product.price},00$</Text>
-            </Flex>
-          </GridItem>
-          <GridItem colSpan={1}>
-            <Flex align="center" h="full" justify="center">
-              <QuantityItem />
-            </Flex>
-          </GridItem>
-          <GridItem colSpan={1}>
-            <Flex align="center" h="full" justify="center">
-              <Text>{product.price},00$</Text>
-            </Flex>
-          </GridItem>
+          <QuantityItem cart={product} />
         </Grid>
       ))}
     </>

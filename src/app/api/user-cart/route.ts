@@ -11,6 +11,7 @@ type IcartProduct = {
   instrumentType: string;
   productId: string;
   amount: number;
+  itemQuantity: number;
 };
 
 export async function PUT(req: Request) {
@@ -35,6 +36,7 @@ export async function PUT(req: Request) {
           name: product.name,
           productId: product._id,
           amount: product.amount,
+          itemQuantity: 1,
         },
       ];
 
@@ -46,7 +48,6 @@ export async function PUT(req: Request) {
         user.cart.push(...cartProduct);
 
         await user.save();
-        console.log(cartProduct);
         return NextResponse.json(user, {
           status: 201,
           statusText: "Item added successfully!",

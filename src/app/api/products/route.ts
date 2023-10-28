@@ -33,6 +33,7 @@ export async function POST(req: Request) {
       products.products.push(...addInstruments);
 
       const productsUpdated = await products.save();
+
       return NextResponse.json(
         { productsUpdated },
         { status: 201, statusText: "Instruments added" }

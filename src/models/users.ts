@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
         instrumentType: String,
         productId: String,
         amount: Number,
+        itemQuantity: Number,
       },
     ],
   },

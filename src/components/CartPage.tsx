@@ -13,6 +13,7 @@ import {
 import { useEffect, useContext } from "react";
 import CartPageCard from "./CartPageCard";
 import GlobalContext from "@/context/GlobalContext";
+import OrderSummary from "./OrderSummary";
 
 const CartPage = () => {
   const { setCart, cart } = useContext(GlobalContext);
@@ -23,7 +24,8 @@ const CartPage = () => {
       return setCart(userCart);
     };
     fetchUserCart();
-  }, []);
+  }, [setCart]);
+  console.log(cart);
 
   return (
     <Grid minH="calc(100vh - 11rem)" templateColumns="repeat(3, 1fr)">
@@ -66,83 +68,7 @@ const CartPage = () => {
         <CartPageCard />
       </GridItem>
       <GridItem colSpan={1} justifyContent="center" pt="30px">
-        <Flex justifyContent="center">
-          <Flex
-            align="center"
-            flexDir="column"
-            minH="600px"
-            w="400px"
-            border="1px solid"
-            borderColor="gray.100"
-            borderRadius="lg"
-            boxShadow="lg"
-            py={4}
-          >
-            <Text as="h1" fontSize="4xl" fontWeight="semibold" mb="1em">
-              Order Summary
-            </Text>
-            <List
-              display="flex"
-              alignItems="center"
-              flexDir="column"
-              minW="full"
-              gap={4}
-            >
-              <Flex
-                minH="80px"
-                minW="300px"
-                boxShadow="md"
-                borderRadius="sm"
-                borderBottom="1px solid"
-                borderColor="cyan.600"
-                justifyContent="space-around"
-                align="center"
-              >
-                <ListItem>Discount</ListItem>
-                <Text>0,00$</Text>
-              </Flex>
-              <Flex
-                minH="80px"
-                minW="300px"
-                boxShadow="md"
-                borderRadius="sm"
-                borderBottom="1px solid"
-                borderColor="cyan.600"
-                justifyContent="space-around"
-                align="center"
-              >
-                <ListItem>Delivery</ListItem>
-                <Text>0,00$</Text>
-              </Flex>
-              <Flex
-                minH="80px"
-                minW="300px"
-                boxShadow="md"
-                borderRadius="sm"
-                borderBottom="1px solid"
-                borderColor="cyan.600"
-                justifyContent="space-around"
-                align="center"
-              >
-                <ListItem>Subtotal</ListItem>
-                <Text>0,00$</Text>
-              </Flex>
-              <Flex
-                minH="80px"
-                minW="300px"
-                boxShadow="md"
-                borderRadius="sm"
-                borderBottom="1px solid"
-                borderColor="cyan.600"
-                justifyContent="space-around"
-                align="center"
-              >
-                <ListItem>Total</ListItem>
-                <Text>0,00$</Text>
-              </Flex>
-            </List>
-          </Flex>
-        </Flex>
+        <OrderSummary />
       </GridItem>
     </Grid>
   );

@@ -117,7 +117,6 @@ const AddInstruments = () => {
             }),
           });
           const data = await res.json();
-          console.log(data);
         } else {
           throw new Error("Error to fetch database");
         }
