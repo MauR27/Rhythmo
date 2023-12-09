@@ -1,6 +1,7 @@
 import { Button, Flex, GridItem, Text, useToast } from "@chakra-ui/react";
-import { FC, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import OrderSummary from "./OrderSummary";
+import GlobalContext from "@/context/GlobalContext";
 
 interface IAmount {
   cart: {
@@ -16,9 +17,12 @@ interface IAmount {
   };
 }
 const QuantityItem: FC<IAmount> = ({ cart }) => {
+  const { setSubTotal, subTotal } = useContext(GlobalContext);
   const valueInitial = cart.itemQuantity;
-  const [number, setNumber] = useState(valueInitial);
-  const [totalPrice, setTotalPrice] = useState(cart.price * valueInitial);
+  const [number, setNumber] = useState<number>(valueInitial);
+  const [totalPrice, setTotalPrice] = useState<number>(
+    cart.price * valueInitial
+  );
   const toast = useToast({
     status: "error",
     description: "Max stock limit",
@@ -30,7 +34,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
   const incrementAmount = async (_id: string) => {
     try {
       if (number < cart.amount) {
-        const action = "add";
+        const action: string = "add";
         await fetch("http://localhost:3000/api/item-quantity", {
           method: "PUT",
           headers: {
@@ -53,7 +57,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
   const decrementAmount = async (_id: string) => {
     try {
       if (number > 1) {
-        const action = "sub";
+        const action: string = "sub";
         await fetch("http://localhost:3000/api/item-quantity", {
           method: "PUT",
           headers: {
@@ -70,6 +74,12 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
       }
     }
   };
+  useEffect(() => {
+    setSubTotal((prev) => prev + totalPrice);
+  }, [setSubTotal, totalPrice]);
+
+  console.log(subTotal);
+  // console.log(totalPrice);
 
   return (
     <>

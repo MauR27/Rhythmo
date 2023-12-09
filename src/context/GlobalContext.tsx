@@ -13,6 +13,8 @@ interface IGlobalContext {
   cart: ICart | [];
   cartLength: number;
   setCartLength: Dispatch<SetStateAction<number>>;
+  subTotal: number;
+  setSubTotal: Dispatch<SetStateAction<number>>;
 }
 
 const GlobalContext = createContext<IGlobalContext>({
@@ -20,6 +22,8 @@ const GlobalContext = createContext<IGlobalContext>({
   setCart: () => {},
   cartLength: 0,
   setCartLength: () => 0,
+  subTotal: 0,
+  setSubTotal: () => 0,
 });
 
 interface GlobalContextProviderProps {
@@ -31,6 +35,7 @@ export const GlobalContextProvider: FC<GlobalContextProviderProps> = ({
 }) => {
   const [cart, setCart] = useState<ICart | []>([]);
   const [cartLength, setCartLength] = useState<number>(0);
+  const [subTotal, setSubTotal] = useState<number>(0);
 
   return (
     <GlobalContext.Provider
@@ -39,6 +44,8 @@ export const GlobalContextProvider: FC<GlobalContextProviderProps> = ({
         setCart,
         cartLength,
         setCartLength,
+        setSubTotal,
+        subTotal,
       }}
     >
       {children}
