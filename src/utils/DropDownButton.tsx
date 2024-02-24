@@ -48,6 +48,17 @@ const DropDownButton = () => {
           >
             Profile
           </MenuItem>
+          <MenuItem
+            as={NextLink}
+            href="/profile/favorite-products"
+            fontWeight="semibold"
+            _hover={{
+              bg: "cyan.700",
+              color: "white",
+            }}
+          >
+            Likes
+          </MenuItem>
         </MenuList>
       ) : (
         <MenuList minW={widthMenuBox} borderRadius="none">

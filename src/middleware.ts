@@ -1,7 +1,7 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-export default async (req: NextRequest) => {
+const handler = async (req: NextRequest) => {
   const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   if (!session) {
@@ -15,6 +15,7 @@ export default async (req: NextRequest) => {
   }
   return NextResponse.next();
 };
+export default handler;
 
 export const config = {
   matcher: ["/profile", "/admin/add-instruments", "/cart"],

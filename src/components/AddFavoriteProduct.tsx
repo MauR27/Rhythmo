@@ -1,7 +1,8 @@
 import { Button, Icon, Tooltip, useToast } from "@chakra-ui/react";
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Product } from "../../types";
 import { PiHeartThin } from "react-icons/pi";
+import GlobalContext from "@/context/GlobalContext";
 
 interface ProductsProps {
   product: Product;
@@ -9,6 +10,8 @@ interface ProductsProps {
 
 const AddFavoriteProduct: FC<ProductsProps> = ({ product }) => {
   const toast = useToast();
+  const { setFavoriteListProductsLength, favoriteListProductsLength } =
+    useContext(GlobalContext);
 
   const fetchData = async () => {
     const response = await fetch(
@@ -25,7 +28,8 @@ const AddFavoriteProduct: FC<ProductsProps> = ({ product }) => {
     );
     if (response.ok) {
       const data = await response.json();
-      //   setCartLength(data?.cart?.length || 0);
+      setFavoriteListProductsLength(data?.favoriteProduct?.length || 0);
+
       toast({
         status: "success",
         description: response?.statusText,

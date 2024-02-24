@@ -12,7 +12,7 @@ const ItemByIdCard: FC<IItem> = ({ item }) => {
     <Flex flexDir="column">
       <Text>{item.name}</Text>
       <Text>{item.price}</Text>
-      <Image src={item.images[0]} h={300} w={300} />
+      <Image src={item.images[0]} h={300} w={300} alt={item.name} />
       <Text>{item.description}</Text>
     </Flex>
   );

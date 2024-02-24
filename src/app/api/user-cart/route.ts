@@ -40,24 +40,24 @@ export async function PUT(req: Request) {
         },
       ];
 
-      const productExists = user.cart.find(
-        (cartProduct: ICartProduct) => cartProduct.productId === product._id
-      );
+      user.cart.push(...cartProduct);
 
-      if (!productExists) {
-        user.cart.push(...cartProduct);
+      await user.save();
+      return NextResponse.json(user, {
+        status: 201,
+        statusText: "Item added successfully!",
+      });
 
-        await user.save();
-        return NextResponse.json(user, {
-          status: 201,
-          statusText: "Item added successfully!",
-        });
-      } else {
-        return NextResponse.json(
-          { message: "Product already exists in the cart" },
-          { status: 409, statusText: "Item already exists in your cart!" }
-        );
-      }
+      // const productCartExists = user.cart.find(
+      //   (cartProduct: ICartProduct) => cartProduct.productId === product._id
+      // );
+      // if (!productCartExists) {
+      // } else {
+      //   return NextResponse.json(
+      //     { message: "Product already exists in the cart" },
+      //     { status: 409, statusText: "Item already exists in your cart!" }
+      //   );
+      // }
     }
   } catch (error) {
     if (error instanceof Error) {

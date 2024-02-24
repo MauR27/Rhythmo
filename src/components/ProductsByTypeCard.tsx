@@ -5,11 +5,9 @@ import { ProductsResponse } from "../../types";
 import {
   Box,
   Button,
-  ButtonGroup,
   Card,
   CardBody,
   CardFooter,
-  Divider,
   Flex,
   Heading,
   Icon,
@@ -22,6 +20,7 @@ import Carousel from "@/utils/ImageProductCard";
 import AddToCart from "./AddToCart";
 import { PiHeartThin } from "react-icons/pi";
 import { CiSearch } from "react-icons/ci";
+import AddFavoriteProduct from "./AddFavoriteProduct";
 
 interface ProductsTypeProps {
   products: ProductsResponse;
@@ -108,37 +107,7 @@ const ProductsByTypeCard: FC<ProductsTypeProps> = ({ products }) => {
                     <Icon as={CiSearch} w={[6, 7]} h={[6, 7]} color="black" />
                   </Button>
                 </Tooltip>
-                <Tooltip
-                  hasArrow
-                  label="Add to favorite"
-                  bg="white"
-                  color="black"
-                  gutter={0}
-                  fontSize="xs"
-                >
-                  <Button
-                    borderRadius="none"
-                    bg="white"
-                    p={0}
-                    m={0}
-                    h="50px"
-                    w="50px"
-                    boxShadow="xl"
-                    _hover={{
-                      bg: "gray.100",
-                    }}
-                    _active={{
-                      bg: "gray.200",
-                    }}
-                  >
-                    <Icon
-                      as={PiHeartThin}
-                      w={[6, 7]}
-                      h={[6, 7]}
-                      color="black"
-                    />
-                  </Button>
-                </Tooltip>
+                <AddFavoriteProduct product={product} />
                 <AddToCart product={product} />
               </Box>
             </CardFooter>

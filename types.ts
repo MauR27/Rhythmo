@@ -11,6 +11,7 @@ export type Product = {
   images: string[];
   instrumentType: string;
   amount: number;
+  productId: string;
   _id: string;
 };
 export type ICart = [
@@ -21,6 +22,7 @@ export type ICart = [
     name: string;
     price: number;
     productId: string;
+    description: string;
     _id: string;
     amount: number;
     itemQuantity: number;

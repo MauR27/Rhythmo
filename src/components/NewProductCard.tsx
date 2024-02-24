@@ -21,7 +21,6 @@ import {
 import { FC, useState } from "react";
 import { ProductsResponse } from "../../types";
 import AddToCart from "./AddToCart";
-import { PiHeartThin } from "react-icons/pi";
 import { CiSearch } from "react-icons/ci";
 import AddFavoriteProduct from "./AddFavoriteProduct";
 
