@@ -1,20 +1,23 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+type ICartProduct = {
+  name: string;
+  price: number;
+  brand: string;
+  images: string[];
+  instrumentType: string;
+  productId: string;
+  amount: number;
+  itemQuantity: number;
+};
+
 interface IUserSchema {
   name: string;
   email: string;
   password: string;
-  cart: [
-    {
-      name: string;
-      price: number;
-      description: string;
-      brand: string;
-      image: string;
-      amount: number;
-    }
-  ];
+  cart: ICartProduct;
+  favoriteProduct: ICartProduct;
 }
 interface IuserMethods {
   mathPassword(enterePassword: string): string;
@@ -34,6 +37,18 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
     },
     password: { type: String, required: [true, "Password is required"] },
     cart: [
+      {
+        name: String,
+        price: Number,
+        brand: String,
+        images: [String],
+        instrumentType: String,
+        productId: String,
+        amount: Number,
+        itemQuantity: Number,
+      },
+    ],
+    favoriteProduct: [
       {
         name: String,
         price: Number,

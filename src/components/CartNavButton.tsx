@@ -10,12 +10,11 @@ const CartNavButton = () => {
     const fetchCartLength = async () => {
       const response = await fetch("http://localhost:3000/api/get-cart-length");
       const cartLength: number = await response.json();
-      console.log(cartLength);
 
       return setCartLength(cartLength);
     };
     fetchCartLength();
-  }, []);
+  }, [setCartLength]);
 
   return (
     <Link display="flex" alignItems="center" href="/cart">

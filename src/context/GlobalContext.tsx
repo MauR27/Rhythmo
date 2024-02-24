@@ -9,12 +9,16 @@ import React, {
 import { ICart } from "../../types";
 
 interface IGlobalContext {
-  setCart: Dispatch<SetStateAction<ICart | []>>;
   cart: ICart | [];
+  setCart: Dispatch<SetStateAction<ICart | []>>;
   cartLength: number;
   setCartLength: Dispatch<SetStateAction<number>>;
   subTotal: number;
   setSubTotal: Dispatch<SetStateAction<number>>;
+  totalPrice: number;
+  setTotalPrice: Dispatch<SetStateAction<number>>;
+  itemQuantity: number;
+  setItemQuantity: Dispatch<SetStateAction<number>>;
 }
 
 const GlobalContext = createContext<IGlobalContext>({
@@ -24,6 +28,10 @@ const GlobalContext = createContext<IGlobalContext>({
   setCartLength: () => 0,
   subTotal: 0,
   setSubTotal: () => 0,
+  totalPrice: 0,
+  setTotalPrice: () => 0,
+  itemQuantity: 0,
+  setItemQuantity: () => 0,
 });
 
 interface GlobalContextProviderProps {
@@ -36,6 +44,8 @@ export const GlobalContextProvider: FC<GlobalContextProviderProps> = ({
   const [cart, setCart] = useState<ICart | []>([]);
   const [cartLength, setCartLength] = useState<number>(0);
   const [subTotal, setSubTotal] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [itemQuantity, setItemQuantity] = useState<number>(0);
 
   return (
     <GlobalContext.Provider
@@ -46,6 +56,10 @@ export const GlobalContextProvider: FC<GlobalContextProviderProps> = ({
         setCartLength,
         setSubTotal,
         subTotal,
+        totalPrice,
+        setTotalPrice,
+        itemQuantity,
+        setItemQuantity,
       }}
     >
       {children}

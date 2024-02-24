@@ -18,7 +18,7 @@ import {
 import RemoveItemCart from "./RemoveItemCart";
 import GlobalContext from "@/context/GlobalContext";
 import { CiSearch } from "react-icons/ci";
-import QuantityItem from "./QuantityItem";
+import QuantityItem from "./ProductPrice";
 
 const CartPageCard = () => {
   const { cart } = useContext(GlobalContext);

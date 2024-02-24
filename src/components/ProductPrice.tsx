@@ -16,11 +16,12 @@ interface IAmount {
     itemQuantity: number;
   };
 }
+
 const QuantityItem: FC<IAmount> = ({ cart }) => {
-  const { setSubTotal, subTotal } = useContext(GlobalContext);
+  const { setSubTotal, setTotalPrice } = useContext(GlobalContext);
   const valueInitial = cart.itemQuantity;
   const [number, setNumber] = useState<number>(valueInitial);
-  const [totalPrice, setTotalPrice] = useState<number>(
+  const [quantityItemPrice, setQuantityItemPrice] = useState<number>(
     cart.price * valueInitial
   );
   const toast = useToast({
@@ -30,6 +31,11 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
     position: "top",
     duration: 3000,
   });
+
+  useEffect(() => {
+    setSubTotal((prev) => prev + quantityItemPrice);
+    setTotalPrice(quantityItemPrice);
+  }, [setSubTotal, quantityItemPrice, setTotalPrice]);
 
   const incrementAmount = async (_id: string) => {
     try {
@@ -43,7 +49,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
           body: JSON.stringify({ _id, action }),
         });
         setNumber((prev) => prev + 1);
-        setTotalPrice((prev) => prev + cart.price);
+        setQuantityItemPrice((prev) => prev + cart.price);
       } else {
         toast();
       }
@@ -66,7 +72,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
           body: JSON.stringify({ _id, action }),
         });
         setNumber((prev) => prev - 1);
-        setTotalPrice((prev) => prev - cart.price);
+        setQuantityItemPrice((prev) => prev - cart.price);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -74,12 +80,6 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
       }
     }
   };
-  useEffect(() => {
-    setSubTotal((prev) => prev + totalPrice);
-  }, [setSubTotal, totalPrice]);
-
-  console.log(subTotal);
-  // console.log(totalPrice);
 
   return (
     <>
@@ -107,7 +107,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
       </GridItem>
       <GridItem colSpan={1} alignContent="center">
         <Flex align="center" h="full" justify="center">
-          <Text>{totalPrice},00$</Text>
+          <Text>{quantityItemPrice},00$</Text>
         </Flex>
       </GridItem>
     </>

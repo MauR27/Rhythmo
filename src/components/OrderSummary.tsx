@@ -1,8 +1,33 @@
 import GlobalContext from "@/context/GlobalContext";
-import { Flex, List, ListItem, Text } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import { Button, Flex, List, ListItem, Text } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
 
 const OrderSummary = () => {
+  const { cart } = useContext(GlobalContext);
+
+  // subtotal price of all products without any discount ↓↓
+
+  const subTotalProductPrice = cart.reduce(
+    (accumulator, currentProduct) =>
+      accumulator + currentProduct.price * currentProduct.itemQuantity,
+    0
+  );
+  // posible discounts to final product ↓↓
+
+  const delivery: number = 0;
+
+  // that number equivals to porcentage of discont to the final product ↓↓
+
+  const percentageDiscount: number = 0;
+
+  const productDiscountPerPercentage: number =
+    subTotalProductPrice * (percentageDiscount / 100);
+
+  // Final price ↓↓
+
+  const totalProductPrice =
+    subTotalProductPrice + delivery - productDiscountPerPercentage;
+
   return (
     <Flex justifyContent="center">
       <Flex
@@ -63,7 +88,7 @@ const OrderSummary = () => {
             align="center"
           >
             <ListItem>Subtotal</ListItem>
-            <Text>0,00$</Text>
+            <Text>{subTotalProductPrice},00$</Text>
           </Flex>
           <Flex
             minH="80px"
@@ -76,7 +101,26 @@ const OrderSummary = () => {
             align="center"
           >
             <ListItem>Total</ListItem>
-            <Text>0,00$</Text>
+            <Text>{totalProductPrice},00$</Text>
+          </Flex>
+          <Flex>
+            <Button
+              borderRadius="none"
+              bg="white"
+              p={0}
+              m={0}
+              w={100}
+              boxShadow="md"
+              _hover={{
+                bg: "cyan.600",
+                color: "white",
+              }}
+              _active={{
+                bg: "cyan.300",
+              }}
+            >
+              Pay
+            </Button>
           </Flex>
         </List>
       </Flex>

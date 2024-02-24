@@ -16,7 +16,7 @@ import GlobalContext from "@/context/GlobalContext";
 import OrderSummary from "./OrderSummary";
 
 const CartPage = () => {
-  const { setCart, cart } = useContext(GlobalContext);
+  const { setCart, totalPrice } = useContext(GlobalContext);
   useEffect(() => {
     const fetchUserCart = async () => {
       const response = await fetch("http://localhost:3000/api/get-user-cart");
@@ -24,8 +24,7 @@ const CartPage = () => {
       return setCart(userCart);
     };
     fetchUserCart();
-  }, [setCart]);
-  console.log(cart);
+  }, [setCart, totalPrice]);
 
   return (
     <Grid minH="calc(100vh - 11rem)" templateColumns="repeat(3, 1fr)">
