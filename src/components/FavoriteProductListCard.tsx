@@ -44,7 +44,6 @@ const FavoriteProductListCard = () => {
   if (loadingList) {
     return <Text>Loading List...</Text>;
   }
-  console.log(favoriteProductList);
 
   return (
     <Box minH="100vh">

@@ -23,7 +23,7 @@ export async function PUT(req: Request) {
     if (!session) {
       return NextResponse.json(
         { message: "you have to login in" },
-        { status: 400 }
+        { status: 400, statusText: "You have to Login In first" }
       );
     } else {
       const userEmail = session.user?.email;

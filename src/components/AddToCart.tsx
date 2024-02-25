@@ -16,33 +16,39 @@ const AddToCart: FC<ProductsProps> = ({ product }) => {
   const { setCartLength } = useContext(GlobalContext);
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3000/api/user-cart", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        product,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      setCartLength(data?.cart?.length || 0);
-      toast({
-        status: "success",
-        description: response?.statusText,
-        duration: 3000,
-        isClosable: true,
-        position: "top",
+    try {
+      const response = await fetch("http://localhost:3000/api/user-cart", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          product,
+        }),
       });
-    } else {
-      toast({
-        status: "error",
-        description: response?.statusText,
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
+      if (response.ok) {
+        const data = await response.json();
+        setCartLength(data?.cart?.length || 0);
+        toast({
+          status: "success",
+          description: response?.statusText,
+          duration: 3000,
+          isClosable: true,
+          position: "top",
+        });
+      } else {
+        toast({
+          status: "error",
+          description: response?.statusText,
+          duration: 3000,
+          isClosable: true,
+          position: "top",
+        });
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
     }
   };
 

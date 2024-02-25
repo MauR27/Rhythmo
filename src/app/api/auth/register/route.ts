@@ -7,7 +7,7 @@ import User from "@/models/users";
 // @access      Public ↓↓
 
 export async function POST(req: Request) {
-  const { name, email, password, cart } = await req.json();
+  const { name, email, password } = await req.json();
 
   if (!password || password.length < 6)
     return NextResponse.json(
@@ -29,7 +29,6 @@ export async function POST(req: Request) {
       name,
       email,
       password,
-      cart,
     });
 
     if (!newLocalUser) {
@@ -45,7 +44,6 @@ export async function POST(req: Request) {
           _id: newLocalUser._id,
           name: newLocalUser.name,
           email: newLocalUser.email,
-          cart: newLocalUser.cart,
         },
         {
           status: 201,
@@ -54,7 +52,6 @@ export async function POST(req: Request) {
       );
     }
   } catch (error) {
-    console.log(error);
     if (error instanceof Error) {
       return NextResponse.json(
         {
