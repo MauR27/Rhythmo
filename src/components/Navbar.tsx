@@ -5,7 +5,6 @@ import {
   Box,
   Flex,
   Heading,
-  Link,
   Text,
   useBreakpointValue,
   useMediaQuery,
@@ -14,6 +13,7 @@ import DrawerButton from "@/utils/DrawerButton";
 import SearchCollapse from "@/utils/SearchCollapse";
 import CategoriesNavbar from "./CategoriesNavbar";
 import CartNavButton from "./CartNavButton";
+import { Link } from "@chakra-ui/next-js";
 
 const Navbar = () => {
   // Responsive break points

@@ -18,7 +18,37 @@ const breakpoints = {
   xl: "80em",
   "2xl": "96em",
 };
-const theme = extendTheme({ breakpoints });
+// const theme = extendTheme({ breakpoints });
+const theme = extendTheme({
+  breakpoints,
+  fonts: {
+    heading: "var(--font-share)",
+    body: "var(--font-share)",
+  },
+  styles: {
+    global: {
+      body: {
+        bg: "white",
+        color: "black",
+        margin: 0,
+        padding: 0,
+        overflowY: "scroll",
+        overflowX: "hidden",
+      },
+      a: {
+        color: "inherit",
+        textDecoration: "none",
+      },
+      link: {
+        color: "inherit",
+        textDecoration: "none",
+      },
+      main: {
+        minH: "100vh",
+      },
+    },
+  },
+});
 
 const Providers = ({ children }: Props) => {
   return (

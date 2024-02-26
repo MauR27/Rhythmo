@@ -15,7 +15,6 @@ type ICartProduct = {
 interface IUserSchema {
   name: string;
   email: string;
-  lastEmailChange: any;
   password: string;
   profilePicture: string;
   cart: ICartProduct;
@@ -37,8 +36,7 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
       lowercase: true,
       trim: true,
     },
-    lastEmailChange: Date,
-    password: { type: String, required: [true, "Password is required"] },
+    password: { type: String, required: false },
     profilePicture: String,
 
     cart: [
@@ -78,11 +76,6 @@ userSchema.pre("save", async function (next) {
   }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
-
-  if (!this.lastEmailChange) {
-    this.lastEmailChange = new Date();
-    return next();
-  }
 });
 
 userSchema.method("mathPassword", async function (enterePassword: string) {

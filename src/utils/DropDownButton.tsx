@@ -1,4 +1,4 @@
-import NextLink from "next/link";
+import { Link } from "@chakra-ui/next-js";
 import { Flex, Icon, useBreakpointValue } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { PiUserThin } from "react-icons/pi";
@@ -38,23 +38,25 @@ const DropDownButton = () => {
             Logout
           </MenuItem>
           <MenuItem
-            as={NextLink}
+            as={Link}
             href="/profile"
             fontWeight="semibold"
             _hover={{
               bg: "cyan.700",
               color: "white",
+              textDecor: "none",
             }}
           >
             Profile
           </MenuItem>
           <MenuItem
-            as={NextLink}
+            as={Link}
             href="/profile/favorite-products"
             fontWeight="semibold"
             _hover={{
               bg: "cyan.700",
               color: "white",
+              textDecor: "none",
             }}
           >
             Likes
@@ -73,7 +75,7 @@ const DropDownButton = () => {
             <LoginModal />
           </MenuItem>
           <MenuItem
-            as={NextLink}
+            as={Link}
             href="/register"
             fontWeight="semibold"
             _hover={{

@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import React, { FC } from "react";
 import { ProductsResponse } from "../../types";
 import {
   Box,
@@ -16,17 +16,16 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import Carousel from "@/utils/ImageProductCard";
-import AddToCart from "./AddToCart";
-import { PiHeartThin } from "react-icons/pi";
+import { Link } from "@chakra-ui/next-js";
 import { CiSearch } from "react-icons/ci";
 import AddFavoriteProduct from "./AddFavoriteProduct";
-import { Link } from "@chakra-ui/next-js";
+import AddToCart from "./AddToCart";
 
 interface ProductsTypeProps {
   products: ProductsResponse;
 }
 
-const ProductsByTypeCard: FC<ProductsTypeProps> = ({ products }) => {
+const AllProductsCard: FC<ProductsTypeProps> = ({ products }) => {
   return (
     <Box minH="100vh">
       <Flex gap={4} justify="center" maxW="full" flexWrap="wrap">
@@ -118,4 +117,4 @@ const ProductsByTypeCard: FC<ProductsTypeProps> = ({ products }) => {
   );
 };
 
-export default ProductsByTypeCard;
+export default AllProductsCard;

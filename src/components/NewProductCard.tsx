@@ -15,7 +15,6 @@ import {
   Badge,
   useMediaQuery,
   Image,
-  Link,
   Tooltip,
 } from "@chakra-ui/react";
 import { FC, useState } from "react";
@@ -23,6 +22,7 @@ import { ProductsResponse } from "../../types";
 import AddToCart from "./AddToCart";
 import { CiSearch } from "react-icons/ci";
 import AddFavoriteProduct from "./AddFavoriteProduct";
+import { Link } from "@chakra-ui/next-js";
 
 interface ProductsProps {
   products: ProductsResponse;
@@ -41,7 +41,7 @@ const NewProductCard: FC<ProductsProps> = ({ products }) => {
     >
       <VStack maxW="500px" p="1rem">
         <Text as="h1" fontSize="3xl" fontWeight="bold">
-          News
+          New Products
         </Text>
         <Text p="1rem" fontWeight="light" boxShadow="sm">
           All the news of the best national and international brands. You will

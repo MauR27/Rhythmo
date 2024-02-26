@@ -1,7 +1,9 @@
+import { Spinner } from "@chakra-ui/react";
+
 const LoadingPage = () => {
   return (
     <div>
-      <p>loading</p>
+      <Spinner />
     </div>
   );
 };

@@ -6,18 +6,9 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Image,
   Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Spinner,
   Text,
-  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { useFormik, useFormikContext } from "formik";
@@ -25,16 +16,18 @@ import { useSession, signOut } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 
-const profileSchema = Yup.object().shape({
-  name: Yup.string().min(2, "Too Short!").max(50, "Too Long!"),
-  email: Yup.string().email("Invalid email"),
-});
+// const profileSchema = Yup.object().shape({
+//   name: Yup.string().min(2, "Too Short!").max(50, "Too Long!"),
+//   email: Yup.string().email("Invalid email"),
+// });
 
 const ProfilePageCard = () => {
   const { data: session } = useSession();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const user = session?.user;
+  console.log(user);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -133,18 +126,36 @@ const ProfilePageCard = () => {
           {loading ? (
             <Spinner />
           ) : (
-            <Button
-              type="submit"
-              variant="ghost"
-              borderRadius="none"
-              _hover={{
-                bg: "cyan.600",
-                color: "white",
-                borderRadius: "none",
-              }}
-            >
-              Update
-            </Button>
+            <>
+              {formik.values.name || formik.values.email ? (
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  borderRadius="none"
+                  _hover={{
+                    bg: "cyan.600",
+                    color: "white",
+                    borderRadius: "none",
+                  }}
+                >
+                  Update
+                </Button>
+              ) : (
+                <Button
+                  isDisabled
+                  type="submit"
+                  variant="ghost"
+                  borderRadius="none"
+                  _hover={{
+                    bg: "cyan.600",
+                    color: "white",
+                    borderRadius: "none",
+                  }}
+                >
+                  Update
+                </Button>
+              )}
+            </>
           )}
           {/* <Button
             type="submit"

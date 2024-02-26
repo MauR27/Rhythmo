@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import connectDB from "@/lib/mongodb";
 import User from "@/models/users";
 
@@ -21,7 +22,9 @@ const handler = NextAuth({
       },
       async authorize(credentials, req) {
         await connectDB();
-
+        if (!credentials || !credentials.email || !credentials.password) {
+          return null;
+        }
         const user = await User.findOne({ email: credentials?.email });
 
         if (user && (await user.mathPassword(credentials?.password))) {
@@ -31,10 +34,35 @@ const handler = NextAuth({
         }
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
   ],
   callbacks: {
+    async signIn({ account, profile, credentials }) {
+      try {
+        if (!credentials) {
+          await connectDB();
+
+          const user = await User.findOne({ email: profile?.email });
+
+          if (!user) {
+            await User.create({
+              name: profile?.name,
+              email: profile?.email,
+            });
+          }
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          throw new Error(error.message);
+        }
+      }
+      return true;
+    },
+
     async jwt({ token, user, trigger, session }) {
-      // console.log("JWT callback:", { trigger, token, user, session });
       if (trigger === "update" && session?.name) {
         token.name = session.name;
       }

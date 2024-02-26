@@ -68,6 +68,7 @@ const Login = () => {
           >
             Login
           </Button>
+          <Button onClick={() => signIn("google")}>Sign in with google</Button>
         </Flex>
       </form>
     </Flex>
