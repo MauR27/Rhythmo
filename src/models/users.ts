@@ -10,6 +10,7 @@ type ICartProduct = {
   productId: string;
   amount: number;
   itemQuantity: number;
+  stripeProductId: string;
 };
 
 interface IUserSchema {
@@ -49,6 +50,7 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
         productId: String,
         amount: Number,
         itemQuantity: Number,
+        stripeProductId: String,
       },
     ],
     favoriteProduct: [
@@ -61,6 +63,7 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
         productId: String,
         amount: Number,
         itemQuantity: Number,
+        stripeProductId: String,
       },
     ],
   },

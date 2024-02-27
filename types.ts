@@ -13,6 +13,7 @@ export type Product = {
   amount: number;
   productId: string;
   _id: string;
+  stripeProductId: string;
 };
 export type ICart = [
   {
@@ -26,6 +27,7 @@ export type ICart = [
     _id: string;
     amount: number;
     itemQuantity: number;
+    stripeProductId: string;
   }
 ];
 

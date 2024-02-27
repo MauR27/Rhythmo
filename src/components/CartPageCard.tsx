@@ -17,7 +17,8 @@ import {
 import RemoveItemCart from "./RemoveItemCart";
 import GlobalContext from "@/context/GlobalContext";
 import { CiSearch } from "react-icons/ci";
-import QuantityItem from "./ProductPrice";
+import QuantityItem from "./QuantityItem";
+import ButtonCheckout from "./ButtonCheckout";
 
 const CartPageCard = () => {
   const { cart } = useContext(GlobalContext);
@@ -93,6 +94,7 @@ const CartPageCard = () => {
                       />
                     </Button>
                   </Tooltip>
+                  <ButtonCheckout stripeId={product.stripeProductId} />
                 </CardFooter>
               </Stack>
             </Card>

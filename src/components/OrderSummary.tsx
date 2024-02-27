@@ -1,6 +1,7 @@
 import GlobalContext from "@/context/GlobalContext";
 import { Button, Flex, List, ListItem, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
+import ButtonCheckout from "./ButtonCheckout";
 
 const OrderSummary = () => {
   const { cart } = useContext(GlobalContext);
@@ -102,25 +103,6 @@ const OrderSummary = () => {
           >
             <ListItem>Total</ListItem>
             <Text>{totalProductPrice},00$</Text>
-          </Flex>
-          <Flex>
-            <Button
-              borderRadius="none"
-              bg="white"
-              p={0}
-              m={0}
-              w={100}
-              boxShadow="md"
-              _hover={{
-                bg: "cyan.600",
-                color: "white",
-              }}
-              _active={{
-                bg: "cyan.300",
-              }}
-            >
-              Pay
-            </Button>
           </Flex>
         </List>
       </Flex>

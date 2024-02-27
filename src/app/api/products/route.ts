@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Products from "@/models/products";
+import { Stripe } from "stripe";
 
 export async function POST(req: Request) {
   const { name, price, description, brand, images, instrumentType, amount } =
@@ -18,6 +19,15 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     } else {
+      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+      const stripeNewProduct = await stripe.products.create({
+        name: name,
+        default_price_data: { currency: "usd", unit_amount: price },
+      });
+
+      const stripeProductId = stripeNewProduct.default_price;
+
       const addInstruments = [
         {
           name,
@@ -27,6 +37,7 @@ export async function POST(req: Request) {
           images,
           instrumentType,
           amount,
+          stripeProductId,
         },
       ];
 

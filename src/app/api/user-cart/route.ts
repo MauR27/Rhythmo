@@ -12,6 +12,7 @@ type ICartProduct = {
   productId: string;
   amount: number;
   itemQuantity: number;
+  stripeProductId: string;
 };
 
 export async function PUT(req: Request) {
@@ -27,6 +28,7 @@ export async function PUT(req: Request) {
     } else {
       const userEmail = session.user?.email;
       const user: any = await User.findOne({ email: userEmail });
+
       const cartProduct: ICartProduct[] = [
         {
           brand: product.brand,
@@ -36,9 +38,11 @@ export async function PUT(req: Request) {
           name: product.name,
           productId: product._id,
           amount: product.amount,
+          stripeProductId: product.stripeProductId,
           itemQuantity: 1,
         },
       ];
+      console.log(cartProduct);
 
       user.cart.push(...cartProduct);
 

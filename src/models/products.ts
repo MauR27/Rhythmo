@@ -10,6 +10,7 @@ interface IProductsSchema {
       images: string;
       instrumentType: string;
       amount: number;
+      stripeProductId: string;
     }
   ];
 }
@@ -42,6 +43,7 @@ const productsSchema = new mongoose.Schema<IProductsSchema, UserModel>(
           lowercase: true,
         },
         amount: { type: Number, required: [true, "Amount is required"] },
+        stripeProductId: String,
       },
       {
         timestamps: true,

@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Flex,
+  FormLabel,
   Image,
   Input,
   List,
@@ -45,12 +46,12 @@ const AddInstruments = () => {
     validationSchema: yup.object({
       productName: yup
         .string()
-        .max(100, "Must be 100 caracters or less")
+        .max(100, "Must be 200 caracters or less")
         .required(),
       price: yup.number().required(),
       description: yup
         .string()
-        .max(1500, "Must be 1500 caracters or less")
+        .max(1500, "Must be 5000 caracters or less")
         .required(),
       brand: yup.string().max(15, "Must be 30 caracters or less").required(),
       images: yup.array(),
@@ -155,6 +156,8 @@ const AddInstruments = () => {
         <form onSubmit={formik.handleSubmit}>
           <Flex flexDir="column" gap={4}>
             <Flex flexDir="column">
+              <FormLabel>Product name</FormLabel>
+
               <Input
                 placeholder="Product Name"
                 onChange={formik.handleChange}
@@ -168,6 +171,7 @@ const AddInstruments = () => {
               )}
             </Flex>
             <Flex flexDir="column">
+              <FormLabel>Price</FormLabel>
               <Input
                 placeholder="Price"
                 onChange={formik.handleChange}
@@ -181,6 +185,8 @@ const AddInstruments = () => {
               )}
             </Flex>
             <Flex flexDir="column">
+              <FormLabel>Description of products</FormLabel>
+
               <Textarea
                 placeholder="Description"
                 onChange={formik.handleChange}
@@ -193,6 +199,8 @@ const AddInstruments = () => {
               )}
             </Flex>
             <Flex flexDir="column">
+              <FormLabel>Brands</FormLabel>
+
               <Input
                 placeholder="Brand"
                 onChange={formik.handleChange}
@@ -206,6 +214,8 @@ const AddInstruments = () => {
               )}
             </Flex>
             <Box p="16" border="1px solid gray" borderRadius="md">
+              <FormLabel>Images</FormLabel>
+
               <Box {...getRootProps()}>
                 <input {...getInputProps()} />
                 {isDragActive ? (
@@ -236,6 +246,8 @@ const AddInstruments = () => {
               </List>
             </Box>
             <Box>
+              <FormLabel>Type of instrument</FormLabel>
+
               <Select
                 placeholder="Select option"
                 value={formik.values.instrumentType}
@@ -255,6 +267,8 @@ const AddInstruments = () => {
                 )}
             </Box>
             <Flex flexDir="column">
+              <FormLabel>Amount of products</FormLabel>
+
               <Input
                 placeholder="Amount"
                 onChange={formik.handleChange}
