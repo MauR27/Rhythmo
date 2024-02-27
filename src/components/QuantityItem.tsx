@@ -9,7 +9,7 @@ interface IAmount {
     images: string[];
     instrumentType: string;
     name: string;
-    price: number;
+    price: string;
     productId: string;
     _id: string;
     amount: number;
@@ -22,7 +22,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
   const valueInitial = cart.itemQuantity;
   const [number, setNumber] = useState<number>(valueInitial);
   const [quantityItemPrice, setQuantityItemPrice] = useState<number>(
-    cart.price * valueInitial
+    Number(cart.price) * valueInitial
   );
   const toast = useToast({
     status: "error",
@@ -49,7 +49,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
           body: JSON.stringify({ _id, action }),
         });
         setNumber((prev) => prev + 1);
-        setQuantityItemPrice((prev) => prev + cart.price);
+        setQuantityItemPrice((prev) => prev + Number(cart.price));
       } else {
         toast();
       }
@@ -72,7 +72,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
           body: JSON.stringify({ _id, action }),
         });
         setNumber((prev) => prev - 1);
-        setQuantityItemPrice((prev) => prev - cart.price);
+        setQuantityItemPrice((prev) => prev - Number(cart.price));
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -85,7 +85,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
     <>
       <GridItem colSpan={1} alignContent="center">
         <Flex align="center" h="full" justify="center">
-          <Text>{cart.price},00$</Text>
+          <Text>{cart.price}$</Text>
         </Flex>
       </GridItem>
       <GridItem colSpan={1} alignContent="center">

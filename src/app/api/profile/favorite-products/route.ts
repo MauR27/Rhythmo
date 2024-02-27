@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 type IFavoriteCartProduct = {
   name: string;
-  price: number;
+  price: string;
   brand: string;
   images: string[];
   instrumentType: string;

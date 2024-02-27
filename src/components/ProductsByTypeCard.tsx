@@ -64,7 +64,7 @@ const ProductsByTypeCard: FC<ProductsTypeProps> = ({ products }) => {
                 <Text
                   fontWeight="semibold"
                   fontSize="1xl"
-                >{`${product.price},00$`}</Text>
+                >{`${product.price}$`}</Text>
               </Stack>
             </CardBody>
 

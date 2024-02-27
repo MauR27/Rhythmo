@@ -4,7 +4,7 @@ interface IProductsSchema {
   products: [
     {
       name: string;
-      price: number;
+      price: string;
       description: string;
       brand: string;
       images: string;
@@ -26,7 +26,7 @@ const productsSchema = new mongoose.Schema<IProductsSchema, UserModel>(
           required: [true, "Name is required"],
           uppercase: true,
         },
-        price: { type: Number, required: [true, "Price is required"] },
+        price: { type: String, required: [true, "Price is required"] },
         description: {
           type: String,
           required: [true, "Description is required"],

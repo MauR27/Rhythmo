@@ -28,10 +28,14 @@ export async function POST(req: Request) {
 
       const stripeProductId = stripeNewProduct.default_price;
 
+      const transformPrice = price / 100;
+
+      const newPrice = transformPrice.toFixed(2);
+
       const addInstruments = [
         {
           name,
-          price,
+          price: newPrice,
           description,
           brand,
           images,

@@ -5,7 +5,7 @@ export type UserType = {
 };
 export type Product = {
   name: string;
-  price: number;
+  price: string;
   description: string;
   brand: string;
   images: string[];
@@ -21,7 +21,7 @@ export type ICart = [
     images: string[];
     instrumentType: string;
     name: string;
-    price: number;
+    price: string;
     productId: string;
     description: string;
     _id: string;

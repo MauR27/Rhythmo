@@ -18,7 +18,6 @@ export async function POST(req: Request) {
     success_url: "http://localhost:3000/success",
     cancel_url: "http://localhost:3000/cart",
   });
-  console.log(session);
 
   return NextResponse.json({ url: session.url });
 }

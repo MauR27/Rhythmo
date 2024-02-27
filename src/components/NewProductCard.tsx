@@ -50,121 +50,124 @@ const NewProductCard: FC<ProductsProps> = ({ products }) => {
         </Text>
       </VStack>
       <Flex gap={4} justify="center" maxW="full" flexWrap="wrap">
-        {products.map((product, index) => (
-          <Card
-            key={index}
-            maxW="xs"
-            borderRadius={0}
-            my={10}
-            _hover={{
-              cursor: "pointer",
-              textDecor: "none",
-              boxShadow: "lg",
-              ".footer-buttons": {
-                opacity: 1,
-                transform: "auto",
-                translateY: "15px",
-              },
-              ".first-image": {
-                display: "none",
-              },
-              ".second-image": {
-                display: "block",
-              },
-            }}
-          >
-            <Badge
-              color="white"
-              fontWeight="bold"
-              bgColor="cyan.600"
-              position="absolute"
+        {products.map((product, index) => {
+          // const priceFixed = product.price / 100;
+          return (
+            <Card
+              key={index}
+              maxW="xs"
+              borderRadius={0}
+              my={10}
+              _hover={{
+                cursor: "pointer",
+                textDecor: "none",
+                boxShadow: "lg",
+                ".footer-buttons": {
+                  opacity: 1,
+                  transform: "auto",
+                  translateY: "15px",
+                },
+                ".first-image": {
+                  display: "none",
+                },
+                ".second-image": {
+                  display: "block",
+                },
+              }}
             >
-              new
-            </Badge>
-            <CardBody>
-              <Box position="relative" width="full" overflow="hidden">
-                <Image
-                  objectFit="cover"
-                  src={product.images[0]}
-                  alt={product.images[0]}
-                  className="first-image"
-                  display="block"
-                />
-                <Image
-                  objectFit="cover"
-                  src={
-                    product.images[1] ? product.images[1] : product.images[0]
-                  }
-                  alt={
-                    product.images[1] ? product.images[1] : product.images[0]
-                  }
-                  className="second-image"
-                  display="none"
-                />
-              </Box>
+              <Badge
+                color="white"
+                fontWeight="bold"
+                bgColor="cyan.600"
+                position="absolute"
+              >
+                new
+              </Badge>
+              <CardBody>
+                <Box position="relative" width="full" overflow="hidden">
+                  <Image
+                    objectFit="cover"
+                    src={product.images[0]}
+                    alt={product.images[0]}
+                    className="first-image"
+                    display="block"
+                  />
+                  <Image
+                    objectFit="cover"
+                    src={
+                      product.images[1] ? product.images[1] : product.images[0]
+                    }
+                    alt={
+                      product.images[1] ? product.images[1] : product.images[0]
+                    }
+                    className="second-image"
+                    display="none"
+                  />
+                </Box>
 
-              <Stack as={Flex} mt="6" spacing="3" textAlign="center">
-                <Heading
-                  size="md"
-                  fontSize="15px"
-                  fontWeight="normal"
-                  overflow="hidden"
-                  whiteSpace="nowrap"
-                  textOverflow="ellipsis"
-                >
-                  {product.name}
-                </Heading>
-
-                <Text
-                  fontWeight="semibold"
-                  fontSize="1xl"
-                >{`${product.price},00$`}</Text>
-              </Stack>
-            </CardBody>
-            <CardFooter
-              className="footer-buttons"
-              opacity={0}
-              position="absolute"
-              top="60%"
-              left="20%"
-              transition=".5s"
-            >
-              <Box border="1px solid" borderColor="gray.100">
-                <Tooltip
-                  hasArrow
-                  label="Full view"
-                  bg="white"
-                  color="black"
-                  gutter={0}
-                  fontSize="xs"
-                >
-                  <Button
-                    as={Link}
-                    href={`/instrument/${product._id}`}
-                    borderRadius="none"
-                    bg="white"
-                    p={0}
-                    m={0}
-                    h="50px"
-                    w="50px"
-                    boxShadow="xl"
-                    _hover={{
-                      bg: "gray.100",
-                    }}
-                    _active={{
-                      bg: "gray.200",
-                    }}
+                <Stack as={Flex} mt="6" spacing="3" textAlign="center">
+                  <Heading
+                    size="md"
+                    fontSize="15px"
+                    fontWeight="normal"
+                    overflow="hidden"
+                    whiteSpace="nowrap"
+                    textOverflow="ellipsis"
                   >
-                    <Icon as={CiSearch} w={[6, 7]} h={[6, 7]} color="black" />
-                  </Button>
-                </Tooltip>
+                    {product.name}
+                  </Heading>
 
-                <AddFavoriteProduct product={product} />
-                <AddToCart product={product} />
-              </Box>
-            </CardFooter>
-          </Card>
-        ))}
+                  <Text
+                    fontWeight="semibold"
+                    fontSize="1xl"
+                  >{`${product.price}$`}</Text>
+                </Stack>
+              </CardBody>
+              <CardFooter
+                className="footer-buttons"
+                opacity={0}
+                position="absolute"
+                top="60%"
+                left="20%"
+                transition=".5s"
+              >
+                <Box border="1px solid" borderColor="gray.100">
+                  <Tooltip
+                    hasArrow
+                    label="Full view"
+                    bg="white"
+                    color="black"
+                    gutter={0}
+                    fontSize="xs"
+                  >
+                    <Button
+                      as={Link}
+                      href={`/instrument/${product._id}`}
+                      borderRadius="none"
+                      bg="white"
+                      p={0}
+                      m={0}
+                      h="50px"
+                      w="50px"
+                      boxShadow="xl"
+                      _hover={{
+                        bg: "gray.100",
+                      }}
+                      _active={{
+                        bg: "gray.200",
+                      }}
+                    >
+                      <Icon as={CiSearch} w={[6, 7]} h={[6, 7]} color="black" />
+                    </Button>
+                  </Tooltip>
+
+                  <AddFavoriteProduct product={product} />
+                  <AddToCart product={product} />
+                </Box>
+              </CardFooter>
+            </Card>
+          );
+        })}
       </Flex>
     </Flex>
   );

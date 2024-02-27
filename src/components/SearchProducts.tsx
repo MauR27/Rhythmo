@@ -2,8 +2,6 @@
 
 import React, { FC, useEffect, useState } from "react";
 import { ProductsResponse } from "../../types";
-import SearchProductsCard from "./SearchProductsCard";
-import { useRouter } from "next/navigation";
 import {
   Box,
   Button,
@@ -103,7 +101,7 @@ const SearchProducts: FC<TParamsSearch> = ({ params }) => {
                         <Text
                           fontWeight="semibold"
                           fontSize="1xl"
-                        >{`${product.price},00$`}</Text>
+                        >{`${product.price}$`}</Text>
                       </Stack>
                     </CardBody>
 

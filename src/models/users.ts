@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 
 type ICartProduct = {
   name: string;
-  price: number;
+  price: string;
   brand: string;
   images: string[];
   instrumentType: string;
@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
     cart: [
       {
         name: String,
-        price: Number,
+        price: String,
         brand: String,
         images: [String],
         instrumentType: String,
@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
     favoriteProduct: [
       {
         name: String,
-        price: Number,
+        price: String,
         brand: String,
         images: [String],
         instrumentType: String,

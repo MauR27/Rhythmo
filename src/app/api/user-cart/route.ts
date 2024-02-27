@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 
 type ICartProduct = {
   name: string;
-  price: number;
+  price: string;
   brand: string;
   images: string[];
   instrumentType: string;
