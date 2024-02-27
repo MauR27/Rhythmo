@@ -94,7 +94,10 @@ const CartPageCard = () => {
                       />
                     </Button>
                   </Tooltip>
-                  <ButtonCheckout stripeId={product.stripeProductId} />
+                  <ButtonCheckout
+                    stripeId={product.stripeProductId}
+                    quantity={product.itemQuantity}
+                  />
                 </CardFooter>
               </Stack>
             </Card>

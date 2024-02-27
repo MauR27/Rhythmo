@@ -1,7 +1,6 @@
 import GlobalContext from "@/context/GlobalContext";
 import { Button, Flex, List, ListItem, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import ButtonCheckout from "./ButtonCheckout";
 
 const OrderSummary = () => {
   const { cart } = useContext(GlobalContext);
@@ -10,7 +9,7 @@ const OrderSummary = () => {
 
   const subTotalProductPrice = cart.reduce(
     (accumulator, currentProduct) =>
-      accumulator + currentProduct.price * currentProduct.itemQuantity,
+      accumulator + Number(currentProduct.price) * currentProduct.itemQuantity,
     0
   );
   // posible discounts to final product ↓↓

@@ -1,4 +1,11 @@
-import { Button, Flex, GridItem, Text, useToast } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  GridItem,
+  Spinner,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import { FC, useContext, useEffect, useState } from "react";
 import OrderSummary from "./OrderSummary";
 import GlobalContext from "@/context/GlobalContext";
@@ -24,6 +31,9 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
   const [quantityItemPrice, setQuantityItemPrice] = useState<number>(
     Number(cart.price) * valueInitial
   );
+  const [addIsLoading, setAddIsloading] = useState(false);
+  const [restIsLoading, setRestIsloading] = useState(false);
+
   const toast = useToast({
     status: "error",
     description: "Max stock limit",
@@ -39,6 +49,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
 
   const incrementAmount = async (_id: string) => {
     try {
+      setAddIsloading(true);
       if (number < cart.amount) {
         const action: string = "add";
         await fetch("http://localhost:3000/api/item-quantity", {
@@ -48,6 +59,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
           },
           body: JSON.stringify({ _id, action }),
         });
+
         setNumber((prev) => prev + 1);
         setQuantityItemPrice((prev) => prev + Number(cart.price));
       } else {
@@ -57,11 +69,14 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
       if (error instanceof Error) {
         throw new Error(error.message);
       }
+    } finally {
+      setAddIsloading(false);
     }
   };
 
   const decrementAmount = async (_id: string) => {
     try {
+      setRestIsloading(true);
       if (number > 1) {
         const action: string = "sub";
         await fetch("http://localhost:3000/api/item-quantity", {
@@ -71,6 +86,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
           },
           body: JSON.stringify({ _id, action }),
         });
+
         setNumber((prev) => prev - 1);
         setQuantityItemPrice((prev) => prev - Number(cart.price));
       }
@@ -78,6 +94,8 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
       if (error instanceof Error) {
         throw new Error(error.message);
       }
+    } finally {
+      setRestIsloading(false);
     }
   };
 
@@ -90,19 +108,40 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
       </GridItem>
       <GridItem colSpan={1} alignContent="center">
         <Flex align="center" h="full" justify="center">
-          <Button
-            onClick={() => decrementAmount(cart.productId)}
-            variant="ghost"
-          >
-            -
-          </Button>
+          {restIsLoading ? (
+            <Button
+              isDisabled
+              onClick={() => decrementAmount(cart.productId)}
+              variant="ghost"
+            >
+              <Spinner size="xs" />
+            </Button>
+          ) : (
+            <Button
+              onClick={() => decrementAmount(cart.productId)}
+              variant="ghost"
+            >
+              -
+            </Button>
+          )}
+
           <Text>{number}</Text>
-          <Button
-            onClick={() => incrementAmount(cart.productId)}
-            variant="ghost"
-          >
-            +
-          </Button>
+          {addIsLoading ? (
+            <Button
+              isDisabled
+              onClick={() => incrementAmount(cart.productId)}
+              variant="ghost"
+            >
+              <Spinner size="xs" />
+            </Button>
+          ) : (
+            <Button
+              onClick={() => incrementAmount(cart.productId)}
+              variant="ghost"
+            >
+              +
+            </Button>
+          )}
         </Flex>
       </GridItem>
       <GridItem colSpan={1} alignContent="center">

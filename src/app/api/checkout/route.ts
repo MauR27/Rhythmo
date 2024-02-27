@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Stripe } from "stripe";
 
 export async function POST(req: Request) {
-  const { stripeId } = await req.json();
+  const { stripeId, quantity } = await req.json();
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -12,8 +12,10 @@ export async function POST(req: Request) {
     line_items: [
       {
         price: stripeId,
-        quantity: 1,
+        quantity: quantity, // add quantity from frontend
       },
+
+      //add more products to buy
     ],
     success_url: "http://localhost:3000/success",
     cancel_url: "http://localhost:3000/cart",

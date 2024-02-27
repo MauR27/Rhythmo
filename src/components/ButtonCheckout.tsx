@@ -5,14 +5,15 @@ import React, { FC } from "react";
 
 type stripeProductId = {
   stripeId: string;
+  quantity: number;
 };
-
-const ButtonCheckout: FC<stripeProductId> = ({ stripeId }) => {
+const ButtonCheckout: FC<stripeProductId> = ({ stripeId, quantity }) => {
   const handleCheckout = async () => {
     const fetchStripe = await fetch("/api/checkout", {
       method: "POST",
       body: JSON.stringify({
         stripeId,
+        quantity,
       }),
       headers: {
         "Content-Type": "application/json",
