@@ -17,7 +17,7 @@ import { Link } from "@chakra-ui/next-js";
 
 const ForgotPassword = () => {
   const [error, setError] = useState("");
-  const { data: session, status: sessionStatus } = useSession();
+  const { status: sessionStatus } = useSession();
   const router = useRouter();
 
   useEffect(() => {

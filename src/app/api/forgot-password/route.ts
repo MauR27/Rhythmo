@@ -5,7 +5,7 @@ import crypto from "crypto";
 import sgMail from "@sendgrid/mail";
 
 export async function POST(req: Request) {
-  const { email } = await req.json();
+  const { email, name } = await req.json();
 
   await connectDB();
   const user = await User.findOne({ email: email });
@@ -26,15 +26,27 @@ export async function POST(req: Request) {
 
   user.resetToken = passwordResetToken;
   user.resetTokenExpires = passwordResetExpires;
-  const resetUrl = `localhost:3000/reset-password/${resetToken}`;
+  const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
 
-  const body = `Reset password by clicking on following Url: ${resetUrl}`;
-
-  const msg = {
-    to: email,
-    from: "rhythmo372@gmail.com",
-    subject: "Reset password",
-    text: body,
+  let msg = {
+    from: {
+      email: "rhythmo372@gmail.com",
+    },
+    personalizations: [
+      {
+        to: [
+          {
+            email: email,
+          },
+        ],
+        // prettier-ignore
+        dynamic_template_data: {
+          "button_url": resetUrl,
+          "name": email
+        },
+      },
+    ],
+    templateId: "d-838c70ed9b3043498e090d3400b7d866",
   };
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
