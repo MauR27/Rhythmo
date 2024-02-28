@@ -49,7 +49,6 @@ const SearchCollapse = () => {
     router.push(`/products/search/${inputText}`);
     return onClose();
   };
-  // console.log(refresh);
 
   return (
     <Flex zIndex={1}>

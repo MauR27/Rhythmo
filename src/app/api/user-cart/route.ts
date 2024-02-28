@@ -42,7 +42,6 @@ export async function PUT(req: Request) {
           itemQuantity: 1,
         },
       ];
-      console.log(cartProduct);
 
       user.cart.push(...cartProduct);
 

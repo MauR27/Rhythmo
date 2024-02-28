@@ -51,8 +51,6 @@ const ProfilePageCard = () => {
         await fetchProfile.json();
 
         if (fetchProfile?.ok) {
-          console.log(!!formik.values.email);
-
           if (formik.values.email) {
             if (user?.email !== formik.values.email) {
               signOut();
