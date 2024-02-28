@@ -25,9 +25,10 @@ const handler = NextAuth({
         if (!credentials || !credentials.email || !credentials.password) {
           return null;
         }
+
         const user = await User.findOne({ email: credentials?.email });
 
-        if (user && (await user.mathPassword(credentials?.password))) {
+        if (user && (await user.matchPassword(credentials?.password))) {
           return user;
         } else {
           throw new Error("Invalid credentials");

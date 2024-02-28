@@ -13,7 +13,7 @@ type ICartProduct = {
   stripeProductId: string;
 };
 
-interface IUserSchema {
+export interface IUserSchema {
   name: string;
   email: string;
   password: string;
@@ -86,8 +86,14 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-userSchema.method("mathPassword", async function (enterePassword: string) {
-  return await bcrypt.compare(enterePassword, this.password);
+userSchema.method("matchPassword", async function (enterePassword: string) {
+  try {
+    return await bcrypt.compare(enterePassword, this.password);
+  } catch (error) {
+    console.error("Error comparing passwords:", error);
+
+    return false;
+  }
 });
 
 const User =

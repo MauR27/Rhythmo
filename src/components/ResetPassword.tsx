@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FC, FormEvent, useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 
 import {
@@ -14,11 +14,49 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { Link } from "@chakra-ui/next-js";
+import { IUserSchema } from "@/models/users";
 
-const ForgotPassword = () => {
+type TParamsResetPasswordToken = {
+  token: string;
+};
+
+const ResetPassword: FC<TParamsResetPasswordToken> = ({ token }) => {
   const [error, setError] = useState("");
-  const { data: session, status: sessionStatus } = useSession();
+  const [verified, setVerified] = useState(false);
+  const [userData, setUserData] = useState(null);
+
   const router = useRouter();
+  const { data: session, status: sessionStatus } = useSession();
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      try {
+        const res = await fetch("/api/verify-token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token: token,
+          }),
+        });
+
+        if (res.ok) {
+          setError("");
+          setVerified(true);
+
+          const userData = await res.json();
+          setUserData(userData);
+        } else {
+          setVerified(true);
+          return setError(res.statusText);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    verifyToken();
+  }, [token]);
 
   useEffect(() => {
     if (sessionStatus === "authenticated") {
@@ -28,17 +66,20 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    // @ts-ignore
+    const user: any = userData?.user.email;
     const formData = new FormData(e.currentTarget);
 
     try {
-      const res = await fetch("/api/forgot-password", {
+      const res = await fetch("/api/reset-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: formData.get("email"),
+          password: formData.get("password"),
+          //   @ts-ignore
+          email: user,
         }),
       });
 
@@ -46,6 +87,7 @@ const ForgotPassword = () => {
         setError("");
         return router.replace("/");
       } else {
+        setError(res.statusText);
         return setError(res.statusText);
       }
     } catch (error) {
@@ -53,7 +95,7 @@ const ForgotPassword = () => {
     }
   };
 
-  if (sessionStatus === "loading") {
+  if (sessionStatus === "loading" || !verified) {
     return <h1>Loading...</h1>;
   }
 
@@ -64,13 +106,13 @@ const ForgotPassword = () => {
           <Box w="20%">
             <form onSubmit={handleSubmit}>
               {error && <Text> {error}</Text>}
-              <FormLabel>Forgot password</FormLabel>
+              <FormLabel>Reset password</FormLabel>
               <FormControl mb={4}>
                 <FormLabel>Email</FormLabel>
                 <Input
-                  type="email"
-                  placeholder="jenniferAninston123@gmail.com"
-                  name="email"
+                  type="password"
+                  placeholder="*********"
+                  name="password"
                   variant="filled"
                 />
               </FormControl>
@@ -78,6 +120,7 @@ const ForgotPassword = () => {
                 <Button
                   type="submit"
                   variant="ghost"
+                  //   isDisabled={error.length > 0}
                   borderRadius="none"
                   _hover={{
                     bg: "cyan.600",
@@ -85,14 +128,8 @@ const ForgotPassword = () => {
                     borderRadius: "none",
                   }}
                 >
-                  Submit
+                  Reset password
                 </Button>
-                <Text>{error && error}</Text>
-                <Text fontSize="sm">
-                  <Link href="/" color="cyan.600">
-                    Login here!
-                  </Link>
-                </Text>
               </Flex>
             </form>
           </Box>
@@ -102,4 +139,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;
