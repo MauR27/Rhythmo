@@ -12,7 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useFormik, useFormikContext } from "formik";
-import { useSession, signOut } from "next-auth/react";
+import { useSession, signOut, getProviders } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 
@@ -22,11 +22,10 @@ import * as Yup from "yup";
 // });
 
 const ProfilePageCard = () => {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const user = session?.user;
-  console.log(user);
 
   const formik = useFormik({
     initialValues: {
@@ -37,7 +36,6 @@ const ProfilePageCard = () => {
     onSubmit: async (values, { resetForm }) => {
       try {
         setLoading(true);
-        const emailChange = user?.email !== formik.values.email;
         const fetchProfile = await fetch("http://localhost:3000/api/profile", {
           method: "PUT",
           headers: {
@@ -46,14 +44,20 @@ const ProfilePageCard = () => {
           body: JSON.stringify({
             email: values.email,
             name: values.name,
-            // @ts-ignore
-            id: user?.id,
+            emailVerification: user?.email,
           }),
         });
 
         await fetchProfile.json();
 
         if (fetchProfile?.ok) {
+          console.log(!!formik.values.email);
+
+          if (formik.values.email) {
+            if (user?.email !== formik.values.email) {
+              signOut();
+            }
+          }
           resetForm({
             values: {
               name: "",
@@ -67,10 +71,6 @@ const ProfilePageCard = () => {
             isClosable: true,
             position: "top",
           });
-
-          if (!emailChange) {
-            signOut();
-          }
         } else {
           return toast({
             status: "error",
@@ -90,57 +90,42 @@ const ProfilePageCard = () => {
     },
   });
 
-  console.log(loading);
-
   return (
     <Box>
-      <form onSubmit={formik.handleSubmit}>
-        <FormControl minW="400px" mb={4}>
-          <FormLabel>Name</FormLabel>
-          <Input
-            id="name"
-            name="name"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.name}
-            variant="flushed"
-          />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>Email</FormLabel>
-          <Text fontSize="sm">
-            After change the Email you have to Sign in Again for you security
-          </Text>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="MonicaGeller@gmail.com"
-            onChange={formik.handleChange}
-            value={formik.values.email}
-            variant="filled"
-          />
-        </FormControl>
+      {
+        // @ts-ignore
+        user?.provider === "google" ? (
+          <form onSubmit={formik.handleSubmit}>
+            <FormControl minW="400px" mb={4}>
+              <FormLabel>Name</FormLabel>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.name}
+                variant="flushed"
+              />
+            </FormControl>
+            <FormControl mb={4}>
+              <FormLabel>Email</FormLabel>
+              <Text fontSize="sm">
+                After change the Email you have to Sign in Again for you
+                security
+              </Text>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="MonicaGeller@gmail.com"
+                onChange={formik.handleChange}
+                value={formik.values.email}
+                variant="filled"
+              />
+            </FormControl>
 
-        <Flex justify="center">
-          {loading ? (
-            <Spinner />
-          ) : (
-            <>
-              {formik.values.name || formik.values.email ? (
-                <Button
-                  type="submit"
-                  variant="ghost"
-                  borderRadius="none"
-                  _hover={{
-                    bg: "cyan.600",
-                    color: "white",
-                    borderRadius: "none",
-                  }}
-                >
-                  Update
-                </Button>
-              ) : (
+            <Flex justify="center">
+              <>
                 <Button
                   isDisabled
                   type="submit"
@@ -154,24 +139,78 @@ const ProfilePageCard = () => {
                 >
                   Update
                 </Button>
+              </>
+            </Flex>
+          </form>
+        ) : (
+          <form onSubmit={formik.handleSubmit}>
+            <FormControl minW="400px" mb={4}>
+              <FormLabel>Name</FormLabel>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.name}
+                variant="flushed"
+              />
+            </FormControl>
+            <FormControl mb={4}>
+              <FormLabel>Email</FormLabel>
+              <Text fontSize="sm">
+                After change the Email you have to Sign in Again for you
+                security
+              </Text>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="MonicaGeller@gmail.com"
+                onChange={formik.handleChange}
+                value={formik.values.email}
+                variant="filled"
+              />
+            </FormControl>
+
+            <Flex justify="center">
+              {loading ? (
+                <Spinner />
+              ) : (
+                <>
+                  {formik.values.name || formik.values.email ? (
+                    <Button
+                      type="submit"
+                      variant="ghost"
+                      borderRadius="none"
+                      _hover={{
+                        bg: "cyan.600",
+                        color: "white",
+                        borderRadius: "none",
+                      }}
+                    >
+                      Update
+                    </Button>
+                  ) : (
+                    <Button
+                      isDisabled
+                      type="submit"
+                      variant="ghost"
+                      borderRadius="none"
+                      _hover={{
+                        bg: "cyan.600",
+                        color: "white",
+                        borderRadius: "none",
+                      }}
+                    >
+                      Update
+                    </Button>
+                  )}
+                </>
               )}
-            </>
-          )}
-          {/* <Button
-            type="submit"
-            variant="ghost"
-            borderRadius="none"
-            _hover={{
-              bg: "cyan.600",
-              color: "white",
-              borderRadius: "none",
-            }}
-            // onClick={() => setLoading(true)}
-          >
-            Update
-          </Button> */}
-        </Flex>
-      </form>
+            </Flex>
+          </form>
+        )
+      }
     </Box>
   );
 };

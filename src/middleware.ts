@@ -13,10 +13,11 @@ const handler = async (req: NextRequest) => {
   ) {
     return NextResponse.redirect(new URL("/", req.url));
   }
+
   return NextResponse.next();
 };
 export default handler;
 
 export const config = {
-  matcher: ["/profile", "/admin/add-instruments", "/cart"],
+  matcher: ["/profile/:path*", "/admin/add-instruments", "/cart"],
 };

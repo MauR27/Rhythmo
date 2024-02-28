@@ -51,6 +51,7 @@ const handler = NextAuth({
             await User.create({
               name: profile?.name,
               email: profile?.email,
+              googleId: account?.providerAccountId,
             });
           }
         }
@@ -62,21 +63,26 @@ const handler = NextAuth({
       return true;
     },
 
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user, trigger, session, account }) {
       if (trigger === "update" && session?.name) {
         token.name = session.name;
       }
 
       if (user) {
+        token.provider = account?.provider;
         return {
           ...token,
           id: user.id,
           email: user.email,
+          name: user.name,
         };
       }
+
       return token;
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
+      console.log(token);
+
       return {
         ...session,
         user: {
@@ -85,6 +91,7 @@ const handler = NextAuth({
           email: token.email,
           name: token.name,
           image: token.picture,
+          provider: token.provider,
         },
       };
     },

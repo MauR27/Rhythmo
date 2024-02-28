@@ -24,6 +24,7 @@ export async function POST(req: Request) {
       const stripeNewProduct = await stripe.products.create({
         name: name,
         default_price_data: { currency: "usd", unit_amount: price },
+        images: images,
       });
 
       const stripeProductId = stripeNewProduct.default_price;

@@ -18,6 +18,8 @@ interface IUserSchema {
   email: string;
   password: string;
   profilePicture: string;
+  googleId: string;
+
   cart: ICartProduct;
   favoriteProduct: ICartProduct;
 }
@@ -39,7 +41,7 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
     },
     password: { type: String, required: false },
     profilePicture: String,
-
+    googleId: String,
     cart: [
       {
         name: String,

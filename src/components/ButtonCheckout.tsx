@@ -1,19 +1,21 @@
 "use client";
 
 import { Button, Flex } from "@chakra-ui/react";
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
+import { ICart, Product } from "../../types";
+import GlobalContext from "@/context/GlobalContext";
 
-type stripeProductId = {
-  stripeId: string;
-  quantity: number;
-};
-const ButtonCheckout: FC<stripeProductId> = ({ stripeId, quantity }) => {
+const ButtonCheckout = () => {
+  const { cart } = useContext(GlobalContext);
+  const cartCheckout = cart.map((item) => {
+    return { stripeId: item.stripeProductId, quantity: item.itemQuantity };
+  });
+
   const handleCheckout = async () => {
     const fetchStripe = await fetch("/api/checkout", {
       method: "POST",
       body: JSON.stringify({
-        stripeId,
-        quantity,
+        cartCheckout,
       }),
       headers: {
         "Content-Type": "application/json",

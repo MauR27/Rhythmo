@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   GridItem,
@@ -7,8 +8,8 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { FC, useContext, useEffect, useState } from "react";
-import OrderSummary from "./OrderSummary";
 import GlobalContext from "@/context/GlobalContext";
+import ButtonCheckout from "./ButtonCheckout";
 
 interface IAmount {
   cart: {

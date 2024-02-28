@@ -10,8 +10,7 @@ interface ProductsProps {
 
 const AddFavoriteProduct: FC<ProductsProps> = ({ product }) => {
   const toast = useToast();
-  const { setFavoriteListProductsLength, favoriteProductList } =
-    useContext(GlobalContext);
+  const { setFavoriteListProductsLength } = useContext(GlobalContext);
 
   const fetchData = async () => {
     const response = await fetch(
