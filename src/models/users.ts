@@ -19,7 +19,8 @@ interface IUserSchema {
   password: string;
   profilePicture: string;
   googleId: string;
-
+  resetToken: string;
+  resetTokenExpires: Date;
   cart: ICartProduct;
   favoriteProduct: ICartProduct;
 }
@@ -41,7 +42,9 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
     },
     password: { type: String, required: false },
     profilePicture: String,
-    googleId: String,
+    googleId: { type: String, required: false },
+    resetToken: { type: String, required: false },
+    resetTokenExpires: { type: Date, required: false },
     cart: [
       {
         name: String,

@@ -11,6 +11,7 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/next-js";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -55,6 +56,11 @@ const Login = () => {
             variant="filled"
           />
         </FormControl>
+        <Text fontSize="sm">
+          <Link href="/forgot-password" color="cyan.600">
+            Forgot password?
+          </Link>
+        </Text>
         <Flex justify="center">
           <Button
             type="submit"

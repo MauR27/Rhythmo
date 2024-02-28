@@ -21,8 +21,8 @@ export async function POST(req: Request) {
 
     if (user)
       return NextResponse.json(
-        { message: "Email already exists" },
-        { status: 409, statusText: "Email already exists" }
+        { message: "Email already in use" },
+        { status: 409, statusText: "Email already in use" }
       );
 
     const newLocalUser = await User.create({
