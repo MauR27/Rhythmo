@@ -12,11 +12,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const admin = process.env.ADMIN_ROLE || "";
   return (
     <html lang="en">
       <body>
         <Providers>
-          <Navbar />
+          <Navbar admin={admin} />
           {children}
         </Providers>
       </body>

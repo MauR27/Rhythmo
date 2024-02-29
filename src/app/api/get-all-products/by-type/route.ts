@@ -7,16 +7,12 @@ export async function GET(req: Request) {
 
   try {
     await connectDB();
-    const products = await Products.find();
     const paramsName = searchParams.get("q");
-    if (products) {
-      const productsSort = await products[0].products.reverse();
+    const products = await Products.find({ instrumentType: paramsName });
+    const productsSort = products.reverse();
 
-      const productsSortByType = await productsSort.filter(
-        (instrument: any) => instrument.instrumentType === paramsName
-      );
-
-      return NextResponse.json(productsSortByType, { status: 200 });
+    if (productsSort) {
+      return NextResponse.json(productsSort, { status: 200 });
     } else {
       return NextResponse.json(
         { message: "Product not found" },

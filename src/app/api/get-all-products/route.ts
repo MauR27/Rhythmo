@@ -7,7 +7,7 @@ export async function GET() {
     await connectDB();
     const products = await Products.find();
 
-    const productsSort = await products[0].products.reverse();
+    const productsSort = products.reverse();
 
     if (products) {
       return NextResponse.json(productsSort, { status: 201 });

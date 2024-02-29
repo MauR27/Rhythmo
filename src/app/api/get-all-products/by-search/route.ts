@@ -11,7 +11,7 @@ export async function GET(req: Request) {
     const products = await Products.find();
     const paramsName: string | null = searchParams.get("q");
     if (products) {
-      const productsSort = await products[0].products.reverse();
+      const productsSort = products.reverse();
 
       if (paramsName) {
         const regex: RegExp = new RegExp(paramsName, "i");

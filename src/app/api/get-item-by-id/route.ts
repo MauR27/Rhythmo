@@ -7,17 +7,11 @@ export async function GET(req: Request) {
 
   try {
     await connectDB();
-    const products = await Products.find();
     const paramsName = searchParams.get("q");
+    const products = await Products.findById({ _id: paramsName });
 
     if (products) {
-      const productsFind = await products[0].products;
-
-      const productFindById = await productsFind.filter(
-        (item: any) => item._id.toString() === paramsName
-      );
-
-      return NextResponse.json(productFindById, { status: 200 });
+      return NextResponse.json(products, { status: 200 });
     } else {
       return NextResponse.json(
         { message: "Product not found" },
