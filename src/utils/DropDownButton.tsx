@@ -1,22 +1,22 @@
 import { Link } from "@chakra-ui/next-js";
 import { Flex, Icon, useBreakpointValue } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { PiUserThin } from "react-icons/pi";
 import { useSession, signOut, getProviders } from "next-auth/react";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import LoginModal from "./LoginModal";
 
-const DropDownButton = () => {
-  const { data: session } = useSession();
-  // @ts-ignore
-  const provider = session?.user?.provider;
+type TAdminRole = {
+  admin: string;
+};
 
+const DropDownButton: FC<TAdminRole> = ({ admin }) => {
+  const { data: session } = useSession();
+  const user = session?.user;
   const widthMenuBox = useBreakpointValue({
     base: "100px",
     sm: "150px",
   });
-
-  const googleSession = provider === "google";
 
   return (
     <Menu>
@@ -67,6 +67,20 @@ const DropDownButton = () => {
             >
               Likes
             </MenuItem>
+            {user?.email === admin && (
+              <MenuItem
+                as={Link}
+                href={`/admin/dashboard`}
+                fontWeight="semibold"
+                _hover={{
+                  bg: "cyan.700",
+                  color: "white",
+                  textDecor: "none",
+                }}
+              >
+                Dashboard
+              </MenuItem>
+            )}
           </MenuList>
         </>
       ) : (

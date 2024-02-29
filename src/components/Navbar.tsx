@@ -14,9 +14,14 @@ import SearchCollapse from "@/utils/SearchCollapse";
 import CategoriesNavbar from "./CategoriesNavbar";
 import CartNavButton from "./CartNavButton";
 import { Link } from "@chakra-ui/next-js";
+import { FC } from "react";
 
-const Navbar = () => {
-  // Responsive break points
+type TAdminRole = {
+  admin: string;
+};
+
+const Navbar: FC<TAdminRole> = ({ admin }) => {
+  // Responsive break points ↓↓
 
   const titleText = useBreakpointValue({
     base: "1.5em",
@@ -43,7 +48,7 @@ const Navbar = () => {
         </Link>
         <Flex gap={4}>
           <SearchCollapse />
-          <DropDownButton />
+          <DropDownButton admin={admin} />
           <CartNavButton />
         </Flex>
       </Flex>

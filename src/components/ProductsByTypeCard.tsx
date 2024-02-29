@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { ProductsResponse } from "../../types";
 import {
   Box,
@@ -23,10 +23,31 @@ import AddFavoriteProduct from "./AddFavoriteProduct";
 import { Link } from "@chakra-ui/next-js";
 
 interface ProductsTypeProps {
-  products: ProductsResponse;
+  params: string;
 }
 
-const ProductsByTypeCard: FC<ProductsTypeProps> = ({ products }) => {
+const ProductsByTypeCard: FC<ProductsTypeProps> = ({ params }) => {
+  const [products, setProducts] = useState<ProductsResponse>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(
+        `http://localhost:3000/api/get-all-products/by-type?q=${params}`
+      );
+      const products: ProductsResponse = await response.json();
+
+      setProducts(products);
+      setIsLoading(true);
+    })();
+  }, [params]);
+
+  console.log(isLoading);
+
+  if (!isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Box minH="100vh">
       <Flex gap={4} justify="center" maxW="full" flexWrap="wrap">

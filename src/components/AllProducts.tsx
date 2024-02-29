@@ -2,7 +2,7 @@ import React from "react";
 import { ProductsResponse } from "../../types";
 import AllProductsCard from "./AllProductsCard";
 
-const fetchInstruments = async () => {
+export const fetchAllProducts = async () => {
   const response = await fetch(`http://localhost:3000/api/get-all-products`);
   //   await new Promise((resolve) => setTimeout(resolve, 1000));
   const products: ProductsResponse = await response.json();
@@ -11,7 +11,7 @@ const fetchInstruments = async () => {
 };
 
 const AllProducts = async () => {
-  const instruments: ProductsResponse = await fetchInstruments();
+  const instruments: ProductsResponse = await fetchAllProducts();
   return (
     <>
       <AllProductsCard products={instruments} />

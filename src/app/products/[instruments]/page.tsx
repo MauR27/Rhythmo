@@ -1,11 +1,11 @@
-import ProductsByType from "@/components/ProductsByType";
+import ProductsByTypeCard from "@/components/ProductsByTypeCard";
 
 const InstrumentsPage = ({ params }: { params: { instruments: string } }) => {
   const paramsName: string = params.instruments;
 
   return (
     <>
-      <ProductsByType params={paramsName} />
+      <ProductsByTypeCard params={paramsName} />
     </>
   );
 };
