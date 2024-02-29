@@ -156,7 +156,7 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
       const promise = await Promise.all(singleProduct.images);
 
       if (promise) {
-        await fetch("/api/admin-edit-product", {
+        const res = await fetch("/api/admin-edit-product", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -170,6 +170,20 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
             _id: singleProduct._id,
           }),
         });
+
+        if (res.ok) {
+          setIsLoading(false);
+          onClose();
+          toast({
+            description: "Product has been updated!",
+            duration: 3000,
+            isClosable: true,
+            status: "success",
+            position: "top",
+          });
+        } else {
+          setIsLoading(false);
+        }
       } else {
         throw new Error("Error to fetch database");
       }
@@ -177,16 +191,6 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
       if (error instanceof Error) {
         throw new Error(error.message);
       }
-    } finally {
-      setIsLoading(false);
-      onClose();
-      toast({
-        status: "success",
-        description: "Product has been updated!",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
     }
   };
 

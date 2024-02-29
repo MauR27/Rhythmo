@@ -42,8 +42,6 @@ const ProductsByTypeCard: FC<ProductsTypeProps> = ({ params }) => {
     })();
   }, [params]);
 
-  console.log(isLoading);
-
   if (!isLoading) {
     return <div>Loading...</div>;
   }

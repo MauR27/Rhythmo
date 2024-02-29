@@ -30,7 +30,7 @@ export async function PUT(req: Request) {
       const newPrice = transformPrice.toFixed(2);
 
       products.name = name || products.name;
-      products.price = price || newPrice;
+      products.price = newPrice;
       products.description = description || products.description;
       products.brand = brand || products.brand;
       products.images = images || products.images;
