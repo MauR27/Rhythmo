@@ -26,7 +26,6 @@ type TIsloading = {
 
 const CartPageCard: FC<TIsloading> = ({ isLoading }) => {
   const { cart } = useContext(GlobalContext);
-  console.log(isLoading);
 
   if (!isLoading) {
     return <Spinner />;
