@@ -50,6 +50,7 @@ type TEditProduct = {
   instrumentType: string;
   amount: number;
   _id: string;
+  stripeProductId: string;
 };
 
 const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
@@ -65,8 +66,8 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
     instrumentType: "",
     price: "",
     _id: "",
+    stripeProductId: "",
   });
-
   const toast = useToast();
 
   useEffect(() => {
@@ -96,7 +97,8 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
+    const { name, value }: any = e.target;
+
     setSingleProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
   };
 
@@ -115,7 +117,7 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
 
         if (files.length > 0) {
           const formData = new FormData();
-          const images = singleProduct.images;
+          const images: any = singleProduct.images;
           const url: string = process.env.NEXT_PUBLIC_CLOUDINARY_URL || "";
 
           for (let i: number = 0; i < files.length; i++) {
@@ -132,7 +134,6 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
               const imageUrl: string = data.secure_url;
               images.push(imageUrl);
 
-              //   formik.setFieldValue("images", data.secure_url);
               setSingleProduct((prev) => {
                 return { ...prev, images: data.secure_url };
               });
@@ -168,10 +169,26 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
             instrumentType: singleProduct.instrumentType,
             price: singleProduct.price,
             _id: singleProduct._id,
+            stripeProductId: singleProduct.stripeProductId,
           }),
         });
 
         if (res.ok) {
+          await fetch("/api/update-cart", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: singleProduct.name,
+              description: singleProduct.description,
+              amount: singleProduct.amount,
+              brand: singleProduct.brand,
+              images: singleProduct.images,
+              instrumentType: singleProduct.instrumentType,
+              price: singleProduct.price,
+              _id: singleProduct._id,
+              stripeProductId: singleProduct.stripeProductId,
+            }),
+          });
           setIsLoading(false);
           onClose();
           toast({
@@ -211,7 +228,6 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
       "image/*": [],
     },
   });
-  console.log(files);
 
   const removeFile = (name: string) => {
     setFiles((files: any) => files.filter((file: any) => file.name !== name));
@@ -280,9 +296,26 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
                     <Flex flexDir="column">
                       <FormLabel>Price</FormLabel>
                       <Input
-                        onChange={handleInputChange}
-                        value={singleProduct?.price}
-                        type="number"
+                        onChange={(e) => {
+                          const numericValue = parseFloat(
+                            e.target.value.replace(/,/g, "")
+                          );
+                          const formattedValue = isNaN(numericValue)
+                            ? ""
+                            : numericValue.toLocaleString("en-US", {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              });
+                          setSingleProduct((prev: any) => {
+                            return { ...prev, price: formattedValue };
+                          });
+                        }}
+                        value={
+                          singleProduct.price === undefined
+                            ? ""
+                            : singleProduct.price
+                        }
+                        type="text"
                         name="price"
                       />
                     </Flex>
