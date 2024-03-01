@@ -94,6 +94,22 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
     }
   };
 
+  const handleDeleteProduct = async (_id: string) => {
+    try {
+      await fetch("/api/admin-delete-products", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id,
+        }),
+      });
+      // await fetch("/api/get-cart-length");
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
+    }
+  };
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -244,7 +260,9 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
               Edit Product
             </Button>
 
-            <Button>Delete</Button>
+            <Button onClick={() => handleDeleteProduct(data._id)}>
+              Delete
+            </Button>
           </CardFooter>
         </Card>
       ))}
