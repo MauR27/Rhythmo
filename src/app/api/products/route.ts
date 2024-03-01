@@ -10,22 +10,18 @@ export async function POST(req: Request) {
     await connectDB();
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
+    const stripePricing = price.replace(/[,.]/g, "");
     const stripeNewProduct = await stripe.products.create({
       name: name,
-      default_price_data: { currency: "usd", unit_amount: price },
+      default_price_data: { currency: "usd", unit_amount: stripePricing },
       images: images,
     });
 
     const stripeProductId = stripeNewProduct.default_price;
 
-    const transformPrice = price / 100;
-
-    const newPrice = transformPrice.toFixed(2);
-
     const newProduct = new Products({
       name,
-      price: newPrice,
+      price,
       description,
       brand,
       images,
