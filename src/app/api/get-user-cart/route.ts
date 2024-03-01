@@ -11,9 +11,9 @@ export async function GET(req: Request) {
 
     const user = await User.findOne({ email: userEmail });
 
-    const userCart = await user.cart;
+    await user.cart;
 
-    return NextResponse.json(userCart, { status: 200 });
+    return NextResponse.json(user.cart, { status: 200 });
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import {
   Button,
   Card,
@@ -10,6 +10,7 @@ import {
   Icon,
   Image,
   Link,
+  Spinner,
   Stack,
   Text,
   Tooltip,
@@ -19,9 +20,17 @@ import GlobalContext from "@/context/GlobalContext";
 import { CiSearch } from "react-icons/ci";
 import QuantityItem from "./QuantityItem";
 
-const CartPageCard = () => {
-  const { cart } = useContext(GlobalContext);
+type TIsloading = {
+  isLoading: boolean;
+};
 
+const CartPageCard: FC<TIsloading> = ({ isLoading }) => {
+  const { cart } = useContext(GlobalContext);
+  console.log(isLoading);
+
+  if (!isLoading) {
+    return <Spinner />;
+  }
   return (
     <>
       {cart.map((product) => (

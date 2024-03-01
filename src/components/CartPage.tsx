@@ -10,20 +10,26 @@ import {
   ListItem,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import CartPageCard from "./CartPageCard";
 import GlobalContext from "@/context/GlobalContext";
 import OrderSummary from "./OrderSummary";
 
 const CartPage = () => {
   const { setCart, totalPrice } = useContext(GlobalContext);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    const fetchUserCart = async () => {
-      const response = await fetch("http://localhost:3000/api/get-user-cart");
-      const userCart = await response.json();
-      return setCart(userCart);
-    };
-    fetchUserCart();
+    (async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/get-user-cart");
+        const userCart = await response.json();
+
+        setCart(userCart);
+      } catch (error) {
+        if (error instanceof Error) console.log(error.message);
+      }
+    })();
+    setIsLoading(true);
   }, [setCart, totalPrice]);
 
   return (
@@ -64,7 +70,7 @@ const CartPage = () => {
           </List>
         </Box>
         <Divider mt="1rem" borderColor="gray" />
-        <CartPageCard />
+        <CartPageCard isLoading={isLoading} />
       </GridItem>
       <GridItem colSpan={1} justifyContent="center" pt="30px">
         <OrderSummary />
