@@ -14,13 +14,13 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, ChangeEvent } from "react";
 import { useDropzone } from "react-dropzone";
 import * as yup from "yup";
 
 interface IinitialValues {
   productName: string;
-  price: number;
+  price: string;
   description: string;
   brand: string;
   images: string[];
@@ -35,7 +35,7 @@ const AddInstruments = () => {
   const formik = useFormik({
     initialValues: {
       productName: "",
-      price: 0,
+      price: "",
       description: "",
       brand: "",
       images: [],
@@ -48,7 +48,8 @@ const AddInstruments = () => {
         .string()
         .max(100, "Must be 200 caracters or less")
         .required(),
-      price: yup.number().required(),
+
+      price: yup.string().required(),
       description: yup
         .string()
         .max(1500, "Must be 5000 caracters or less")
@@ -58,6 +59,7 @@ const AddInstruments = () => {
       instrumentType: yup.string().required(),
       amount: yup.number().required(),
     }),
+
     onSubmit: async (values: IinitialValues) => {
       try {
         if (files) {
@@ -102,7 +104,7 @@ const AddInstruments = () => {
       try {
         const promise = await Promise.all(formik.values.images);
         if (promise) {
-          const res = await fetch("/api/products", {
+          await fetch("/api/products", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -117,7 +119,6 @@ const AddInstruments = () => {
               amount: formik.values.amount,
             }),
           });
-          const data = await res.json();
         } else {
           throw new Error("Error to fetch database");
         }
@@ -174,10 +175,23 @@ const AddInstruments = () => {
               <FormLabel>Price</FormLabel>
               <Input
                 placeholder="Price"
-                onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.price}
-                type="number"
+                onChange={(e) => {
+                  const numericValue = parseFloat(
+                    e.target.value.replace(/,/g, "")
+                  );
+                  const formattedValue = isNaN(numericValue)
+                    ? ""
+                    : numericValue.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      });
+                  formik.setFieldValue("price", formattedValue);
+                }}
+                value={
+                  formik.values.price === undefined ? "" : formik.values.price
+                }
+                type="text"
                 name="price"
               />
               {formik.touched.price && formik.errors.price && (
