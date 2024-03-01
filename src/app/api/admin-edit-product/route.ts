@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Products from "@/models/products";
+import Stripe from "stripe";
 
 export async function PUT(req: Request) {
   const {
@@ -16,6 +17,22 @@ export async function PUT(req: Request) {
   try {
     await connectDB();
     const products = await Products.findById({ _id });
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+    try {
+      const stripePricing = price.replace(/[,.]/g, "");
+      const createNewPrice = await stripe.products.create({
+        name: name,
+        default_price_data: { currency: "usd", unit_amount: stripePricing },
+        images: images,
+      });
+
+      const stripeProductId = createNewPrice.default_price;
+
+      products.stripeProductId = stripeProductId;
+    } catch (error) {
+      if (error instanceof Error) throw new Error(error.message);
+    }
 
     if (!products) {
       return NextResponse.json(
@@ -25,12 +42,8 @@ export async function PUT(req: Request) {
         { status: 400 }
       );
     } else {
-      const transformPrice = price / 100;
-
-      const newPrice = transformPrice.toFixed(2);
-
       products.name = name || products.name;
-      products.price = newPrice;
+      products.price = price || products.price;
       products.description = description || products.description;
       products.brand = brand || products.brand;
       products.images = images || products.images;
