@@ -10,8 +10,10 @@ import {
   List,
   ListItem,
   Select,
+  Spinner,
   Text,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useState, useCallback, useEffect, ChangeEvent } from "react";
@@ -29,9 +31,10 @@ interface IinitialValues {
 }
 
 const AddInstruments = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState([]);
 
+  const toast = useToast();
   const formik = useFormik({
     initialValues: {
       productName: "",
@@ -61,6 +64,7 @@ const AddInstruments = () => {
     }),
 
     onSubmit: async (values: IinitialValues) => {
+      setIsLoading(true);
       try {
         if (files) {
           if (!files.length) {
@@ -104,7 +108,7 @@ const AddInstruments = () => {
       try {
         const promise = await Promise.all(formik.values.images);
         if (promise) {
-          await fetch("/api/products", {
+          const res = await fetch("/api/products", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -119,6 +123,18 @@ const AddInstruments = () => {
               amount: formik.values.amount,
             }),
           });
+          if (res.ok) {
+            setIsLoading(false);
+            toast({
+              description: "Product has been updated!",
+              duration: 3000,
+              isClosable: true,
+              status: "success",
+              position: "top",
+            });
+          } else {
+            setIsLoading(false);
+          }
         } else {
           throw new Error("Error to fetch database");
         }
@@ -296,16 +312,20 @@ const AddInstruments = () => {
               )}
             </Flex>
             <Flex justifyContent="center">
-              <Button
-                variant="ghost"
-                type="submit"
-                bg="purple.900"
-                textColor="black"
-                px="4"
-                py="2"
-              >
-                send
-              </Button>
+              {isLoading ? (
+                <Spinner />
+              ) : (
+                <Button
+                  variant="ghost"
+                  type="submit"
+                  bg="blue.100"
+                  textColor="black"
+                  px="4"
+                  py="2"
+                >
+                  send
+                </Button>
+              )}
             </Flex>
           </Flex>
         </form>

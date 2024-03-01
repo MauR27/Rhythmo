@@ -68,18 +68,32 @@ const DropDownButton: FC<TAdminRole> = ({ admin }) => {
               Likes
             </MenuItem>
             {user?.email === admin && (
-              <MenuItem
-                as={Link}
-                href={`/admin/dashboard`}
-                fontWeight="semibold"
-                _hover={{
-                  bg: "cyan.700",
-                  color: "white",
-                  textDecor: "none",
-                }}
-              >
-                Dashboard
-              </MenuItem>
+              <>
+                <MenuItem
+                  as={Link}
+                  href={`/admin/dashboard`}
+                  fontWeight="semibold"
+                  _hover={{
+                    bg: "cyan.700",
+                    color: "white",
+                    textDecor: "none",
+                  }}
+                >
+                  Dashboard
+                </MenuItem>
+                <MenuItem
+                  as={Link}
+                  href={`/admin/add-instruments`}
+                  fontWeight="semibold"
+                  _hover={{
+                    bg: "cyan.700",
+                    color: "white",
+                    textDecor: "none",
+                  }}
+                >
+                  Add Products
+                </MenuItem>
+              </>
             )}
           </MenuList>
         </>
