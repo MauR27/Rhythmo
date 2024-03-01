@@ -8,14 +8,14 @@ const FavoriteProductListPage = () => {
   const { setFavoriteProductList } = useContext(GlobalContext);
 
   useEffect(() => {
-    const fetchUserCart = async () => {
+    const fetchFavoriteProduct = async () => {
       const response = await fetch(
         "http://localhost:3000/api/get-user-favorite-product"
       );
       const userProductsList = await response.json();
       return setFavoriteProductList(userProductsList);
     };
-    fetchUserCart();
+    fetchFavoriteProduct();
   }, [setFavoriteProductList]);
 
   return (
