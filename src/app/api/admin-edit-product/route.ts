@@ -2,6 +2,20 @@ import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Products from "@/models/products";
 import Stripe from "stripe";
+import { getServerSession } from "next-auth";
+import User from "@/models/users";
+
+type ICartProduct = {
+  name: string;
+  price: string;
+  brand: string;
+  images: string[];
+  instrumentType: string;
+  productId: string;
+  amount: number;
+  itemQuantity: number;
+  stripeProductId: string;
+};
 
 export async function PUT(req: Request) {
   const {
@@ -16,23 +30,61 @@ export async function PUT(req: Request) {
   } = await req.json();
   try {
     await connectDB();
+    const session = await getServerSession();
+
     const products = await Products.findById({ _id });
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
+    // CREATING A NEW STRIPE PRODUCT WITH NEW PRODUCT UPDATED ↓↓
+
     try {
       const stripePricing = price.replace(/[,.]/g, "");
+
       const createNewPrice = await stripe.products.create({
         name: name,
         default_price_data: { currency: "usd", unit_amount: stripePricing },
         images: images,
       });
 
-      const stripeProductId = createNewPrice.default_price;
+      const newStripeProductId = createNewPrice.default_price;
 
-      products.stripeProductId = stripeProductId;
+      products.stripeProductId = newStripeProductId;
+      await products.save();
+
+      // UPDATE USER CART WHEN ADMIND EDIT PRODUCTS ↓↓
+
+      if (session) {
+        const userEmail = session.user?.email;
+        const user: any = await User.findOne({ email: userEmail });
+
+        const filterProductCart = user.cart.find(
+          (data: ICartProduct) => data.productId === _id
+        );
+        filterProductCart.name = name || filterProductCart.name;
+        filterProductCart.price = price || filterProductCart.price;
+        filterProductCart.description =
+          description || filterProductCart.description;
+        filterProductCart.brand = brand || filterProductCart.brand;
+        filterProductCart.images = images || filterProductCart.images;
+        filterProductCart.instrumentType =
+          instrumentType || filterProductCart.instrumentType;
+        filterProductCart.amount = amount || filterProductCart.amount;
+        filterProductCart.stripeProductId = newStripeProductId;
+
+        await user.save();
+      } else {
+        return NextResponse.json(
+          {
+            message: "You have to login in first ",
+          },
+          { status: 400 }
+        );
+      }
     } catch (error) {
       if (error instanceof Error) throw new Error(error.message);
     }
+
+    // UPDATE PRODUCTS WHEN ADMIN EDIT PRODUCTS ↓↓
 
     if (!products) {
       return NextResponse.json(
