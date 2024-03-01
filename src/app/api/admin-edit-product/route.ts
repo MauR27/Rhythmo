@@ -17,6 +17,17 @@ type ICartProduct = {
   stripeProductId: string;
 };
 
+type IFavoriteCartProduct = {
+  name: string;
+  price: string;
+  brand: string;
+  images: string[];
+  instrumentType: string;
+  productId: string;
+  amount: number;
+  itemQuantity: number;
+};
+
 export async function PUT(req: Request) {
   const {
     name,
@@ -51,8 +62,6 @@ export async function PUT(req: Request) {
       products.stripeProductId = newStripeProductId;
       await products.save();
 
-      // UPDATE USER CART WHEN ADMIND EDIT PRODUCTS ↓↓
-
       if (session) {
         const userEmail = session.user?.email;
         const user: any = await User.findOne({ email: userEmail });
@@ -60,18 +69,44 @@ export async function PUT(req: Request) {
         const filterProductCart = user.cart.find(
           (data: ICartProduct) => data.productId === _id
         );
-        filterProductCart.name = name || filterProductCart.name;
-        filterProductCart.price = price || filterProductCart.price;
-        filterProductCart.description =
-          description || filterProductCart.description;
-        filterProductCart.brand = brand || filterProductCart.brand;
-        filterProductCart.images = images || filterProductCart.images;
-        filterProductCart.instrumentType =
-          instrumentType || filterProductCart.instrumentType;
-        filterProductCart.amount = amount || filterProductCart.amount;
-        filterProductCart.stripeProductId = newStripeProductId;
 
-        await user.save();
+        const productExists: any = user.favoriteProduct.find(
+          (favoriteProduct: IFavoriteCartProduct) =>
+            favoriteProduct.productId === _id
+        );
+
+        // UPDATE USER CART WHEN ADMIND EDIT PRODUCTS ↓↓
+
+        if (filterProductCart) {
+          filterProductCart.name = name || filterProductCart.name;
+          filterProductCart.price = price || filterProductCart.price;
+          filterProductCart.description =
+            description || filterProductCart.description;
+          filterProductCart.brand = brand || filterProductCart.brand;
+          filterProductCart.images = images || filterProductCart.images;
+          filterProductCart.instrumentType =
+            instrumentType || filterProductCart.instrumentType;
+          filterProductCart.amount = amount || filterProductCart.amount;
+          filterProductCart.stripeProductId = newStripeProductId;
+
+          await user.save();
+        }
+
+        // UPDATE FAVORITE USER PRODUCTS WHEN ADMIND EDIT PRODUCTS ↓↓
+
+        if (productExists) {
+          productExists.name = name || productExists.name;
+          productExists.price = price || productExists.price;
+          productExists.description = description || productExists.description;
+          productExists.brand = brand || productExists.brand;
+          productExists.images = images || productExists.images;
+          productExists.instrumentType =
+            instrumentType || productExists.instrumentType;
+          productExists.amount = amount || productExists.amount;
+          productExists.stripeProductId = newStripeProductId;
+
+          await user.save();
+        }
       } else {
         return NextResponse.json(
           {
