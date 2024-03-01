@@ -174,21 +174,6 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
         });
 
         if (res.ok) {
-          await fetch("/api/update-cart", {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: singleProduct.name,
-              description: singleProduct.description,
-              amount: singleProduct.amount,
-              brand: singleProduct.brand,
-              images: singleProduct.images,
-              instrumentType: singleProduct.instrumentType,
-              price: singleProduct.price,
-              _id: singleProduct._id,
-              stripeProductId: singleProduct.stripeProductId,
-            }),
-          });
           setIsLoading(false);
           onClose();
           toast({
