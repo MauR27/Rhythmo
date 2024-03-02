@@ -1,6 +1,6 @@
 import { Badge, Icon } from "@chakra-ui/react";
 import { PiShoppingCartSimpleThin } from "react-icons/pi";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import GlobalContext from "@/context/GlobalContext";
 import { Link } from "@chakra-ui/next-js";
 
@@ -19,7 +19,7 @@ const CartNavButton = () => {
   }, [setCartLength]);
 
   return (
-    <Link display="flex" alignItems="center" href="/cart">
+    <Link display="flex" alignItems="center" href="/pages/cart">
       <Icon
         as={PiShoppingCartSimpleThin}
         w={[6, 7]}

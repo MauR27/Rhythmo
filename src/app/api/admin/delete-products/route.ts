@@ -3,19 +3,20 @@ import connectDB from "@/lib/mongodb";
 import Products from "@/models/products";
 import { getServerSession } from "next-auth";
 import User from "@/models/users";
+import Stripe from "stripe";
 
 export async function PUT(req: Request) {
-  const { _id } = await req.json();
+  const { _id, stripe_product_id } = await req.json();
   try {
     await connectDB();
     const session = await getServerSession();
-
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
     if (session) {
       const userEmail = session.user?.email;
 
       await Products.deleteOne({ _id });
 
-      // Delete product from cart, and favoriteProduct as well ↓↓
+      // Delete product from cart and archive from STRIPE, and favoriteProduct as well ↓↓
 
       await User.updateOne(
         { email: userEmail },
@@ -26,6 +27,8 @@ export async function PUT(req: Request) {
           },
         }
       );
+
+      await stripe.products.update(stripe_product_id, { active: false });
 
       return NextResponse.json(
         { message: "Product deleted successfully" },

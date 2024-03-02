@@ -18,7 +18,6 @@ const breakpoints = {
   xl: "80em",
   "2xl": "96em",
 };
-// const theme = extendTheme({ breakpoints });
 const theme = extendTheme({
   breakpoints,
   fonts: {

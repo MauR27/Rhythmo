@@ -16,24 +16,29 @@ import { useRouter } from "next/navigation";
 
 type TProductId = {
   _id: string;
+  stripe_product_id: string;
 };
 
-const DeleteProducts: FC<TProductId> = ({ _id }) => {
+const DeleteProducts: FC<TProductId> = ({ _id, stripe_product_id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const cancelRef = useRef();
   const router = useRouter();
   const handleDeleteProduct = async () => {
     try {
-      const res = await fetch("/api/admin/delete-products", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          _id,
-        }),
-      });
+      const res = await fetch(
+        "http://localhost:3000/api/admin/delete-products",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            _id,
+            stripe_product_id,
+          }),
+        }
+      );
       if (res.ok) {
         router.refresh();
       } else {

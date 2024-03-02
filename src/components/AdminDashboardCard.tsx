@@ -249,7 +249,10 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
               Edit Product
             </Button>
 
-            <DeleteProducts _id={data._id} />
+            <DeleteProducts
+              _id={data._id}
+              stripe_product_id={data.stripe_product_id}
+            />
           </CardFooter>
         </Card>
       ))}
