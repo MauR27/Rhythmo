@@ -32,7 +32,7 @@ const ForgotPassword = () => {
     const formData = new FormData(e.currentTarget);
 
     try {
-      const res = await fetch("/api/forgot-password", {
+      const res = await fetch("/api/user/password/forgot", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

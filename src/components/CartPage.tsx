@@ -23,7 +23,7 @@ const CartPage = () => {
     (async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("api/get-user-cart");
+        const response = await fetch("api/user/cart/get-products");
         const userCart = await response.json();
 
         if (response.ok) {

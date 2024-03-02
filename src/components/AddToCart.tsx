@@ -17,7 +17,7 @@ const AddToCart: FC<TProductsProps> = ({ product }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("/api/user-cart", {
+      const response = await fetch("/api/user/cart/add-products", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

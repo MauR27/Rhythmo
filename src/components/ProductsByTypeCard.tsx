@@ -32,7 +32,7 @@ const ProductsByTypeCard: FC<TProducts> = ({ params }) => {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`/api/get-all-products/by-type?q=${params}`);
+      const response = await fetch(`/api/products/by-type?q=${params}`);
       const products: ProductsResponse = await response.json();
 
       setProducts(products);

@@ -25,7 +25,7 @@ const RemoveItemCart: FC<TProductId> = ({ _id }) => {
 
   const fetchRemoveItem = async () => {
     try {
-      const response = await fetch("/api/remove-item-cart", {
+      const response = await fetch("/api/user/cart/remove-products", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

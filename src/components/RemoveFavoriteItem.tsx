@@ -11,7 +11,7 @@ const RemoveFavoriteItem: FC<TProductId> = ({ _id }) => {
     useContext(GlobalContext);
 
   const fetchRemoveItem = async () => {
-    const response = await fetch("/api/remove-favorite-item", {
+    const response = await fetch("/api/user/profile/favorite-products/remove", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

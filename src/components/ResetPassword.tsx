@@ -31,7 +31,7 @@ const ResetPassword: FC<TParamsResetPasswordToken> = ({ token }) => {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const res = await fetch("/api/verify-token", {
+        const res = await fetch("/api/user/password/verify-token", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const ResetPassword: FC<TParamsResetPasswordToken> = ({ token }) => {
     const formData = new FormData(e.currentTarget);
 
     try {
-      const res = await fetch("/api/reset-password", {
+      const res = await fetch("/api/user/password/reset", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

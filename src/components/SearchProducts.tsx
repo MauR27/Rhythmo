@@ -35,7 +35,7 @@ const SearchProducts: FC<TParamsSearch> = ({ params }) => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `http://localhost:3000/api/get-all-products/by-search?q=${params}`
+          `http://localhost:3000/api/products/by-search?q=${params}`
         );
         //   await new Promise((resolve) => setTimeout(resolve, 1000));
         const products: ProductsResponse = await response.json();

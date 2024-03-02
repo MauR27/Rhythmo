@@ -52,7 +52,7 @@ const QuantityItem: FC<TProductsCart> = ({ cart }) => {
       setAddIsloading(true);
       if (number < cart.amount) {
         const action: string = "add";
-        await fetch("/api/item-quantity", {
+        await fetch("/api/user/cart/products-quantity", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const QuantityItem: FC<TProductsCart> = ({ cart }) => {
         setNumber((prev) => prev + 1);
         setQuantityItemPrice((prev) => prev + cartPriceReplace);
 
-        const res = await fetch("/api/get-user-cart");
+        const res = await fetch("/api/user/cart/get-products");
         if (res.ok) {
           const data = await res.json();
           setCart(data);
@@ -84,7 +84,7 @@ const QuantityItem: FC<TProductsCart> = ({ cart }) => {
       setRestIsloading(true);
       if (number > 1) {
         const action: string = "sub";
-        await fetch("/api/item-quantity", {
+        await fetch("/api/user/cart/products-quantity", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const QuantityItem: FC<TProductsCart> = ({ cart }) => {
         setNumber((prev) => prev - 1);
         setQuantityItemPrice((prev) => prev - cartPriceReplace);
 
-        const res = await fetch("/api/get-user-cart");
+        const res = await fetch("/api/user/cart/get-products");
         if (res.ok) {
           const data = await res.json();
           setCart(data);

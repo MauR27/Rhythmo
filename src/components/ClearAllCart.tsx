@@ -19,7 +19,7 @@ const ClearAllCart = () => {
 
   const handleClearCart = async () => {
     try {
-      const res = await fetch("/api/clear-all-cart", {
+      const res = await fetch("/api/user/cart/clear-all-products", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

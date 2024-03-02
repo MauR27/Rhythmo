@@ -2,7 +2,7 @@ import { ProductsResponse } from "../../types";
 import NewProductCard from "./NewProductCard";
 
 async function fetchInstruments() {
-  const response = await fetch("http://localhost:3000/api/get-all-products");
+  const response = await fetch("http://localhost:3000/api/products/get-all");
 
   const products: ProductsResponse = await response.json();
   return products.splice(0, 4);

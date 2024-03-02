@@ -2,7 +2,7 @@ import { FC } from "react";
 import ItemByIdCard from "./ItemByIdCard";
 
 export async function fetchItemById(id: string) {
-  const response = await fetch(`/api/get-item-by-id?q=${id}`);
+  const response = await fetch(`/api/user/cart/get-products/by-id?q=${id}`);
 
   const data = await response.json();
   return data;
