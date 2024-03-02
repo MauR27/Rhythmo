@@ -26,11 +26,12 @@ interface IAmount {
 }
 
 const QuantityItem: FC<IAmount> = ({ cart }) => {
-  const { setSubTotal, setTotalPrice } = useContext(GlobalContext);
+  const { setSubTotal, setTotalPrice, setCart } = useContext(GlobalContext);
   const valueInitial = cart.itemQuantity;
   const [number, setNumber] = useState<number>(valueInitial);
+  const cartPriceReplace = Number(cart.price.replace(/[,]/g, ""));
   const [quantityItemPrice, setQuantityItemPrice] = useState<number>(
-    Number(cart.price) * valueInitial
+    cartPriceReplace * valueInitial
   );
   const [addIsLoading, setAddIsloading] = useState(false);
   const [restIsLoading, setRestIsloading] = useState(false);
@@ -53,16 +54,21 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
       setAddIsloading(true);
       if (number < cart.amount) {
         const action: string = "add";
-        await fetch("http://localhost:3000/api/item-quantity", {
+        await fetch("/api/item-quantity", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ _id, action }),
         });
-
         setNumber((prev) => prev + 1);
-        setQuantityItemPrice((prev) => prev + Number(cart.price));
+        setQuantityItemPrice((prev) => prev + cartPriceReplace);
+
+        const res = await fetch("/api/get-user-cart");
+        if (res.ok) {
+          const data = await res.json();
+          setCart(data);
+        }
       } else {
         toast();
       }
@@ -80,7 +86,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
       setRestIsloading(true);
       if (number > 1) {
         const action: string = "sub";
-        await fetch("http://localhost:3000/api/item-quantity", {
+        await fetch("/api/item-quantity", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -89,7 +95,13 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
         });
 
         setNumber((prev) => prev - 1);
-        setQuantityItemPrice((prev) => prev - Number(cart.price));
+        setQuantityItemPrice((prev) => prev - cartPriceReplace);
+
+        const res = await fetch("/api/get-user-cart");
+        if (res.ok) {
+          const data = await res.json();
+          setCart(data);
+        }
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -147,7 +159,7 @@ const QuantityItem: FC<IAmount> = ({ cart }) => {
       </GridItem>
       <GridItem colSpan={1} alignContent="center">
         <Flex align="center" h="full" justify="center">
-          <Text>{quantityItemPrice},00$</Text>
+          <Text>{quantityItemPrice.toLocaleString("en-US")}.00$</Text>
         </Flex>
       </GridItem>
     </>

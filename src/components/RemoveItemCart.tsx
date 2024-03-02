@@ -12,6 +12,8 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
+// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { FC, useContext, useRef } from "react";
 
 interface ICartItem {
@@ -19,25 +21,25 @@ interface ICartItem {
 }
 
 const RemoveItemCart: FC<ICartItem> = ({ _id }) => {
-  const { setCart, setCartLength } = useContext(GlobalContext);
+  const { setCartLength, setCart } = useContext(GlobalContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
 
   const fetchRemoveItem = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/remove-item-cart",
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ _id }),
-        }
-      );
+      const response = await fetch("/api/remove-item-cart", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ _id }),
+      });
       const data = await response.json();
-      setCart(data?.cart);
-      setCartLength(data?.cart?.length || 0);
+
+      if (response.ok) {
+        setCartLength(data.length || 0);
+        setCart(data);
+      }
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message);
@@ -46,7 +48,7 @@ const RemoveItemCart: FC<ICartItem> = ({ _id }) => {
   };
 
   return (
-    <>
+    <section>
       <Button onClick={onOpen}>Discard</Button>
       <AlertDialog
         motionPreset="slideInBottom"
@@ -92,7 +94,7 @@ const RemoveItemCart: FC<ICartItem> = ({ _id }) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </>
+    </section>
   );
 };
 

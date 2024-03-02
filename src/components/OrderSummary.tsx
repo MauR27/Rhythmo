@@ -10,9 +10,12 @@ const OrderSummary = () => {
 
   const subTotalProductPrice = cart.reduce(
     (accumulator, currentProduct) =>
-      accumulator + Number(currentProduct.price) * currentProduct.itemQuantity,
+      accumulator +
+      Number(currentProduct.price.replace(/[,]/g, "")) *
+        currentProduct.itemQuantity,
     0
   );
+
   // posible discounts to final product ↓↓
 
   const delivery: number = 0;
@@ -28,6 +31,11 @@ const OrderSummary = () => {
 
   const totalProductPrice =
     subTotalProductPrice + delivery - productDiscountPerPercentage;
+
+  // Prices formatted ↓↓
+
+  const formattedSubTotal = subTotalProductPrice.toLocaleString("en-US");
+  const formattedTotalPrice = totalProductPrice.toLocaleString("en-US");
 
   return (
     <Flex justifyContent="center">
@@ -89,7 +97,7 @@ const OrderSummary = () => {
             align="center"
           >
             <ListItem>Subtotal</ListItem>
-            <Text>{subTotalProductPrice},00$</Text>
+            <Text>{formattedSubTotal}.00$</Text>
           </Flex>
           <Flex
             minH="80px"
@@ -102,7 +110,7 @@ const OrderSummary = () => {
             align="center"
           >
             <ListItem>Total</ListItem>
-            <Text>{totalProductPrice},00$</Text>
+            <Text>{formattedTotalPrice}.00$</Text>
           </Flex>
           <Flex>
             <ButtonCheckout />
