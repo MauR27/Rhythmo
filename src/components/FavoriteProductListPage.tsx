@@ -9,7 +9,7 @@ const FavoriteProductListPage = () => {
 
   useEffect(() => {
     const fetchFavoriteProduct = async () => {
-      const response = await fetch("/api/user/profile/get-favorite-product");
+      const response = await fetch("/api/user/profile/get-favorite-products");
       const userProductsList = await response.json();
       return setFavoriteProductList(userProductsList);
     };

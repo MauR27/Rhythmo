@@ -89,7 +89,7 @@ const AllProductsCard: FC<TProductsTypeProps> = ({ products }) => {
                   >
                     <Button
                       as={Link}
-                      href={`/instrument/${product._id}`}
+                      href={`/pages/instrument/${product._id}`}
                       borderRadius="none"
                       bg="white"
                       p={0}

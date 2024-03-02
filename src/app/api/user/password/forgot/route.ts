@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
     user.resetToken = passwordResetToken;
     user.resetTokenExpires = passwordResetExpires;
-    const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+    const resetUrl = `http://localhost:3000/pages/reset-password/${resetToken}`;
 
     let msg = {
       from: {

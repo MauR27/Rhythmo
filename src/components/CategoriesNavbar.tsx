@@ -16,7 +16,7 @@ const CategoriesNavbar = () => {
             pb={6}
             px={2}
             fontWeight="semibold"
-            href="/products/all"
+            href="/pages/products/all"
             _hover={{
               color: "cyan.600",
               borderBottom: "2px solid black",
@@ -32,7 +32,7 @@ const CategoriesNavbar = () => {
             pb={6}
             px={2}
             fontWeight="semibold"
-            href="/products/electric-guitars"
+            href="/pages/products/electric-guitars"
             _hover={{
               color: "cyan.600",
               borderBottom: "2px solid black",
@@ -47,7 +47,7 @@ const CategoriesNavbar = () => {
             pb={6}
             px={2}
             fontWeight="semibold"
-            href="/products/electric-bass"
+            href="/pages/products/electric-bass"
             _hover={{
               color: "cyan.600",
               borderBottom: "2px solid black",
@@ -62,7 +62,7 @@ const CategoriesNavbar = () => {
             pb={6}
             px={2}
             fontWeight="semibold"
-            href="/products/electric-drums"
+            href="/pages/products/electric-drums"
             _hover={{
               color: "cyan.600",
               borderBottom: "2px solid black",
@@ -77,7 +77,7 @@ const CategoriesNavbar = () => {
             pb={6}
             px={2}
             fontWeight="semibold"
-            href="/products/acoustic-drums"
+            href="/pages/products/acoustic-drums"
             _hover={{
               color: "cyan.600",
               borderBottom: "2px solid black",

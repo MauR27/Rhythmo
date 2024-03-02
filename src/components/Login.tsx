@@ -57,7 +57,7 @@ const Login = () => {
           />
         </FormControl>
         <Text fontSize="sm">
-          <Link href="/forgot-password" color="cyan.600">
+          <Link href="/pages/forgot-password" color="cyan.600">
             Forgot password?
           </Link>
         </Text>

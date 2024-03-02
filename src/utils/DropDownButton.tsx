@@ -44,7 +44,7 @@ const DropDownButton: FC<TAdminRole> = ({ admin }) => {
             </MenuItem>
             <MenuItem
               as={Link}
-              href="/profile"
+              href="/pages/profile"
               fontWeight="semibold"
               _hover={{
                 bg: "cyan.700",
@@ -57,7 +57,7 @@ const DropDownButton: FC<TAdminRole> = ({ admin }) => {
 
             <MenuItem
               as={Link}
-              href="/profile/favorite-products"
+              href="/pages/profile/favorite-products"
               fontWeight="semibold"
               _hover={{
                 bg: "cyan.700",
@@ -111,7 +111,7 @@ const DropDownButton: FC<TAdminRole> = ({ admin }) => {
           </MenuItem>
           <MenuItem
             as={Link}
-            href="/register"
+            href="/pages/register"
             fontWeight="semibold"
             _hover={{
               bg: "cyan.700",
