@@ -17,7 +17,8 @@ export async function POST(req: Request) {
       images: images,
     });
 
-    const stripeProductId = stripeNewProduct.default_price;
+    const stripe_price_id = stripeNewProduct.default_price;
+    const stripe_product_id = stripeNewProduct.id;
 
     const newProduct = new Products({
       name,
@@ -27,7 +28,8 @@ export async function POST(req: Request) {
       images,
       instrumentType,
       amount,
-      stripeProductId,
+      stripe_price_id,
+      stripe_product_id,
     });
 
     const savedProduct = await newProduct.save();

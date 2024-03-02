@@ -8,7 +8,8 @@ interface IProductsSchema {
   images: string;
   instrumentType: string;
   amount: number;
-  stripeProductId: string;
+  stripe_price_id: string;
+  stripe_product_id: string;
 }
 
 type UserModel = mongoose.Model<IProductsSchema, {}>;
@@ -37,7 +38,8 @@ const productsSchema = new mongoose.Schema<IProductsSchema, UserModel>(
       lowercase: true,
     },
     amount: { type: Number, required: [true, "Amount is required"] },
-    stripeProductId: String,
+    stripe_price_id: { type: String, required: false },
+    stripe_product_id: { type: String, required: false },
   },
   {
     timestamps: true,

@@ -13,7 +13,8 @@ export type Product = {
   amount: number;
   productId: string;
   _id: string;
-  stripeProductId: string;
+  stripe_product_id: string;
+  stripe_price_id: string;
 };
 export type ICart = [
   {
@@ -27,7 +28,8 @@ export type ICart = [
     _id: string;
     amount: number;
     itemQuantity: number;
-    stripeProductId: string;
+    stripe_price_id: string;
+    stripe_product_id: string;
   }
 ];
 

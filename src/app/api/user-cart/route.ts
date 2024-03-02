@@ -12,7 +12,8 @@ type ICartProduct = {
   productId: string;
   amount: number;
   itemQuantity: number;
-  stripeProductId: string;
+  stripe_price_id: string;
+  stripe_product_id: string;
 };
 
 export async function PUT(req: Request) {
@@ -20,6 +21,7 @@ export async function PUT(req: Request) {
     await connectDB();
     const session = await getServerSession();
     const { product } = await req.json();
+
     if (!session) {
       return NextResponse.json(
         { message: "you have to login in" },
@@ -38,7 +40,8 @@ export async function PUT(req: Request) {
           name: product.name,
           productId: product._id,
           amount: product.amount,
-          stripeProductId: product.stripeProductId,
+          stripe_price_id: product.stripe_price_id,
+          stripe_product_id: product.stripe_product_id,
           itemQuantity: 1,
         },
       ];

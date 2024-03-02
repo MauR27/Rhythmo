@@ -7,11 +7,17 @@ export async function GET(req: Request) {
   try {
     await connectDB();
     const session = await getServerSession();
-    const userEmail = session?.user?.email;
 
+    if (!session) {
+      return NextResponse.json({ error: "No user session" }, { status: 401 });
+    }
+
+    const userEmail = session?.user?.email;
     const user = await User.findOne({ email: userEmail });
 
-    await user.cart;
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
 
     return NextResponse.json(user.cart, { status: 200 });
   } catch (error) {

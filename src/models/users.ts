@@ -10,7 +10,8 @@ type ICartProduct = {
   productId: string;
   amount: number;
   itemQuantity: number;
-  stripeProductId: string;
+  stripe_product_id: string;
+  stripe_price_id: string;
 };
 
 export interface IUserSchema {
@@ -55,7 +56,8 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
         productId: String,
         amount: Number,
         itemQuantity: Number,
-        stripeProductId: String,
+        stripe_price_id: String,
+        stripe_product_id: String,
       },
     ],
     favoriteProduct: [
@@ -68,7 +70,6 @@ const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
         productId: String,
         amount: Number,
         itemQuantity: Number,
-        stripeProductId: String,
       },
     ],
   },

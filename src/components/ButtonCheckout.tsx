@@ -7,8 +7,13 @@ import GlobalContext from "@/context/GlobalContext";
 
 const ButtonCheckout = () => {
   const { cart } = useContext(GlobalContext);
+  console.log(cart);
+
   const cartCheckout = cart.map((item) => {
-    return { stripeId: item.stripeProductId, quantity: item.itemQuantity };
+    return {
+      stripe_price_id: item.stripe_price_id,
+      quantity: item.itemQuantity,
+    };
   });
 
   const handleCheckout = async () => {

@@ -14,7 +14,7 @@ export async function PUT(req: Request) {
       user.cart = [];
       await user.save();
 
-      return NextResponse.json(user, { status: 200 });
+      return NextResponse.json(user.cart, { status: 200 });
     } else {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }

@@ -5,6 +5,7 @@ export async function POST(req: Request) {
   const { cartCheckout } = await req.json();
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  console.log(cartCheckout);
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
@@ -12,7 +13,7 @@ export async function POST(req: Request) {
 
     line_items: cartCheckout.map((item: any) => {
       return {
-        price: item.stripeId,
+        price: item.stripe_price_id,
         quantity: item.quantity,
       };
     }),

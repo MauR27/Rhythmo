@@ -3,7 +3,7 @@ import User from "@/models/users";
 import connectDB from "@/lib/mongodb";
 import { getServerSession } from "next-auth";
 
-export async function DELETE(req: Request) {
+export async function PUT(req: Request) {
   try {
     await connectDB();
     const { _id } = await req.json();
@@ -16,7 +16,7 @@ export async function DELETE(req: Request) {
     if (removeItem) {
       user.cart = removeItem;
       await user.save();
-      return NextResponse.json(user, { status: 200 });
+      return NextResponse.json(user.cart, { status: 200 });
     } else {
       throw new Error("Item not found");
     }

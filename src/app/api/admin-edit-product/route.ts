@@ -38,6 +38,7 @@ export async function PUT(req: Request) {
     instrumentType,
     amount,
     _id,
+    stripe_product_id,
   } = await req.json();
   try {
     await connectDB();
@@ -51,15 +52,20 @@ export async function PUT(req: Request) {
     try {
       const stripePricing = price.replace(/[,.]/g, "");
 
-      const createNewPrice = await stripe.products.create({
+      await stripe.products.update(stripe_product_id, { active: false });
+
+      const createNewProduct = await stripe.products.create({
         name: name,
         default_price_data: { currency: "usd", unit_amount: stripePricing },
         images: images,
       });
 
-      const newStripeProductId = createNewPrice.default_price;
+      const new_stripe_price_id = createNewProduct.default_price;
+      const new_stripe_product_id = createNewProduct.id;
 
-      products.stripeProductId = newStripeProductId;
+      products.stripe_price_id = new_stripe_price_id;
+      products.stripe_product_id = new_stripe_product_id;
+
       await products.save();
 
       if (session) {
@@ -87,7 +93,8 @@ export async function PUT(req: Request) {
           filterProductCart.instrumentType =
             instrumentType || filterProductCart.instrumentType;
           filterProductCart.amount = amount || filterProductCart.amount;
-          filterProductCart.stripeProductId = newStripeProductId;
+          filterProductCart.stripe_price_id = new_stripe_price_id;
+          filterProductCart.stripe_product_id = new_stripe_product_id;
 
           await user.save();
         }
@@ -103,7 +110,8 @@ export async function PUT(req: Request) {
           productExists.instrumentType =
             instrumentType || productExists.instrumentType;
           productExists.amount = amount || productExists.amount;
-          productExists.stripeProductId = newStripeProductId;
+          productExists.stripe_price_id = new_stripe_price_id;
+          productExists.stripe_product_id = new_stripe_product_id;
 
           await user.save();
         }

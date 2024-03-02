@@ -51,7 +51,8 @@ type TEditProduct = {
   instrumentType: string;
   amount: number;
   _id: string;
-  stripeProductId: string;
+  stripe_price_id: string;
+  stripe_product_id: string;
 };
 
 const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
@@ -67,7 +68,8 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
     instrumentType: "",
     price: "",
     _id: "",
-    stripeProductId: "",
+    stripe_price_id: "",
+    stripe_product_id: "",
   });
 
   const toast = useToast();
@@ -171,7 +173,8 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
             instrumentType: singleProduct.instrumentType,
             price: singleProduct.price,
             _id: singleProduct._id,
-            stripeProductId: singleProduct.stripeProductId,
+            stripe_price_id: singleProduct.stripe_price_id,
+            stripe_product_id: singleProduct.stripe_product_id,
           }),
         });
 
