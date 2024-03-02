@@ -24,11 +24,11 @@ import { CiSearch } from "react-icons/ci";
 import AddFavoriteProduct from "./AddFavoriteProduct";
 import { Link } from "@chakra-ui/next-js";
 
-interface ProductsProps {
+type TProducts = {
   products: ProductsResponse;
-}
+};
 
-const NewProductCard: FC<ProductsProps> = ({ products }) => {
+const NewProductCard: FC<TProducts> = ({ products }) => {
   const [isLargerThan480] = useMediaQuery("(min-width: 480px)");
   const [hover, setHover] = useState(false);
   return (

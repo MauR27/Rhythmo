@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { ICart } from "../../types";
 
-interface IGlobalContext {
+type TGlobalContext = {
   cart: ICart | [];
   setCart: Dispatch<SetStateAction<ICart | []>>;
   cartLength: number;
@@ -23,9 +23,9 @@ interface IGlobalContext {
   setFavoriteListProductsLength: Dispatch<SetStateAction<number>>;
   favoriteProductList: ICart | [];
   setFavoriteProductList: Dispatch<SetStateAction<ICart | []>>;
-}
+};
 
-const GlobalContext = createContext<IGlobalContext>({
+const GlobalContext = createContext<TGlobalContext>({
   cart: [],
   setCart: () => {},
   favoriteProductList: [],
@@ -42,11 +42,11 @@ const GlobalContext = createContext<IGlobalContext>({
   setItemQuantity: () => 0,
 });
 
-interface GlobalContextProviderProps {
+type TGlobalContextProviderProps = {
   children: ReactNode;
-}
+};
 
-export const GlobalContextProvider: FC<GlobalContextProviderProps> = ({
+export const GlobalContextProvider: FC<TGlobalContextProviderProps> = ({
   children,
 }) => {
   const [cart, setCart] = useState<ICart | []>([]);

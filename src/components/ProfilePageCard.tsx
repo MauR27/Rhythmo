@@ -36,7 +36,7 @@ const ProfilePageCard = () => {
     onSubmit: async (values, { resetForm }) => {
       try {
         setLoading(true);
-        const fetchProfile = await fetch("http://localhost:3000/api/profile", {
+        const fetchProfile = await fetch("/api/profile", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-interface IProductsSchema {
+type TProductsSchema = {
   name: string;
   price: string;
   description: string;
@@ -10,11 +10,11 @@ interface IProductsSchema {
   amount: number;
   stripe_price_id: string;
   stripe_product_id: string;
-}
+};
 
-type UserModel = mongoose.Model<IProductsSchema, {}>;
+type UserModel = mongoose.Model<TProductsSchema, {}>;
 
-const productsSchema = new mongoose.Schema<IProductsSchema, UserModel>(
+const productsSchema = new mongoose.Schema<TProductsSchema, UserModel>(
   {
     name: {
       type: String,
@@ -48,5 +48,5 @@ const productsSchema = new mongoose.Schema<IProductsSchema, UserModel>(
 
 const Products =
   mongoose.models.Products ||
-  mongoose.model<IProductsSchema, UserModel>("Products", productsSchema);
+  mongoose.model<TProductsSchema, UserModel>("Products", productsSchema);
 export default Products;

@@ -19,8 +19,7 @@ export async function PUT(req: Request) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
+    if (error instanceof Error)
+      NextResponse.json({ error: error }, { status: 404 });
   }
 }

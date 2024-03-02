@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   try {
     await connectDB();
 
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
     const stripePricing = price.replace(/[,.]/g, "");
     const stripeNewProduct = await stripe.products.create({
       name: name,

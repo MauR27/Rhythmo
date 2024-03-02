@@ -15,7 +15,7 @@ export async function PUT(req: Request) {
 
       await Products.deleteOne({ _id });
 
-      // Delete product from cart, and favoriteProduct as well
+      // Delete product from cart, and favoriteProduct as well ↓↓
 
       await User.updateOne(
         { email: userEmail },

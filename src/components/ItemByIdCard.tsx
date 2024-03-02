@@ -1,16 +1,16 @@
 "use client";
 
 import { FC } from "react";
-import { Product } from "../../types";
+import { TProduct } from "../../types";
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-interface IItem {
-  item: Product;
-}
+type TProduct = {
+  item: TProduct;
+};
 
-const ItemByIdCard: FC<IItem> = ({ item }) => {
+const ItemByIdCard: FC<TProduct> = ({ item }) => {
   return (
     <>
       <Flex flexDir={"column"}>

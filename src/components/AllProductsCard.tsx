@@ -21,11 +21,11 @@ import { CiSearch } from "react-icons/ci";
 import AddFavoriteProduct from "./AddFavoriteProduct";
 import AddToCart from "./AddToCart";
 
-interface ProductsTypeProps {
+type TProductsTypeProps = {
   products: ProductsResponse;
-}
+};
 
-const AllProductsCard: FC<ProductsTypeProps> = ({ products }) => {
+const AllProductsCard: FC<TProductsTypeProps> = ({ products }) => {
   return (
     <Box minH="100vh">
       <Flex gap={4} justify="center" maxW="full" flexWrap="wrap">

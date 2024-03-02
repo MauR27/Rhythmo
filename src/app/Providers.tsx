@@ -6,9 +6,9 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 import { GlobalContextProvider } from "@/context/GlobalContext";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
-}
+};
 
 const breakpoints = {
   base: "0em",

@@ -22,19 +22,17 @@ import { CiSearch } from "react-icons/ci";
 import AddFavoriteProduct from "./AddFavoriteProduct";
 import { Link } from "@chakra-ui/next-js";
 
-interface ProductsTypeProps {
+type TProducts = {
   params: string;
-}
+};
 
-const ProductsByTypeCard: FC<ProductsTypeProps> = ({ params }) => {
+const ProductsByTypeCard: FC<TProducts> = ({ params }) => {
   const [products, setProducts] = useState<ProductsResponse>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(
-        `http://localhost:3000/api/get-all-products/by-type?q=${params}`
-      );
+      const response = await fetch(`/api/get-all-products/by-type?q=${params}`);
       const products: ProductsResponse = await response.json();
 
       setProducts(products);

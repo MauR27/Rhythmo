@@ -16,22 +16,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { useState, useCallback, useEffect, ChangeEvent } from "react";
+import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import * as yup from "yup";
-
-interface IinitialValues {
-  productName: string;
-  price: string;
-  description: string;
-  brand: string;
-  images: string[];
-  instrumentType: string;
-  amount: number;
-}
+import { TFormikIinitialValues } from "../../../../types";
 
 const AddInstruments = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [files, setFiles] = useState([]);
 
   const toast = useToast();
@@ -45,7 +36,6 @@ const AddInstruments = () => {
       instrumentType: "",
       amount: 0,
     },
-
     validationSchema: yup.object({
       productName: yup
         .string()
@@ -63,8 +53,11 @@ const AddInstruments = () => {
       amount: yup.number().required(),
     }),
 
-    onSubmit: async (values: IinitialValues) => {
+    onSubmit: async (values: TFormikIinitialValues) => {
       setIsLoading(true);
+
+      //  Uploading Images to cloudinary ↓↓
+
       try {
         if (files) {
           if (!files.length) {
@@ -75,7 +68,7 @@ const AddInstruments = () => {
           if (files.length > 0) {
             const formData = new FormData();
             const images = formik.values.images;
-            const url: string = process.env.NEXT_PUBLIC_CLOUDINARY_URL!;
+            const url: string = process.env.NEXT_PUBLIC_CLOUDINARY_URL || "";
 
             for (let i: number = 0; i < files.length; i++) {
               formData.append("file", files[i]);
@@ -103,26 +96,34 @@ const AddInstruments = () => {
           }
         }
       } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+          console.log(error.message);
+        }
       }
+
+      // Sending images to data base ↓↓
+
       try {
         const promise = await Promise.all(formik.values.images);
         if (promise) {
-          const res = await fetch("/api/products", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              name: formik.values.productName,
-              price: formik.values.price,
-              description: formik.values.description,
-              brand: formik.values.brand,
-              images: formik.values.images,
-              instrumentType: formik.values.instrumentType,
-              amount: formik.values.amount,
-            }),
-          });
+          const res = await fetch(
+            "http://localhost:3000/api/admin/add-products",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name: formik.values.productName,
+                price: formik.values.price,
+                description: formik.values.description,
+                brand: formik.values.brand,
+                images: formik.values.images,
+                instrumentType: formik.values.instrumentType,
+                amount: formik.values.amount,
+              }),
+            }
+          );
           if (res.ok) {
             setIsLoading(false);
             toast({
@@ -144,7 +145,7 @@ const AddInstruments = () => {
     },
   });
 
-  // Drop Zone Image
+  // Drop Zone Image ↓↓
 
   const onDrop = useCallback((acceptedFiles: any) => {
     if (acceptedFiles?.length) {
@@ -162,6 +163,8 @@ const AddInstruments = () => {
       "image/*": [],
     },
   });
+
+  // Remove Drop Zone Images ↓↓
 
   const removeFile = (name: string) => {
     setFiles((files) => files.filter((file: any) => file.name !== name));

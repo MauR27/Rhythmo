@@ -53,17 +53,6 @@ export async function PUT(req: Request) {
         status: 201,
         statusText: "Item added successfully!",
       });
-
-      // const productCartExists = user.cart.find(
-      //   (cartProduct: ICartProduct) => cartProduct.productId === product._id
-      // );
-      // if (!productCartExists) {
-      // } else {
-      //   return NextResponse.json(
-      //     { message: "Product already exists in the cart" },
-      //     { status: 409, statusText: "Item already exists in your cart!" }
-      //   );
-      // }
     }
   } catch (error) {
     if (error instanceof Error) {

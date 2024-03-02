@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   GridItem,
@@ -9,9 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { FC, useContext, useEffect, useState } from "react";
 import GlobalContext from "@/context/GlobalContext";
-import ButtonCheckout from "./ButtonCheckout";
 
-interface IAmount {
+type TProductsCart = {
   cart: {
     brand: string;
     images: string[];
@@ -23,9 +21,9 @@ interface IAmount {
     amount: number;
     itemQuantity: number;
   };
-}
+};
 
-const QuantityItem: FC<IAmount> = ({ cart }) => {
+const QuantityItem: FC<TProductsCart> = ({ cart }) => {
   const { setSubTotal, setTotalPrice, setCart } = useContext(GlobalContext);
   const valueInitial = cart.itemQuantity;
   const [number, setNumber] = useState<number>(valueInitial);

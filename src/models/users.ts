@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-type ICartProduct = {
+type TCartProduct = {
   name: string;
   price: string;
   brand: string;
@@ -14,7 +14,7 @@ type ICartProduct = {
   stripe_price_id: string;
 };
 
-export interface IUserSchema {
+export type TUserSchema = {
   name: string;
   email: string;
   password: string;
@@ -22,16 +22,16 @@ export interface IUserSchema {
   googleId: string;
   resetToken: string;
   resetTokenExpires: Date;
-  cart: ICartProduct;
-  favoriteProduct: ICartProduct;
-}
-interface IuserMethods {
+  cart: TCartProduct;
+  favoriteProduct: TCartProduct;
+};
+type TUserMethods = {
   mathPassword(enterePassword: string): string;
-}
+};
 
-type UserModel = mongoose.Model<IUserSchema, {}, IuserMethods>;
+type UserModel = mongoose.Model<TUserSchema, {}, TUserMethods>;
 
-const userSchema = new mongoose.Schema<IUserSchema, UserModel, IuserMethods>(
+const userSchema = new mongoose.Schema<TUserSchema, UserModel, TUserMethods>(
   {
     name: { type: String, required: [true, "Name is required"] },
     email: {
@@ -99,5 +99,5 @@ userSchema.method("matchPassword", async function (enterePassword: string) {
 
 const User =
   mongoose.models.User ||
-  mongoose.model<IUserSchema, UserModel>("User", userSchema);
+  mongoose.model<TUserSchema, UserModel>("User", userSchema);
 export default User;

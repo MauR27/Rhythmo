@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import Products from "@/models/products";
 import connectDB from "@/lib/mongodb";
-import { Product } from "../../../../../types";
+import { TProduct } from "../../../../../types";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -16,7 +16,7 @@ export async function GET(req: Request) {
       if (paramsName) {
         const regex: RegExp = new RegExp(paramsName, "i");
 
-        const filteredProduct = productsSort.filter((item: Product) => {
+        const filteredProduct = productsSort.filter((item: TProduct) => {
           const searchingByName = item.name;
           const searchingByType = item.instrumentType;
 

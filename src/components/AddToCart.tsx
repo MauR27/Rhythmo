@@ -2,22 +2,22 @@
 
 import { Button, Icon, useToast, Tooltip } from "@chakra-ui/react";
 import { FC, useContext } from "react";
-import { Product } from "../../types";
+import { TProduct } from "../../types";
 import GlobalContext from "@/context/GlobalContext";
 import { PiShoppingCartSimpleThin } from "react-icons/pi";
 
-interface ProductsProps {
-  product: Product;
-}
+type TProductsProps = {
+  product: TProduct;
+};
 
-const AddToCart: FC<ProductsProps> = ({ product }) => {
+const AddToCart: FC<TProductsProps> = ({ product }) => {
   const toast = useToast();
 
   const { setCartLength } = useContext(GlobalContext);
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/user-cart", {
+      const response = await fetch("/api/user-cart", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

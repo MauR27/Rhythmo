@@ -161,7 +161,7 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
       const promise = await Promise.all(singleProduct.images);
 
       if (promise) {
-        const res = await fetch("/api/admin-edit-product", {
+        const res = await fetch("/api/admin/edit-products", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

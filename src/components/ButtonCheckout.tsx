@@ -2,7 +2,7 @@
 
 import { Button, Flex } from "@chakra-ui/react";
 import React, { FC, useContext } from "react";
-import { ICart, Product } from "../../types";
+import { ICart, TProduct } from "../../types";
 import GlobalContext from "@/context/GlobalContext";
 
 const ButtonCheckout = () => {

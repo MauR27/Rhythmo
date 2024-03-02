@@ -14,17 +14,18 @@ import {
 import { FC, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-interface ICartItem {
+type TProductId = {
   _id: string;
-}
+};
 
-const DeleteProducts: FC<ICartItem> = ({ _id }) => {
+const DeleteProducts: FC<TProductId> = ({ _id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const cancelRef = useRef();
   const router = useRouter();
   const handleDeleteProduct = async () => {
     try {
-      const res = await fetch("/api/admin-delete-products", {
+      const res = await fetch("/api/admin/delete-products", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

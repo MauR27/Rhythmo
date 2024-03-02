@@ -3,7 +3,7 @@ export type UserType = {
   email: string | null;
   password: string | null;
 };
-export type Product = {
+export type TProduct = {
   name: string;
   price: string;
   description: string;
@@ -33,4 +33,14 @@ export type ICart = [
   }
 ];
 
-export type ProductsResponse = Product[];
+export type ProductsResponse = TProduct[];
+
+export type TFormikIinitialValues = {
+  productName: string;
+  price: string;
+  description: string;
+  brand: string;
+  images: string[];
+  instrumentType: string;
+  amount: number;
+};

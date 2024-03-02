@@ -45,7 +45,7 @@ export async function PUT(req: Request) {
     const session = await getServerSession();
 
     const products = await Products.findById({ _id });
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
     // CREATING A NEW STRIPE PRODUCT WITH NEW PRODUCT UPDATED ↓↓
 

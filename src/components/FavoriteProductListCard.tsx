@@ -30,9 +30,7 @@ const FavoriteProductListCard = () => {
 
   useEffect(() => {
     const fetchCartLength = async () => {
-      const response = await fetch(
-        "http://localhost:3000/api/get-favorite-list-length"
-      );
+      const response = await fetch("/api/get-favorite-list-length");
       const cartLength: number = await response.json();
 
       return setFavoriteListProductsLength(cartLength);

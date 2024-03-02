@@ -1,30 +1,27 @@
 import { Button, Icon, Tooltip, useToast } from "@chakra-ui/react";
 import React, { FC, useContext, useEffect } from "react";
-import { Product } from "../../types";
+import { TProduct } from "../../types";
 import { PiHeartThin } from "react-icons/pi";
 import GlobalContext from "@/context/GlobalContext";
 
-interface ProductsProps {
-  product: Product;
-}
+type TProductsProps = {
+  product: TProduct;
+};
 
-const AddFavoriteProduct: FC<ProductsProps> = ({ product }) => {
+const AddFavoriteProduct: FC<TProductsProps> = ({ product }) => {
   const toast = useToast();
   const { setFavoriteListProductsLength } = useContext(GlobalContext);
 
   const fetchData = async () => {
-    const response = await fetch(
-      "http://localhost:3000/api/profile/favorite-products",
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          product,
-        }),
-      }
-    );
+    const response = await fetch("/api/profile/favorite-products", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product,
+      }),
+    });
 
     if (response.ok) {
       const data = await response.json();

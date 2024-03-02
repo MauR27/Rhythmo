@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { Link } from "@chakra-ui/next-js";
-import { IUserSchema } from "@/models/users";
+import { TUserSchema } from "@/models/users";
 
 type TParamsResetPasswordToken = {
   token: string;

@@ -12,15 +12,13 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-// import { useRouter } from "next/router";
-import { useRouter } from "next/navigation";
 import { FC, useContext, useRef } from "react";
 
-interface ICartItem {
+type TProductId = {
   _id: string;
-}
+};
 
-const RemoveItemCart: FC<ICartItem> = ({ _id }) => {
+const RemoveItemCart: FC<TProductId> = ({ _id }) => {
   const { setCartLength, setCart } = useContext(GlobalContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
