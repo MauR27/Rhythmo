@@ -16,21 +16,25 @@ import GlobalContext from "@/context/GlobalContext";
 import OrderSummary from "./OrderSummary";
 
 const CartPage = () => {
-  const { setCart, totalPrice } = useContext(GlobalContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const { setCart, cart } = useContext(GlobalContext);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       try {
-        const response = await fetch("http://localhost:3000/api/get-user-cart");
+        const response = await fetch("api/get-user-cart");
         const userCart = await response.json();
 
-        setCart(userCart);
+        if (response.ok) {
+          setCart(userCart);
+          setIsLoading(false);
+        }
       } catch (error) {
         if (error instanceof Error) console.log(error.message);
       }
     })();
-    setIsLoading(true);
-  }, [setCart, totalPrice]);
+  }, [setCart]);
 
   return (
     <Grid minH="calc(100vh - 11rem)" templateColumns="repeat(3, 1fr)">
@@ -70,7 +74,7 @@ const CartPage = () => {
           </List>
         </Box>
         <Divider mt="1rem" borderColor="gray" />
-        <CartPageCard isLoading={isLoading} />
+        <CartPageCard isLoading={isLoading} cart={cart} />
       </GridItem>
       <GridItem colSpan={1} justifyContent="center" pt="30px">
         <OrderSummary />
