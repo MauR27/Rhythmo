@@ -15,7 +15,7 @@ export async function PUT(req: Request) {
 
       await Products.deleteOne({ _id });
 
-      // Delete product from cart, and favoriteProduct aswell
+      // Delete product from cart, and favoriteProduct as well
 
       await User.updateOne(
         { email: userEmail },
@@ -27,7 +27,10 @@ export async function PUT(req: Request) {
         }
       );
 
-      return NextResponse.json({}, { status: 209 });
+      return NextResponse.json(
+        { message: "Product deleted successfully" },
+        { status: 200 }
+      );
     }
   } catch (error) {
     if (error instanceof Error) {

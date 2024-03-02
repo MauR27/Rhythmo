@@ -36,6 +36,7 @@ import {
 } from "@chakra-ui/react";
 import { fetchItemById } from "./ItemById";
 import { useDropzone } from "react-dropzone";
+import DeleteProducts from "./DeleteProducts";
 
 type TProductsTypeProps = {
   products: ProductsResponse;
@@ -68,6 +69,7 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
     _id: "",
     stripeProductId: "",
   });
+
   const toast = useToast();
 
   useEffect(() => {
@@ -94,22 +96,6 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
     }
   };
 
-  const handleDeleteProduct = async (_id: string) => {
-    try {
-      await fetch("/api/admin-delete-products", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          _id,
-        }),
-      });
-      // await fetch("/api/get-cart-length");
-    } catch (error) {
-      if (error instanceof Error) console.log(error.message);
-    }
-  };
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -260,12 +246,11 @@ const AdminDashboardCard: FC<TProductsTypeProps> = ({ products }) => {
               Edit Product
             </Button>
 
-            <Button onClick={() => handleDeleteProduct(data._id)}>
-              Delete
-            </Button>
+            <DeleteProducts _id={data._id} />
           </CardFooter>
         </Card>
       ))}
+
       <section about="Edit_Products_Modal">
         <Modal
           isOpen={isOpen}

@@ -1,5 +1,6 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect } from "react";
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -26,6 +27,16 @@ type TIsloading = {
 
 const CartPageCard: FC<TIsloading> = ({ isLoading }) => {
   const { cart } = useContext(GlobalContext);
+
+  const handleClearCart = async () => {
+    try {
+      await fetch("/api/clear-all-cart", { method: "PUT" });
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+  };
 
   if (!isLoading) {
     return <Spinner />;
@@ -108,6 +119,9 @@ const CartPageCard: FC<TIsloading> = ({ isLoading }) => {
           <QuantityItem cart={product} />
         </Grid>
       ))}
+      <Box>
+        <Button onClick={handleClearCart}>Clear all</Button>
+      </Box>
     </>
   );
 };
