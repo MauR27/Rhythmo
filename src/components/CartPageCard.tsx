@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -20,30 +20,22 @@ import RemoveItemCart from "./RemoveItemCart";
 import GlobalContext from "@/context/GlobalContext";
 import { CiSearch } from "react-icons/ci";
 import QuantityItem from "./QuantityItem";
+import ClearAllCart from "./ClearAllCart";
+import { ICart } from "../../types";
+import { useRouter } from "next/navigation";
 
 type TIsloading = {
   isLoading: boolean;
+  cart: any;
 };
 
-const CartPageCard: FC<TIsloading> = ({ isLoading }) => {
-  const { cart } = useContext(GlobalContext);
-
-  const handleClearCart = async () => {
-    try {
-      await fetch("/api/clear-all-cart", { method: "PUT" });
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message);
-      }
-    }
-  };
-
-  if (!isLoading) {
+const CartPageCard: FC<TIsloading> = ({ isLoading, cart }) => {
+  if (isLoading) {
     return <Spinner />;
   }
   return (
     <>
-      {cart.map((product) => (
+      {cart.map((product: any) => (
         <Grid
           pl="1em"
           templateColumns="repeat(5, 1fr)"
@@ -120,7 +112,7 @@ const CartPageCard: FC<TIsloading> = ({ isLoading }) => {
         </Grid>
       ))}
       <Box>
-        <Button onClick={handleClearCart}>Clear all</Button>
+        <ClearAllCart />
       </Box>
     </>
   );
