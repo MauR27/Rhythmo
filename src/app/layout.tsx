@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import NavbarPageRender from "../components/NavbarPageRender";
 import type { Metadata } from "next";
 import Providers from "./Providers";
 
@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <Navbar admin={admin} />
+          <NavbarPageRender admin={admin} />
           {children}
         </Providers>
       </body>

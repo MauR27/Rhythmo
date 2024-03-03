@@ -1,10 +1,10 @@
-import AllProducts from "@/components/AllProducts";
+import ProductsRenderAllPage from "@/components/products/ProductsRenderAllPage";
 import React from "react";
 
 const AllProductsPage = () => {
   return (
     <>
-      <AllProducts />
+      <ProductsRenderAllPage />
     </>
   );
 };

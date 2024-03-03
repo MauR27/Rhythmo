@@ -1,9 +1,9 @@
-import CartPage from "@/components/CartPage";
+import CartPageRender from "@/components/cart/CartPageRender";
 
 const CartHome = () => {
   return (
     <>
-      <CartPage />
+      <CartPageRender />
     </>
   );
 };

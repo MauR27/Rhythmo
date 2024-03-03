@@ -10,8 +10,8 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import Login from "@/components/Login";
 import { useState } from "react";
+import SignInRenderForm from "@/components/auth/SignInRenderForm";
 
 const LoginModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,7 +36,7 @@ const LoginModal = () => {
           <ModalHeader>Log In</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Login />
+            <SignInRenderForm />
           </ModalBody>
         </ModalContent>
       </Modal>

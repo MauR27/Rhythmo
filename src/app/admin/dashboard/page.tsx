@@ -1,10 +1,10 @@
-import AdminDashboard from "@/components/AdminDashboard";
+import AdminRenderDashboardPage from "@/components/admin/AdminRenderDashboardPage";
 import React from "react";
 
 const AdminDashboardPage = () => {
   return (
     <>
-      <AdminDashboard />
+      <AdminRenderDashboardPage />
     </>
   );
 };

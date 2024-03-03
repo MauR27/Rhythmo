@@ -1,13 +1,13 @@
-import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
-import NewProducts from "@/components/NewProducts";
+import FooterPageRender from "@/components/FooterPageRender";
+import HeroPageRender from "@/components/HeroPageRender";
+import ProductsHomeRenderPage from "@/components/products/ProductsHomeRenderPage";
 
 export default function HomePage() {
   return (
     <div>
-      <Hero />
-      <NewProducts />
-      <Footer />
+      <HeroPageRender />
+      <ProductsHomeRenderPage />
+      <FooterPageRender />
     </div>
   );
 }

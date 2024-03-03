@@ -1,10 +1,10 @@
-import FavoriteProductListPage from "@/components/FavoriteProductListPage";
+import FavoriteProductsRenderPage from "@/components/user/FavoriteProductsRenderPage";
 import React from "react";
 
 const FavoriteProducts = () => {
   return (
     <div>
-      <FavoriteProductListPage />
+      <FavoriteProductsRenderPage />
     </div>
   );
 };

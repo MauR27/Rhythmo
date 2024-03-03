@@ -1,11 +1,11 @@
-import ItemById from "@/components/ItemById";
+import ProductsFullViewPage from "@/components/products/ProductsFullViewPage";
 
 const InstrumentPage = ({ params }: { params: { id: string } }) => {
   const paramsId: string = params.id;
 
   return (
     <>
-      <ItemById params={paramsId} />
+      <ProductsFullViewPage params={paramsId} />
     </>
   );
 };
