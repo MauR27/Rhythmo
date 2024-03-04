@@ -1,34 +1,18 @@
 "use client";
 
 import DropDownButton from "@/utils/DropDownButton";
-import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  useBreakpointValue,
-  useMediaQuery,
-} from "@chakra-ui/react";
-import DrawerButton from "@/utils/DrawerButton";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 import SearchCollapse from "@/utils/SearchCollapse";
 import ProductsCategoriesNavRender from "./products/ProductsCategoriesNavRender";
 import CartNavButton from "./cart/CartNavButton";
-import { Link } from "@chakra-ui/next-js";
 import { FC } from "react";
+import { Link } from "@chakra-ui/next-js";
 
 type TAdminRole = {
   admin: string;
 };
 
 const NavbarPageRender: FC<TAdminRole> = ({ admin }) => {
-  // Responsive break points ↓↓
-
-  const titleText = useBreakpointValue({
-    base: "1.5em",
-    sm: "2em",
-  });
-  const [isLargerThan480] = useMediaQuery("(min-width: 480px)");
-
   return (
     <Flex
       as="nav"
@@ -37,22 +21,22 @@ const NavbarPageRender: FC<TAdminRole> = ({ admin }) => {
       py="4"
       h="52"
       justify="space-between"
-      bg="mainColor.white"
-      boxShadow="md"
+      bg="white"
+      boxShadow="lg"
     >
-      <Flex justify="space-between" alignItems="center">
-        <Link href="/" _hover={{}}>
-          <Heading color="brand.cyan2" fontSize={titleText}>
-            <Text>Rhythmo</Text>
+      <Flex justify="space-between" alignItems="center" h="4rem">
+        <Link href="/" _hover={{ textDecor: "none" }}>
+          <Heading color="brand.cyan2" fontSize={["1em", "1.5em"]}>
+            <Text>RhythmO</Text>
           </Heading>
         </Link>
-        <Flex gap={4}>
+        <Flex gap={4} zIndex={1} align="center">
           <SearchCollapse />
           <DropDownButton admin={admin} />
           <CartNavButton />
         </Flex>
       </Flex>
-      {isLargerThan480 ? <ProductsCategoriesNavRender /> : <DrawerButton />}
+      <ProductsCategoriesNavRender />
     </Flex>
   );
 };

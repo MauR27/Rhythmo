@@ -3,6 +3,8 @@ import { PiShoppingCartSimpleThin } from "react-icons/pi";
 import { useContext, useEffect } from "react";
 import GlobalContext from "@/context/GlobalContext";
 import { Link } from "@chakra-ui/next-js";
+import { FiShoppingCart } from "react-icons/fi";
+import { LiaShoppingCartSolid } from "react-icons/lia";
 
 const CartNavButton = () => {
   const { cartLength, setCartLength } = useContext(GlobalContext);
@@ -19,24 +21,29 @@ const CartNavButton = () => {
   }, [setCartLength]);
 
   return (
-    <Link display="flex" alignItems="center" href="/pages/cart">
-      <Icon
-        as={PiShoppingCartSimpleThin}
-        w={[6, 7]}
-        h={[6, 7]}
-        _hover={{ color: "cyan.600" }}
-        transition=".3s"
-      />
-      <Badge
-        position="absolute"
-        bg="cyan.300"
-        borderRadius="full"
-        right="5"
-        top="5"
-      >
-        {cartLength}
-      </Badge>
-    </Link>
+    <section about="cart section">
+      <Link href="/pages/cart">
+        <Icon
+          display="flex"
+          as={LiaShoppingCartSolid}
+          color="brand.gray"
+          w={[6, 7, 8]}
+          h={[6, 7, 8]}
+          _hover={{ color: "brand.cyan" }}
+          transition=".3s"
+        />
+        <Badge
+          position="absolute"
+          bg="brand.cyan2"
+          color="white"
+          borderRadius="full"
+          right="5"
+          top="8"
+        >
+          {cartLength}
+        </Badge>
+      </Link>
+    </section>
   );
 };
 

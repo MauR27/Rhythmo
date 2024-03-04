@@ -24,6 +24,7 @@ const colors = {
     white: "#ffffff",
     cyan: "#5DBCDF",
     cyan2: "#0093C9",
+    gray: "RGBA(0, 0, 0, 0.64)",
   },
 };
 const theme = extendTheme({

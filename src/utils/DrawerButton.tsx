@@ -1,41 +1,46 @@
 import {
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   Flex,
   Icon,
-  IconButton,
-  Input,
-  Link,
   List,
   ListItem,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { instrumentTypes } from "@/components/products/ProductsCategoriesNavRender";
+import { Link } from "@chakra-ui/next-js";
 
 const DrawerButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [onClickFocus, setOnClickFocus] = useState("");
+
+  const handleDrawer = (type: string) => {
+    setOnClickFocus(type);
+    onClose();
+  };
+
   const btnRef = React.useRef(null);
   return (
     <>
-      <Flex gap={2}>
+      <Flex gap={2} align="center">
         <Icon
           as={RxHamburgerMenu}
           onClick={onOpen}
           cursor="pointer"
-          h={6}
-          w={6}
+          h={5}
+          w={5}
         />
-        <Text>Categories</Text>
+        <Text fontSize="12px">Categories</Text>
       </Flex>
       <Drawer
+        size="xs"
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
@@ -44,23 +49,35 @@ const DrawerButton = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Categories</DrawerHeader>
+          <DrawerHeader fontSize="14">Categories</DrawerHeader>
 
-          <DrawerBody>
-            <Input type="text" placeholder="Search an instrument" />
-            <List gap={10}>
-              <ListItem>
-                <Link href="/products/electric-guitars">Electric Guitars</Link>
-              </ListItem>
-              <ListItem>
-                <Link href="/products/electric-bass">Electric Bass</Link>
-              </ListItem>
-              <ListItem>
-                <Link href="/products/electric-drums">Electric Drums</Link>
-              </ListItem>
-              <ListItem>
-                <Link href="/products/acoustic-drums">Acoustic Drums</Link>
-              </ListItem>
+          <DrawerBody fontSize="12px" p={0}>
+            <List display="flex" flexDir="column" gap={5}>
+              {instrumentTypes.map((type, index) => (
+                <ListItem
+                  onClick={() => handleDrawer(type.name)}
+                  pl={5}
+                  display="flex"
+                  alignItems="center"
+                  borderRight={onClickFocus === type.name ? "10px solid" : ""}
+                  borderColor={onClickFocus === type.name ? "brand.cyan" : ""}
+                  boxShadow={
+                    onClickFocus === type.name
+                      ? "0px 5px 5px 0px  rgba(59, 153, 187, 0.5)"
+                      : ""
+                  }
+                  h={10}
+                  key={index}
+                  as={Link}
+                  href={`/pages/products/${type.path}`}
+                  _hover={{
+                    textDecor: "none",
+                    boxShadow: "0px 10px 10px 0px rgba(59, 153, 187, 0.5)",
+                  }}
+                >
+                  {type.name}
+                </ListItem>
+              ))}
             </List>
           </DrawerBody>
         </DrawerContent>

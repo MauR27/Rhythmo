@@ -5,9 +5,8 @@ const SearchBackground = () => {
     <Flex
       zIndex={-1}
       h="100vh"
-      bg="blackAlpha.500"
       position="fixed"
-      opacity=".5"
+      opacity="0"
       right="0"
       left="0"
       mt="-24px"

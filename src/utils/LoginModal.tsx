@@ -10,23 +10,14 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import SignInRenderForm from "@/components/auth/SignInRenderForm";
 
 const LoginModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [loading, setLoading] = useState(false);
 
   return (
     <>
-      <Box
-        onClick={onOpen}
-        minW="full"
-        minH="full"
-        px={3}
-        py="6px"
-        fontWeight="semibold"
-      >
+      <Box onClick={onOpen} minW="full" minH="full" px={3} py="6px">
         Sign In
       </Box>
 

@@ -1,94 +1,60 @@
-// import { Link } from "@chakra-ui/next-js";
 import { Link } from "@chakra-ui/next-js";
-import { Flex, List, ListItem, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, List, ListItem, useMediaQuery } from "@chakra-ui/react";
+import DrawerButton from "@/utils/DrawerButton";
+import { useState } from "react";
 
+export const instrumentTypes = [
+  { name: "All Products", path: "all" },
+  { name: "Electric Guitars", path: "electric-guitars" },
+  { name: "Electric Bass", path: "electric-bass" },
+  { name: "Electric Drums", path: "electric-drums" },
+  { name: "Acoustic Drums", path: "acoustic-drums" },
+];
 const ProductsCategoriesNavRender = () => {
-  const instrumentsText = useBreakpointValue({
-    base: ".7em",
-    md: "1em",
-  });
+  const [isLargerThan580] = useMediaQuery("(max-width: 580px)");
+  const [onClickFocus, setOnClickFocus] = useState("");
 
   return (
-    <Flex justify="center" py={2} px={4}>
-      <List as={Flex} gap={10} fontSize={instrumentsText}>
-        <ListItem>
-          <Link
-            pb={6}
-            px={2}
-            fontWeight="semibold"
-            href="/pages/products/all"
-            _hover={{
-              color: "cyan.600",
-              borderBottom: "2px solid black",
-              bg: "gray.100",
-            }}
+    <>
+      <Flex justify={!isLargerThan580 ? "center" : "start"} py={2} px={4}>
+        {!isLargerThan580 ? (
+          <List
+            as={Flex}
+            gap={[0, 5, 10]}
+            fontSize={["10px", "12px", "16px"]}
+            fontWeight="normal"
+            whiteSpace="nowrap"
           >
-            All Products
-          </Link>
-        </ListItem>
-
-        <ListItem>
-          <Link
-            pb={6}
-            px={2}
-            fontWeight="semibold"
-            href="/pages/products/electric-guitars"
-            _hover={{
-              color: "cyan.600",
-              borderBottom: "2px solid black",
-              bg: "gray.100",
-            }}
-          >
-            Electric Guitars
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link
-            pb={6}
-            px={2}
-            fontWeight="semibold"
-            href="/pages/products/electric-bass"
-            _hover={{
-              color: "cyan.600",
-              borderBottom: "2px solid black",
-              bg: "gray.100",
-            }}
-          >
-            Electric Bass
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link
-            pb={6}
-            px={2}
-            fontWeight="semibold"
-            href="/pages/products/electric-drums"
-            _hover={{
-              color: "cyan.600",
-              borderBottom: "2px solid black",
-              bg: "gray.100",
-            }}
-          >
-            Electric Drums
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link
-            pb={6}
-            px={2}
-            fontWeight="semibold"
-            href="/pages/products/acoustic-drums"
-            _hover={{
-              color: "cyan.600",
-              borderBottom: "2px solid black",
-              bg: "gray.100",
-            }}
-          >
-            Acoustic Drums
-          </Link>
-        </ListItem>
-      </List>
-    </Flex>
+            {instrumentTypes.map((type, index) => (
+              <ListItem key={index}>
+                <Link
+                  pb={6}
+                  px={2}
+                  onClick={() => setOnClickFocus(type.name)}
+                  href={`/pages/products/${type.path}`}
+                  boxShadow={
+                    onClickFocus === type.name
+                      ? "0px 15px 10px -10px  rgba(59, 153, 187, 0.5)"
+                      : "none"
+                  }
+                  color={onClickFocus === type.name ? "brand.cyan2" : "black"}
+                  _hover={{
+                    color: "brand.cyan2",
+                    bg: "none",
+                    borderRadius: "5px",
+                    boxShadow: "0px 23px 15px -10px  rgba(59, 153, 187, 0.5)",
+                  }}
+                >
+                  {type.name}
+                </Link>
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <DrawerButton />
+        )}
+      </Flex>
+    </>
   );
 };
 
