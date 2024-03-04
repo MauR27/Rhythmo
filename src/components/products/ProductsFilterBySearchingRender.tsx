@@ -125,7 +125,7 @@ const ProductsFilterBySearchingRender: FC<TParamsSearch> = ({ params }) => {
                         >
                           <Button
                             as={Link}
-                            href={`/instrument/${product._id}`}
+                            href={`/pages/products/fullview/${product._id}`}
                             borderRadius="none"
                             bg="white"
                             p={0}

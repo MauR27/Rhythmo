@@ -1,39 +1,15 @@
-import {
-  Box,
-  Button,
-  Collapse,
-  Flex,
-  Icon,
-  Input,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { FC, FormEvent, useEffect, useState } from "react";
+import { Box, Flex, Icon, useDisclosure } from "@chakra-ui/react";
+import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
 import { CiSearch } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
-import SearchBg from "./SearchBg";
-import { redirect, useRouter } from "next/navigation";
-import { ProductsResponse } from "../../types";
-// import { useRouter } from "next/router";
-
-type TParamsSearch = {
-  params: string;
-};
-
-// const fetchInstruments = async (instrument: string) => {
-//   const response = await fetch(
-//     `http://localhost:3000/api/products/by-search?q=${instrument}`
-//   );
-//   // await new Promise((resolve) => setTimeout(resolve, 1000));
-//   const products: ProductsResponse = await response.json();
-
-//   return products;
-// };
+import SearchBackground from "./SearchBackground";
+import { useRouter } from "next/navigation";
 
 const SearchCollapse = () => {
   const { getButtonProps, getDisclosureProps, isOpen, onClose } =
     useDisclosure();
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState<string>("");
   const [hidden, setHidden] = useState(!isOpen);
 
   const router = useRouter();
@@ -73,7 +49,7 @@ const SearchCollapse = () => {
               as={CiSearch}
               w={[6, 7]}
               h={[6, 7]}
-              _hover={{ cursor: "pointer", color: "cyan.600" }}
+              _hover={{ cursor: "pointer", color: "brand.orange" }}
               transition=".3s"
             />
           ) : (
@@ -87,7 +63,7 @@ const SearchCollapse = () => {
                 transition=".3s"
               />
               <Box {...getButtonProps()}>
-                <SearchBg />
+                <SearchBackground />
               </Box>
             </>
           )}

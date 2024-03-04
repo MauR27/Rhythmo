@@ -1,6 +1,7 @@
 import NavbarPageRender from "../components/NavbarPageRender";
 import type { Metadata } from "next";
 import Providers from "./Providers";
+import { fonts } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Rhythmo",
@@ -14,7 +15,7 @@ export default function RootLayout({
 }) {
   const admin = process.env.ADMIN_ROLE || "";
   return (
-    <html lang="en">
+    <html lang="en" className={fonts.nunito.variable}>
       <body>
         <Providers>
           <NavbarPageRender admin={admin} />

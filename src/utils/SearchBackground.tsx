@@ -1,6 +1,6 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
-const SearchBg = () => {
+const SearchBackground = () => {
   return (
     <Flex
       zIndex={-1}
@@ -15,4 +15,4 @@ const SearchBg = () => {
   );
 };
 
-export default SearchBg;
+export default SearchBackground;
