@@ -83,7 +83,7 @@ const DropDownButton: FC<TAdminRole> = ({ admin }) => {
                 </MenuItem>
                 <MenuItem
                   as={Link}
-                  href={`/admin/add-instruments`}
+                  href={`/admin/add-products`}
                   fontWeight="semibold"
                   _hover={{
                     bg: "cyan.700",
