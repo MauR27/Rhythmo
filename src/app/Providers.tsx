@@ -18,8 +18,17 @@ const breakpoints = {
   xl: "80em",
   "2xl": "96em",
 };
+const colors = {
+  brand: {
+    orange: "#FF9B43",
+    white: "#ffffff",
+    cyan: "#5DBCDF",
+    cyan2: "#0093C9",
+  },
+};
 const theme = extendTheme({
   breakpoints,
+  colors,
   fonts: {
     heading: "var(--font-share)",
     body: "var(--font-share)",

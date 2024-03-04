@@ -1,6 +1,6 @@
 import CartPageRender from "@/components/cart/CartPageRender";
 
-const CartHome = () => {
+const CartPage = () => {
   return (
     <>
       <CartPageRender />
@@ -8,4 +8,4 @@ const CartHome = () => {
   );
 };
 
-export default CartHome;
+export default CartPage;

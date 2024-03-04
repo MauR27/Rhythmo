@@ -11,13 +11,13 @@ import {
   Flex,
   Heading,
   Icon,
+  Spinner,
   Stack,
   Text,
   Tooltip,
 } from "@chakra-ui/react";
 import Carousel from "@/utils/ImageProductCard";
 import CartAddProducts from "../cart/CartAddProducts";
-import { PiHeartThin } from "react-icons/pi";
 import { CiSearch } from "react-icons/ci";
 import AddProductsToFavorite from "../user/AddProductsToFavorite";
 import { Link } from "@chakra-ui/next-js";
@@ -31,18 +31,23 @@ const ProductsFilterByTypeRender: FC<TProducts> = ({ params }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch(`/api/products/by-type?q=${params}`);
-      const products: ProductsResponse = await response.json();
-
-      setProducts(products);
+    try {
       setIsLoading(true);
-    })();
+      (async () => {
+        const response = await fetch(`/api/products/by-type?q=${params}`);
+        if (response.ok) {
+          const products: ProductsResponse = await response.json();
+
+          setProducts(products);
+          setIsLoading(false);
+        }
+      })();
+    } catch (error) {
+      if (error instanceof Error) return console.log(error.message);
+    }
   }, [params]);
 
-  if (!isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return <Spinner />;
 
   return (
     <Box minH="100vh">

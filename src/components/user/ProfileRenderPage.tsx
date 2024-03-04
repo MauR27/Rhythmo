@@ -11,15 +11,9 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { useFormik, useFormikContext } from "formik";
-import { useSession, signOut, getProviders } from "next-auth/react";
-import React, { useEffect, useState } from "react";
-import * as Yup from "yup";
-
-// const profileSchema = Yup.object().shape({
-//   name: Yup.string().min(2, "Too Short!").max(50, "Too Long!"),
-//   email: Yup.string().email("Invalid email"),
-// });
+import { useFormik } from "formik";
+import { useSession, signOut } from "next-auth/react";
+import React, { useState } from "react";
 
 const ProfileRenderPage = () => {
   const { data: session, update } = useSession();

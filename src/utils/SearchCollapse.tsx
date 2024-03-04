@@ -35,18 +35,13 @@ const SearchCollapse = () => {
     useDisclosure();
   const [inputText, setInputText] = useState("");
   const [hidden, setHidden] = useState(!isOpen);
-  const [refresh, setRefresh] = useState(false);
 
   const router = useRouter();
-
-  // useEffect(() => {
-  //   setRefresh(true);
-  // }, [refresh]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    router.push(`/products/search/${inputText}`);
+    router.push(`/pages/products/search/${inputText}`);
     return onClose();
   };
 

@@ -35,14 +35,14 @@ const NavbarPageRender: FC<TAdminRole> = ({ admin }) => {
       flexDir="column"
       px="6"
       py="4"
-      h="44"
+      h="52"
       justify="space-between"
-      bg="white"
+      bg="mainColor.white"
       boxShadow="md"
     >
       <Flex justify="space-between" alignItems="center">
         <Link href="/" _hover={{}}>
-          <Heading color="cyan.600" fontSize={titleText}>
+          <Heading color="brand.cyan2" fontSize={titleText}>
             <Text>Rhythmo</Text>
           </Heading>
         </Link>
@@ -52,13 +52,7 @@ const NavbarPageRender: FC<TAdminRole> = ({ admin }) => {
           <CartNavButton />
         </Flex>
       </Flex>
-      {isLargerThan480 ? (
-        <ProductsCategoriesNavRender />
-      ) : (
-        <Box>
-          <DrawerButton />
-        </Box>
-      )}
+      {isLargerThan480 ? <ProductsCategoriesNavRender /> : <DrawerButton />}
     </Flex>
   );
 };

@@ -8,7 +8,7 @@ const handler = async (req: NextRequest) => {
     return NextResponse.redirect(new URL("/", req.url));
   }
   if (
-    req.nextUrl.pathname === "/admin/add-instruments" &&
+    req.nextUrl.pathname === "/admin/add-products" &&
     session.email !== process.env.ADMIN_ROLE
   ) {
     return NextResponse.redirect(new URL("/", req.url));

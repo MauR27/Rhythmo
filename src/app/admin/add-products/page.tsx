@@ -21,7 +21,7 @@ import { useDropzone } from "react-dropzone";
 import * as yup from "yup";
 import { TFormikIinitialValues } from "../../../../types";
 
-const AddInstruments = () => {
+const AddProductsRenderForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [files, setFiles] = useState([]);
 
@@ -337,4 +337,4 @@ const AddInstruments = () => {
   );
 };
 
-export default AddInstruments;
+export default AddProductsRenderForm;

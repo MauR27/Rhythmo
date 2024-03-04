@@ -1,11 +1,9 @@
-import ProfilePageCard from "@/components/ProfilePageCard";
-import { Box, Text } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
+import ProfileRenderPage from "@/components/user/ProfileRenderPage";
 
 const ProfilePage = () => {
   return (
     <>
-      <ProfilePageCard />
+      <ProfileRenderPage />
     </>
   );
 };

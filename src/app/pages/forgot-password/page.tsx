@@ -1,10 +1,10 @@
-import ForgotPassword from "@/components/ForgotPassword";
+import ForgotPasswordRenderForm from "@/components/auth/ForgotPasswordRenderForm";
 import React from "react";
 
 const ForgotPasswordPage = () => {
   return (
     <>
-      <ForgotPassword />
+      <ForgotPasswordRenderForm />
     </>
   );
 };

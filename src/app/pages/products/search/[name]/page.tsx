@@ -1,4 +1,4 @@
-import SearchProducts from "@/components/SearchProducts";
+import ProductsFilterBySearchingRender from "@/components/products/ProductsFilterBySearchingRender";
 import React from "react";
 
 const SearchProductsPage = ({ params }: { params: { name: string } }) => {
@@ -6,7 +6,7 @@ const SearchProductsPage = ({ params }: { params: { name: string } }) => {
 
   return (
     <>
-      <SearchProducts params={paramsName} />
+      <ProductsFilterBySearchingRender params={paramsName} />
     </>
   );
 };
