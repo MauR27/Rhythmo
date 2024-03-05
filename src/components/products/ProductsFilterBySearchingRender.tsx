@@ -23,6 +23,7 @@ import CartAddProducts from "../cart/CartAddProducts";
 import ImagesCarousel from "@/utils/ImageCarousel";
 import ProductsCardWithCarousel from "@/utils/ProductsCardWithCarousel";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "@/utils/LoadingSpinner";
 
 type TParamsSearch = {
   params: string;
@@ -53,49 +54,45 @@ const ProductsFilterBySearchingRender: FC<TParamsSearch> = ({ params }) => {
     })();
   }, [params]);
 
+  if (isLoading) return <LoadingSpinner />;
+
   return (
     <>
-      {isLoading ? (
-        <Spinner />
+      {products.length ? (
+        <Box minH="100vh" mt={10} mb={20}>
+          <Flex mb={10}>
+            <Text fontSize="26px">
+              {`${products.length} Results for ${params}...`}{" "}
+            </Text>
+          </Flex>
+          <ProductsCardWithCarousel products={products} />
+        </Box>
       ) : (
-        <>
-          {products.length ? (
-            <Box minH="100vh" mt={10} mb={20}>
-              <Flex mb={10}>
-                <Text fontSize="26px">
-                  {`${products.length} Results for ${params}...`}{" "}
-                </Text>
-              </Flex>
-              <ProductsCardWithCarousel products={products} />
-            </Box>
-          ) : (
-            <Box minH="calc(100vh - 23rem)" mt={10} mb={20}>
-              <Flex
-                minH="calc(100vh - 23rem)"
-                align="center"
-                justify="center"
-                flexDir="column"
-              >
-                <Text fontSize={["20px", "30px", "44px"]}>
-                  There is nothing here...
-                </Text>
-                <Button
-                  onClick={() => router.back()}
-                  color="white"
-                  fontWeight="normal"
-                  background=" rgb(1,44,60)"
-                  bg=" linear-gradient(180deg, rgba(1,44,60,1) 0%, rgba(0,82,112,1) 100%)"
-                  _hover={{
-                    background: " rgb(1,44,60)",
-                    bg: " linear-gradient(180deg, rgba(1,44,60,1) 0%, rgba(0,82,112,1) 0%)",
-                  }}
-                >
-                  Go back
-                </Button>
-              </Flex>
-            </Box>
-          )}
-        </>
+        <Box minH="calc(100vh - 23rem)" mt={10} mb={20}>
+          <Flex
+            minH="calc(100vh - 23rem)"
+            align="center"
+            justify="center"
+            flexDir="column"
+          >
+            <Text fontSize={["20px", "30px", "44px"]}>
+              There is nothing here...
+            </Text>
+            <Button
+              onClick={() => router.back()}
+              color="white"
+              fontWeight="normal"
+              background=" rgb(1,44,60)"
+              bg=" linear-gradient(180deg, rgba(1,44,60,1) 0%, rgba(0,82,112,1) 100%)"
+              _hover={{
+                background: " rgb(1,44,60)",
+                bg: " linear-gradient(180deg, rgba(1,44,60,1) 0%, rgba(0,82,112,1) 0%)",
+              }}
+            >
+              Go back
+            </Button>
+          </Flex>
+        </Box>
       )}
     </>
   );

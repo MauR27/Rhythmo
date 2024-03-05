@@ -21,6 +21,7 @@ import { CiSearch } from "react-icons/ci";
 import CartAddProducts from "../cart/CartAddProducts";
 import RemoveProductsFromFavorite from "./RemoveProductsFromFavorite";
 import ImagesCarousel from "@/utils/ImageCarousel";
+import LoadingSpinner from "@/utils/LoadingSpinner";
 
 const FavoriteProductsRender = () => {
   const { favoriteProductList, setFavoriteProductList } =
@@ -44,7 +45,7 @@ const FavoriteProductsRender = () => {
     }
   }, [setFavoriteProductList]);
 
-  if (loadingList) return <Spinner />;
+  if (loadingList) return <LoadingSpinner />;
 
   return (
     <Box minH="100vh">

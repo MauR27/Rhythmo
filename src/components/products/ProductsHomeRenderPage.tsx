@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ProductsResponse } from "../../../types";
 import FooterPageRender from "../FooterPageRender";
 import ProductsCard from "@/utils/ProductsCard";
+import LoadingSpinner from "@/utils/LoadingSpinner";
 
 const ProductsHomeRenderPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +30,7 @@ const ProductsHomeRenderPage = () => {
     }
   }, []);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <LoadingSpinner />;
   return (
     <>
       <Flex minH="100vh" mt={20} mb={20} gap={20} flexDir="column">

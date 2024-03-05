@@ -37,6 +37,7 @@ import {
 import { fetchItemById } from "../products/ProductsFullViewPage";
 import { useDropzone } from "react-dropzone";
 import AdminDeleteSingleProduct from "./AdminDeleteSingleProduct";
+import LoadingSpinner from "@/utils/LoadingSpinner";
 
 type TEditProduct = {
   name: string;
@@ -244,7 +245,7 @@ const AdminRenderDashboardPage = () => {
       };
     });
   };
-  if (isLoadingProducts) return <Spinner />;
+  if (isLoadingProducts) return <LoadingSpinner />;
 
   return (
     <Flex flexDir="column" gap={2}>

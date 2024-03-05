@@ -2,26 +2,9 @@
 
 import { FC, useEffect, useState } from "react";
 import { ProductsResponse } from "../../../types";
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  Flex,
-  Heading,
-  Icon,
-  Spinner,
-  Stack,
-  Text,
-  Tooltip,
-} from "@chakra-ui/react";
-import CartAddProducts from "../cart/CartAddProducts";
-import { CiSearch } from "react-icons/ci";
-import AddProductsToFavorite from "../user/AddProductsToFavorite";
-import { Link } from "@chakra-ui/next-js";
-import ImagesCarousel from "@/utils/ImageCarousel";
+import { Box } from "@chakra-ui/react";
 import ProductsCardWithCarousel from "@/utils/ProductsCardWithCarousel";
+import LoadingSpinner from "@/utils/LoadingSpinner";
 
 type TProducts = {
   params: string;
@@ -48,7 +31,7 @@ const ProductsFilterByTypeRender: FC<TProducts> = ({ params }) => {
     }
   }, [params]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <Box minH="100vh" mt={20} mb={20}>

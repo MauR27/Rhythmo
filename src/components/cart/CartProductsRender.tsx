@@ -20,6 +20,7 @@ import CartRemoveSingleProduct from "./CartRemoveSingleProduct";
 import { CiSearch } from "react-icons/ci";
 import CartProductQuantityControl from "./CartProductQuantityControl";
 import CartAllEmpty from "./CartAllEmpty";
+import LoadingSpinner from "@/utils/LoadingSpinner";
 
 type TIsloading = {
   isLoading: boolean;
@@ -27,9 +28,7 @@ type TIsloading = {
 };
 
 const CartProductsRender: FC<TIsloading> = ({ isLoading, cart }) => {
-  if (isLoading) {
-    return <Spinner />;
-  }
+  if (isLoading) return <LoadingSpinner />;
   return (
     <>
       {cart.map((product: any) => (
