@@ -1,61 +1,84 @@
 "use client";
 
-import { Box, Flex, List, ListItem, Text } from "@chakra-ui/react";
+import { Box, Flex, Icon, Link, List, ListItem, Text } from "@chakra-ui/react";
+import {
+  IoLogoInstagram,
+  IoLogoFacebook,
+  IoLogoTwitter,
+  IoLogoLinkedin,
+  IoMail,
+} from "react-icons/io5";
 
 const FooterPageRender = () => {
   return (
     <Flex
-      h="56"
-      background=" rgb(93,188,223)"
-      bg="linear-gradient(180deg, rgba(93,188,223,1) 37%, rgba(0,147,201,1) 100%)"
+      h="32"
+      background=" rgb(1,44,60)"
+      bg=" linear-gradient(180deg, rgba(1,44,60,1) 0%, rgba(0,82,112,1) 100%)"
       color="white"
       align="center"
       flexDir="column"
       boxShadow="0px -1px 10px gray"
+      // justify="space-between"
     >
       <Flex
-        fontSize="1.5em"
-        minW="full"
-        justify="space-around"
-        h={14}
         align="center"
+        justify="center"
+        minW="100%"
+        minH="100%"
+        flexDir="column"
       >
-        <Text>Categories</Text>
-        <Text>Sponsors</Text>
-        <Text>Contact us</Text>
+        <Flex
+          minW="100%"
+          align="center"
+          justify="center"
+          gap={5}
+          fontSize={["12px", "14px", "16px"]}
+        >
+          <Link _hover={{ textDecor: "none" }}>Contact us:</Link>
+          <Icon
+            as={IoLogoInstagram}
+            w={["20px", "30px", "40px"]}
+            h={["20px", "30px", "40px"]}
+            _hover={{ color: "brand.cyan" }}
+          />
+          <Icon
+            as={IoLogoFacebook}
+            w={["20px", "30px", "40px"]}
+            h={["20px", "30px", "40px"]}
+            _hover={{ color: "brand.cyan" }}
+          />
+          <Icon
+            as={IoLogoLinkedin}
+            w={["20px", "30px", "40px"]}
+            h={["20px", "30px", "40px"]}
+            _hover={{ color: "brand.cyan" }}
+          />
+          <Icon
+            as={IoLogoTwitter}
+            w={["20px", "30px", "40px"]}
+            h={["20px", "30px", "40px"]}
+            _hover={{ color: "brand.cyan" }}
+          />
+          <Icon
+            as={IoMail}
+            w={["20px", "30px", "40px"]}
+            h={["20px", "30px", "40px"]}
+            _hover={{ color: "brand.cyan" }}
+          />
+        </Flex>
       </Flex>
-      <Flex minW="full">
-        <Flex flex={1} justify="center">
-          <List ml="1rem" fontWeight="light" fontSize="1.1rem">
-            <ListItem>Electric Guitars</ListItem>
-            <ListItem>Electric Bass</ListItem>
-            <ListItem>Electric Drums</ListItem>
-            <ListItem>Acoustic Drums</ListItem>
-          </List>
-        </Flex>
-        <Flex flex={1} justify="center">
-          <List
-            ml="1rem"
-            fontWeight="light"
-            fontSize="1.1rem"
-            display="flex"
-            flexDir="column"
-            flexWrap="wrap"
-          >
-            <ListItem>Ibanez</ListItem>
-            <ListItem>Gibson</ListItem>
-            <ListItem>Tama</ListItem>
-            <ListItem>Fender</ListItem>
-          </List>
-        </Flex>
-        <Flex flex={1} justify="center">
-          <List ml="1rem" fontWeight="light" fontSize="1.1rem">
-            <ListItem>Email</ListItem>
-            <ListItem>Phone</ListItem>
-            <ListItem>LinkedIn</ListItem>
-            <ListItem>GitHub</ListItem>
-          </List>
-        </Flex>
+
+      <Flex
+        bg="rgba(1,44,60,1) "
+        minH="30px"
+        minW="100%"
+        color="white"
+        justify="center"
+        align="center"
+        fontSize={["12px", "14px", "16px"]}
+      >
+        <Text>Copyright ©2024; Designed by MAUR27</Text>
       </Flex>
     </Flex>
   );

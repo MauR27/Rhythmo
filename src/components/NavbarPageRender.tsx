@@ -21,12 +21,12 @@ const NavbarPageRender: FC<TAdminRole> = ({ admin }) => {
       py="4"
       h="52"
       justify="space-between"
-      bg="white"
+      bg="#ffffff"
       boxShadow="lg"
     >
       <Flex justify="space-between" alignItems="center" h="4rem">
         <Link href="/" _hover={{ textDecor: "none" }}>
-          <Heading color="brand.cyan2" fontSize={["1em", "1.5em"]}>
+          <Heading color="brand.cyan2" fontSize={["1.5em", "2em", "2.5em"]}>
             <Text>RhythmO</Text>
           </Heading>
         </Link>
