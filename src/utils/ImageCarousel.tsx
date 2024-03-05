@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, Flex, Icon, IconButton, Image } from "@chakra-ui/react";
+import { Box, Flex, Icon, Image, Text } from "@chakra-ui/react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import Slider from "react-slick";
 
@@ -15,11 +15,11 @@ const settings = {
   slidesToScroll: 1,
 };
 
-const Carousel = ({ images }: any) => {
+const ImagesCarousel = ({ images }: any) => {
   const [slider, setSlider] = useState<Slider | null>(null);
 
   return (
-    <Box position={"relative"} width={"full"} overflow={"hidden"}>
+    <Box position={"relative"} minW={"full"} overflow={"hidden"}>
       <link
         rel="stylesheet"
         type="text/css"
@@ -41,19 +41,19 @@ const Carousel = ({ images }: any) => {
           />
         ))}
       </Slider>
-      <Flex justify="space-between">
+      <Flex justify="space-between" align="center">
         <Icon
           as={SlArrowLeft}
-          w={[5, 6]}
-          h={[5, 6]}
+          w={[4, 5, 6]}
+          h={[4, 5, 6]}
           zIndex={2}
           _hover={{ cursor: "pointer" }}
           onClick={() => slider?.slickPrev()}
         />
         <Icon
           as={SlArrowRight}
-          w={[5, 6]}
-          h={[5, 6]}
+          w={[4, 5, 6]}
+          h={[4, 5, 6]}
           zIndex={2}
           _hover={{ cursor: "pointer" }}
           onClick={() => slider?.slickNext()}
@@ -63,4 +63,4 @@ const Carousel = ({ images }: any) => {
   );
 };
 
-export default Carousel;
+export default ImagesCarousel;

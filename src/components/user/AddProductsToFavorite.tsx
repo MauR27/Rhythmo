@@ -59,13 +59,12 @@ const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
           align="center"
           justify="center"
           onClick={fetchData}
-          borderRadius="none"
+          borderRadius={10}
           bg="white"
           p={0}
           m={0}
           h={["30px", "40px", "50px"]}
           w={["30px", "40px", "50px"]}
-          boxShadow="xl"
           _hover={{
             bg: "gray.100",
           }}

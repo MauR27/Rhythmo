@@ -16,19 +16,22 @@ import {
   Text,
   Tooltip,
 } from "@chakra-ui/react";
-import Carousel from "@/utils/ImageProductCard";
 import { Link } from "@chakra-ui/next-js";
 import { CiSearch } from "react-icons/ci";
 import AddProductsToFavorite from "../user/AddProductsToFavorite";
 import CartAddProducts from "../cart/CartAddProducts";
+import ImagesCarousel from "@/utils/ImageCarousel";
+import ProductsCardWithCarousel from "@/utils/ProductsCardWithCarousel";
+import { useRouter } from "next/navigation";
 
 type TParamsSearch = {
   params: string;
 };
 
 const ProductsFilterBySearchingRender: FC<TParamsSearch> = ({ params }) => {
-  const [instruments, setInstruments] = useState<ProductsResponse>([]);
+  const [products, setProducts] = useState<ProductsResponse>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -39,7 +42,7 @@ const ProductsFilterBySearchingRender: FC<TParamsSearch> = ({ params }) => {
         );
         const products: ProductsResponse = await response.json();
 
-        setInstruments(products);
+        setProducts(products);
       } catch (error) {
         if (error instanceof Error) {
           throw new Error(error.message);
@@ -56,117 +59,39 @@ const ProductsFilterBySearchingRender: FC<TParamsSearch> = ({ params }) => {
         <Spinner />
       ) : (
         <>
-          {instruments.length ? (
-            <Box minH="100vh">
-              <section>
-                <Flex>
-                  <Text fontSize="26px">
-                    {`${instruments.length} Results for ${params}...`}{" "}
-                  </Text>
-                </Flex>
-              </section>
-              <Flex gap={4} justify="center" maxW="full" flexWrap="wrap">
-                {instruments.map((product, index) => (
-                  <Card
-                    maxW="xs"
-                    key={index}
-                    borderRadius={0}
-                    my={10}
-                    _hover={{
-                      cursor: "pointer",
-                      textDecor: "none",
-                      boxShadow: "lg",
-                      ".footer-buttons-type": {
-                        opacity: 1,
-                        transform: "auto",
-                        translateY: "-15px",
-                      },
-                    }}
-                  >
-                    <CardBody>
-                      <Carousel images={product} />
-                      <Stack as={Flex} mt="6" spacing="3" textAlign="center">
-                        <Heading
-                          size="md"
-                          fontSize="15px"
-                          fontWeight="normal"
-                          overflow="hidden"
-                          whiteSpace="nowrap"
-                          textOverflow="ellipsis"
-                        >
-                          {product.name}
-                        </Heading>
-
-                        <Text
-                          fontWeight="semibold"
-                          fontSize="1xl"
-                        >{`${product.price}$`}</Text>
-                      </Stack>
-                    </CardBody>
-
-                    <CardFooter
-                      className="footer-buttons-type"
-                      opacity={0}
-                      // position="absolute"
-                      // top="58%"
-                      // left="20%"
-                      p={0}
-                      justify="center"
-                      transition=".5s"
-                    >
-                      <Box border="1px solid" borderColor="gray.100">
-                        <Tooltip
-                          hasArrow
-                          label="Full view"
-                          bg="white"
-                          color="black"
-                          gutter={0}
-                          fontSize="xs"
-                        >
-                          <Button
-                            as={Link}
-                            href={`/pages/products/fullview/${product._id}`}
-                            borderRadius="none"
-                            bg="white"
-                            p={0}
-                            m={0}
-                            h="50px"
-                            w="50px"
-                            boxShadow="xl"
-                            _hover={{
-                              bg: "gray.100",
-                            }}
-                            _active={{
-                              bg: "gray.200",
-                            }}
-                          >
-                            <Icon
-                              as={CiSearch}
-                              w={[6, 7]}
-                              h={[6, 7]}
-                              color="black"
-                            />
-                          </Button>
-                        </Tooltip>
-                        <AddProductsToFavorite product={product} />
-                        <CartAddProducts product={product} />
-                      </Box>
-                    </CardFooter>
-                  </Card>
-                ))}
+          {products.length ? (
+            <Box minH="100vh" mt={10} mb={20}>
+              <Flex mb={10}>
+                <Text fontSize="26px">
+                  {`${products.length} Results for ${params}...`}{" "}
+                </Text>
               </Flex>
+              <ProductsCardWithCarousel products={products} />
             </Box>
           ) : (
-            <Box>
-              <section>
-                <Flex>
-                  <Text fontSize="26px">
-                    {`${instruments.length} Results for ${params}...`}
-                  </Text>
-                </Flex>
-              </section>
-              <Flex justify="center">
-                <Text>instruments not found :(</Text>
+            <Box minH="calc(100vh - 23rem)" mt={10} mb={20}>
+              <Flex
+                minH="calc(100vh - 23rem)"
+                align="center"
+                justify="center"
+                flexDir="column"
+              >
+                <Text fontSize={["20px", "30px", "44px"]}>
+                  There is nothing here...
+                </Text>
+                <Button
+                  onClick={() => router.back()}
+                  color="white"
+                  fontWeight="normal"
+                  background=" rgb(1,44,60)"
+                  bg=" linear-gradient(180deg, rgba(1,44,60,1) 0%, rgba(0,82,112,1) 100%)"
+                  _hover={{
+                    background: " rgb(1,44,60)",
+                    bg: " linear-gradient(180deg, rgba(1,44,60,1) 0%, rgba(0,82,112,1) 0%)",
+                  }}
+                >
+                  Go back
+                </Button>
               </Flex>
             </Box>
           )}

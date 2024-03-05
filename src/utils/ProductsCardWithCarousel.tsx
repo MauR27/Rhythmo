@@ -18,12 +18,13 @@ import { Link } from "@chakra-ui/next-js";
 import { CiSearch } from "react-icons/ci";
 import AddProductsToFavorite from "@/components/user/AddProductsToFavorite";
 import CartAddProducts from "@/components/cart/CartAddProducts";
+import ImagesCarousel from "./ImageCarousel";
 
 type TProductsArray = {
   products: ProductsResponse;
 };
 
-const ProductsCard: FC<TProductsArray> = ({ products }) => {
+const ProductsCardWithCarousel: FC<TProductsArray> = ({ products }) => {
   return (
     <>
       <Flex gap={2} justify="center" maxW="full" flexWrap="wrap">
@@ -51,40 +52,11 @@ const ProductsCard: FC<TProductsArray> = ({ products }) => {
                 },
               }}
             >
-              <Badge
-                color="white"
-                fontWeight="bold"
-                bgColor="cyan.600"
-                position="absolute"
-                fontSize={["8px", "10px", "12px"]}
-              >
-                new
-              </Badge>
               <CardBody>
-                <Box position="relative" width="full" overflow="hidden">
-                  <Image
-                    objectFit="cover"
-                    src={product.images[0]}
-                    alt={product.images[0]}
-                    className="first-image"
-                    display="block"
-                  />
-                  <Image
-                    objectFit="cover"
-                    src={
-                      product.images[1] ? product.images[1] : product.images[0]
-                    }
-                    alt={
-                      product.images[1] ? product.images[1] : product.images[0]
-                    }
-                    className="second-image"
-                    display="none"
-                  />
-                </Box>
-
+                <ImagesCarousel images={product} />
                 <Stack
                   as={Flex}
-                  mt="6"
+                  mt="4"
                   spacing="3"
                   textAlign="center"
                   fontSize={["12px", "14px", "16px"]}
@@ -164,4 +136,4 @@ const ProductsCard: FC<TProductsArray> = ({ products }) => {
   );
 };
 
-export default ProductsCard;
+export default ProductsCardWithCarousel;

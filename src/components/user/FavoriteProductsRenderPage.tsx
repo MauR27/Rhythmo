@@ -1,7 +1,6 @@
 "use client";
 
 import GlobalContext from "@/context/GlobalContext";
-import Carousel from "@/utils/ImageProductCard";
 import {
   Box,
   Button,
@@ -21,6 +20,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import CartAddProducts from "../cart/CartAddProducts";
 import RemoveProductsFromFavorite from "./RemoveProductsFromFavorite";
+import ImagesCarousel from "@/utils/ImageCarousel";
 
 const FavoriteProductsRender = () => {
   const { favoriteProductList, setFavoriteProductList } =
@@ -68,7 +68,7 @@ const FavoriteProductsRender = () => {
               }}
             >
               <CardBody>
-                <Carousel images={product} />
+                <ImagesCarousel images={product} />
                 <Stack as={Flex} mt="6" spacing="3" textAlign="center">
                   <Heading
                     size="md"
