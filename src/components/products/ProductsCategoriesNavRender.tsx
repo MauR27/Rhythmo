@@ -2,6 +2,7 @@ import { Link } from "@chakra-ui/next-js";
 import { Flex, List, ListItem, useMediaQuery } from "@chakra-ui/react";
 import DrawerButton from "@/utils/DrawerButton";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export const instrumentTypes = [
   { name: "All Products", path: "all" },

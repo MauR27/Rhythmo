@@ -10,12 +10,14 @@ import {
   List,
   ListItem,
   Text,
+  styled,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { instrumentTypes } from "@/components/products/ProductsCategoriesNavRender";
 import { Link } from "@chakra-ui/next-js";
+import { motion } from "framer-motion";
 
 const DrawerButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,29 +56,33 @@ const DrawerButton = () => {
           <DrawerBody fontSize="12px" p={0}>
             <List display="flex" flexDir="column" gap={5}>
               {instrumentTypes.map((type, index) => (
-                <ListItem
-                  onClick={() => handleDrawer(type.name)}
-                  pl={5}
-                  display="flex"
-                  alignItems="center"
-                  borderRight={onClickFocus === type.name ? "10px solid" : ""}
-                  borderColor={onClickFocus === type.name ? "brand.cyan" : ""}
-                  boxShadow={
-                    onClickFocus === type.name
-                      ? "0px 5px 5px 0px  rgba(59, 153, 187, 0.5)"
-                      : ""
-                  }
-                  h={10}
+                <motion.div
                   key={index}
-                  as={Link}
-                  href={`/pages/products/${type.path}`}
-                  _hover={{
-                    textDecor: "none",
-                    boxShadow: "0px 10px 10px 0px rgba(59, 153, 187, 0.5)",
+                  whileHover={{
+                    scale: 1.1,
                   }}
                 >
-                  {type.name}
-                </ListItem>
+                  <ListItem
+                    onClick={() => handleDrawer(type.name)}
+                    pl={5}
+                    display="flex"
+                    alignItems="center"
+                    borderRight={onClickFocus === type.name ? "10px solid" : ""}
+                    borderColor={
+                      onClickFocus === type.name ? "brand.cyan2" : ""
+                    }
+                    h={10}
+                    as={Link}
+                    href={`/pages/products/${type.path}`}
+                    _hover={{
+                      textDecor: "none",
+                      borderRight: "25px solid",
+                      borderColor: "brand.cyan2",
+                    }}
+                  >
+                    {type.name}
+                  </ListItem>
+                </motion.div>
               ))}
             </List>
           </DrawerBody>

@@ -37,8 +37,8 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "white",
-        color: "black",
+        background: "#FFFFFF",
+        color: "#000000",
         margin: 0,
         padding: 0,
         overflowY: "scroll",

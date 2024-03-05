@@ -1,4 +1,4 @@
-import { Button, Icon, Tooltip, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Tooltip, useToast } from "@chakra-ui/react";
 import React, { FC, useContext, useEffect } from "react";
 import { TProduct } from "../../../types";
 import { PiHeartThin } from "react-icons/pi";
@@ -55,28 +55,26 @@ const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
         gutter={0}
         fontSize="xs"
       >
-        {product ? (
-          <Button
-            onClick={fetchData}
-            borderRadius="none"
-            bg="white"
-            p={0}
-            m={0}
-            h="50px"
-            w="50px"
-            boxShadow="xl"
-            _hover={{
-              bg: "gray.100",
-            }}
-            _active={{
-              bg: "gray.200",
-            }}
-          >
-            <Icon as={PiHeartThin} w={[6, 7]} h={[6, 7]} color="black" />
-          </Button>
-        ) : (
-          <>gola</>
-        )}
+        <Flex
+          align="center"
+          justify="center"
+          onClick={fetchData}
+          borderRadius="none"
+          bg="white"
+          p={0}
+          m={0}
+          h={["30px", "40px", "50px"]}
+          w={["30px", "40px", "50px"]}
+          boxShadow="xl"
+          _hover={{
+            bg: "gray.100",
+          }}
+          _active={{
+            bg: "gray.200",
+          }}
+        >
+          <Icon as={PiHeartThin} w={[6, 7, 8]} h={[6, 7, 8]} color="black" />
+        </Flex>
       </Tooltip>
     </>
   );

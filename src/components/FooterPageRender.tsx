@@ -4,9 +4,16 @@ import { Box, Flex, List, ListItem, Text } from "@chakra-ui/react";
 
 const FooterPageRender = () => {
   return (
-    <Flex h="56" bg="cyan.600" color="white" align="center" flexDir="column">
+    <Flex
+      h="56"
+      background=" rgb(93,188,223)"
+      bg="linear-gradient(180deg, rgba(93,188,223,1) 37%, rgba(0,147,201,1) 100%)"
+      color="white"
+      align="center"
+      flexDir="column"
+      boxShadow="0px -1px 10px gray"
+    >
       <Flex
-        bg="cyan.500"
         fontSize="1.5em"
         minW="full"
         justify="space-around"

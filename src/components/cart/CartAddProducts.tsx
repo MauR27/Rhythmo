@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Icon, useToast, Tooltip } from "@chakra-ui/react";
+import { Button, Icon, useToast, Tooltip, Flex } from "@chakra-ui/react";
 import { FC, useContext } from "react";
 import { TProduct } from "../../../types";
 import GlobalContext from "@/context/GlobalContext";
@@ -61,14 +61,16 @@ const CartAddProducts: FC<TProductsProps> = ({ product }) => {
       gutter={0}
       fontSize="xs"
     >
-      <Button
+      <Flex
+        align="center"
+        justify="center"
         onClick={fetchData}
         borderRadius="none"
         bg="white"
         p={0}
         m={0}
-        h="50px"
-        w="50px"
+        h={["30px", "40px", "50px"]}
+        w={["30px", "40px", "50px"]}
         boxShadow="xl"
         _hover={{
           bg: "gray.100",
@@ -80,11 +82,11 @@ const CartAddProducts: FC<TProductsProps> = ({ product }) => {
       >
         <Icon
           as={PiShoppingCartSimpleThin}
-          w={[6, 7]}
-          h={[6, 7]}
+          w={[6, 7, 8]}
+          h={[6, 7, 8]}
           color="black"
         />
-      </Button>
+      </Flex>
     </Tooltip>
   );
 };
