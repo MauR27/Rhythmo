@@ -13,8 +13,7 @@ const FooterPageRender = () => {
   return (
     <Flex
       h="32"
-      background=" rgb(1,44,60)"
-      bg=" linear-gradient(180deg, rgba(1,44,60,1) 0%, rgba(0,82,112,1) 100%)"
+      bg="white"
       color="white"
       align="center"
       flexDir="column"
@@ -35,48 +34,53 @@ const FooterPageRender = () => {
           gap={5}
           fontSize={["12px", "14px", "16px"]}
         >
-          <Link _hover={{ textDecor: "none" }}>Contact us:</Link>
+          <Text color="black">Contact us:</Text>
           <Icon
+            color="black"
             as={IoLogoInstagram}
-            w={["20px", "30px", "40px"]}
-            h={["20px", "30px", "40px"]}
+            w={["20px", "30px", "30px"]}
+            h={["20px", "30px", "30px"]}
             _hover={{ color: "brand.cyan" }}
           />
           <Icon
+            color="black"
             as={IoLogoFacebook}
-            w={["20px", "30px", "40px"]}
-            h={["20px", "30px", "40px"]}
+            w={["20px", "30px", "30px"]}
+            h={["20px", "30px", "30px"]}
             _hover={{ color: "brand.cyan" }}
           />
           <Icon
+            color="black"
             as={IoLogoLinkedin}
-            w={["20px", "30px", "40px"]}
-            h={["20px", "30px", "40px"]}
+            w={["20px", "30px", "30px"]}
+            h={["20px", "30px", "30px"]}
             _hover={{ color: "brand.cyan" }}
           />
           <Icon
+            color="black"
             as={IoLogoTwitter}
-            w={["20px", "30px", "40px"]}
-            h={["20px", "30px", "40px"]}
+            w={["20px", "30px", "30px"]}
+            h={["20px", "30px", "30px"]}
             _hover={{ color: "brand.cyan" }}
           />
           <Icon
+            color="black"
             as={IoMail}
-            w={["20px", "30px", "40px"]}
-            h={["20px", "30px", "40px"]}
+            w={["20px", "30px", "30px"]}
+            h={["20px", "30px", "30px"]}
             _hover={{ color: "brand.cyan" }}
           />
         </Flex>
       </Flex>
 
       <Flex
-        bg="rgba(1,44,60,1) "
+        bg="rgba(1,44,60,1)"
         minH="30px"
         minW="100%"
         color="white"
         justify="center"
         align="center"
-        fontSize={["12px", "14px", "16px"]}
+        fontSize={["8px", "8px", "10px"]}
       >
         <Text>Copyright ©2024; Designed by MAUR27</Text>
       </Flex>

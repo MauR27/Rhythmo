@@ -42,7 +42,7 @@ const DropDownButton: FC<TAdminRole> = ({ admin }) => {
           <>
             <MenuList
               minW={widthMenuBox}
-              borderRadius="5px"
+              borderRadius="10px"
               boxShadow="xl"
               fontSize={fontSizeMenuBox}
             >
@@ -107,7 +107,7 @@ const DropDownButton: FC<TAdminRole> = ({ admin }) => {
             </MenuList>
           </>
         ) : (
-          <MenuList minW={widthMenuBox} borderRadius="none">
+          <MenuList minW={widthMenuBox} borderRadius="10px">
             <MenuItem
               p={0}
               m={0}
@@ -126,6 +126,7 @@ const DropDownButton: FC<TAdminRole> = ({ admin }) => {
                 color: "white",
                 textDecor: "none",
               }}
+              fontSize={["12px", "14px", "16px"]}
             >
               Sign Up
             </MenuItem>

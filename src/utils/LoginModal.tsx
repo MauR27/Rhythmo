@@ -17,14 +17,21 @@ const LoginModal = () => {
 
   return (
     <>
-      <Box onClick={onOpen} minW="full" minH="full" px={3} py="6px">
+      <Box
+        onClick={onOpen}
+        minW="full"
+        minH="full"
+        px={3}
+        py="6px"
+        fontSize={["12px", "14px", "16px"]}
+      >
         Sign In
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size={["xs", "sm", "md"]}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Log In</ModalHeader>
+          <ModalHeader fontSize={["14px", "16px", "18px"]}>Sign In</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <SignInRenderForm />
