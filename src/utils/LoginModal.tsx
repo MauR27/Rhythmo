@@ -6,7 +6,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalHeader,
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -31,10 +30,9 @@ const LoginModal = () => {
       <Modal isOpen={isOpen} onClose={onClose} size={["xs", "sm", "md"]}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader fontSize={["14px", "16px", "18px"]}>Sign In</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <SignInRenderForm />
+            <SignInRenderForm onClose={onClose} />
           </ModalBody>
         </ModalContent>
       </Modal>
