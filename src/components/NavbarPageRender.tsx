@@ -22,7 +22,7 @@ const NavbarPageRender: FC<TAdminRole> = ({ admin }) => {
       h="52"
       justify="space-between"
       bg="#ffffff"
-      boxShadow="lg"
+      boxShadow="md"
     >
       <Flex justify="space-between" alignItems="center" h="4rem">
         <Link href="/" _hover={{ textDecor: "none" }}>

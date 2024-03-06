@@ -17,8 +17,7 @@ const FooterPageRender = () => {
       color="white"
       align="center"
       flexDir="column"
-      boxShadow="0px -1px 10px gray"
-      // justify="space-between"
+      boxShadow="0px -1px 1px #D6D6D6"
     >
       <Flex
         align="center"

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import {
   Box,
   Button,
+  Divider,
   Flex,
   FormControl,
   FormLabel,
@@ -14,6 +15,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
+import { FcGoogle } from "react-icons/fc";
 
 const SignUpRenderForm = () => {
   const [error, setError] = useState("");
@@ -65,37 +67,46 @@ const SignUpRenderForm = () => {
   };
 
   return (
-    <Flex
-      minH="calc(100vh - 11rem)"
-      justify="center"
-      align="center"
-      flexDir="column"
-    >
-      <Box>
-        <Text
-          textAlign="center"
-          fontSize="2em"
-          fontWeight="semibold"
-          color="cyan.600"
-        >
-          Sign Up
-        </Text>
-      </Box>
-      <Flex bg="white" p={10} maxW="600px" borderRadius="md" boxShadow="lg">
+    <Flex align="center" justify="center" minH="calc(100vh - 14rem)">
+      <Flex
+        flexDir="column"
+        _hover={{ boxShadow: "md" }}
+        p={5}
+        borderRadius={5}
+        w="500px"
+      >
         <form onSubmit={handleSubmir}>
-          {error && <Text> {error}</Text>}
-          <FormControl minW="400px" mb={4}>
-            <FormLabel>Full Name</FormLabel>
+          <Text
+            textAlign="center"
+            fontSize={["18px", "20px", "24px"]}
+            fontWeight="semibold"
+            color="cyan.600"
+            mb="20px"
+          >
+            Sign Up
+          </Text>
+
+          <FormControl mb={4}>
+            <FormLabel fontSize={["12px", "14px", "16px"]}>Full Name</FormLabel>
             <Input
+              size={["xs", "sm", "md"]}
               type="text"
               placeholder="Monica Geller"
               name="name"
               variant="flushed"
             />
+            {error && (
+              <Text color="red" fontSize={["8px", "10px", "12px"]}>
+                {error}
+              </Text>
+            )}
           </FormControl>
           <FormControl mb={4}>
-            <FormLabel>Email address</FormLabel>
+            <FormLabel fontSize={["12px", "14px", "16px"]}>
+              Email address
+            </FormLabel>
             <Input
+              size={["xs", "sm", "md"]}
               type="email"
               placeholder="MonicaGeller@gmail.com"
               name="email"
@@ -103,8 +114,9 @@ const SignUpRenderForm = () => {
             />
           </FormControl>
           <FormControl mb={4}>
-            <FormLabel>Password</FormLabel>
+            <FormLabel fontSize={["12px", "14px", "16px"]}>Password</FormLabel>
             <Input
+              size={["xs", "sm", "md"]}
               type="password"
               placeholder="********"
               name="password"
@@ -112,34 +124,54 @@ const SignUpRenderForm = () => {
             />
           </FormControl>
           <FormControl mb={4}>
-            <FormLabel>Repeat Password</FormLabel>
+            <FormLabel fontSize={["12px", "14px", "16px"]}>
+              Confirm password
+            </FormLabel>
             <Input
+              size={["xs", "sm", "md"]}
               type="password"
               placeholder="********"
               name="confirmPassword"
               variant="filled"
             />
           </FormControl>
-          <Flex align="center">
-            <Button
-              type="submit"
-              variant="ghost"
-              borderRadius="none"
-              _hover={{
-                bg: "cyan.600",
-                color: "white",
-                borderRadius: "none",
-              }}
-            >
-              Sign Up
-            </Button>
-            <Text fontSize="sm">
-              Do you already have an account? then{" "}
-              <Link href="/" color="cyan.600">
-                Login
-              </Link>{" "}
-              now!
-            </Text>
+          <Flex flexDir="column" gap={2}>
+            <Flex justify="center" align="center" flexDir="column">
+              <Button
+                type="submit"
+                variant="ghost"
+                size={["xs", "sm", "md"]}
+                fontWeight="normal"
+                borderRadius={5}
+                _hover={{
+                  bg: "brand.cyan2",
+                  color: "white",
+                  borderRadius: 5,
+                }}
+              >
+                Sign up
+              </Button>
+            </Flex>
+            <Flex align="center" justify="center" fontWeight="bold">
+              <Text fontSize={["10px", "12px", "14px"]}>Or</Text>
+            </Flex>
+            <Flex justify="center" align="center" flexDir="column">
+              <Button
+                type="submit"
+                variant="ghost"
+                size={["xs", "sm", "md"]}
+                leftIcon={<FcGoogle />}
+                borderRadius={5}
+                fontWeight="normal"
+                _hover={{
+                  bg: "gray.200",
+                  borderRadius: 5,
+                }}
+                onClick={() => signIn("google")}
+              >
+                Sign in with google
+              </Button>
+            </Flex>
           </Flex>
         </form>
       </Flex>

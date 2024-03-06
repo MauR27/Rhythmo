@@ -31,7 +31,7 @@ const handler = NextAuth({
         if (user && (await user.matchPassword(credentials?.password))) {
           return user;
         } else {
-          throw new Error("Invalid credentials");
+          throw new Error("Invalid email or password");
         }
       },
     }),

@@ -8,13 +8,11 @@ import {
   Divider,
   Flex,
   FormControl,
-  FormLabel,
   Input,
   Text,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/next-js";
 import { FcGoogle } from "react-icons/fc";
-import { motion } from "framer-motion";
 
 const SignInRenderForm = () => {
   const [error, setError] = useState("");
@@ -40,7 +38,6 @@ const SignInRenderForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Flex flexDir="column" mb={5}>
-        {error && <Text> {error}</Text>}
         <FormControl mb={4}>
           <Input
             size={["xs", "sm", "md"]}
@@ -48,7 +45,6 @@ const SignInRenderForm = () => {
             placeholder="MonicaGeller@gmail.com"
             name="email"
             variant="flushed"
-            minW="100%"
           />
         </FormControl>
 
@@ -58,9 +54,13 @@ const SignInRenderForm = () => {
             type="password"
             placeholder="Password"
             name="password"
-            minW="100%"
             variant="flushed"
           />
+          {error && (
+            <Text fontSize={["8px", "10px", "12px"]} color="red">
+              {error}
+            </Text>
+          )}
         </FormControl>
         <Text fontSize={["10px", "12px", "14px"]}>
           <Link href="/pages/forgot-password" color="cyan.600">
