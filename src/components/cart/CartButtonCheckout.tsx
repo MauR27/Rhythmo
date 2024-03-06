@@ -1,13 +1,11 @@
 "use client";
 
 import { Button, Flex } from "@chakra-ui/react";
-import React, { FC, useContext } from "react";
-import { ICart, TProduct } from "../../../types";
+import React, { useContext } from "react";
 import GlobalContext from "@/context/GlobalContext";
 
 const CartButtonCheckout = () => {
   const { cart } = useContext(GlobalContext);
-  console.log(cart);
 
   const cartCheckout = cart.map((item) => {
     return {

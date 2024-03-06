@@ -35,15 +35,9 @@ const ProductsHomeRenderPage = () => {
     <>
       <Flex minH="100vh" mt={20} mb={20} gap={20} flexDir="column">
         <Flex alignItems="center" justify="center">
-          <Image src="/Banner2.jpeg" alt="banner" borderRadius="md" />
+          <Image src="/PNGBG.jpeg" alt="banner" borderRadius="md" />
         </Flex>
-        <Flex
-          // minH="100vh"
-          alignItems="center"
-          justify="center"
-          flexDir="column"
-          gap={5}
-        >
+        <Flex alignItems="center" justify="center" flexDir="column" gap={5}>
           <ProductsCard products={products} />
         </Flex>
       </Flex>

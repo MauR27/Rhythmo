@@ -2,25 +2,7 @@
 
 import React, { FC, useEffect, useState } from "react";
 import { ProductsResponse } from "../../../types";
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  Flex,
-  Heading,
-  Icon,
-  Spinner,
-  Stack,
-  Text,
-  Tooltip,
-} from "@chakra-ui/react";
-import { Link } from "@chakra-ui/next-js";
-import { CiSearch } from "react-icons/ci";
-import AddProductsToFavorite from "../user/AddProductsToFavorite";
-import CartAddProducts from "../cart/CartAddProducts";
-import ImagesCarousel from "@/utils/ImageCarousel";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import ProductsCardWithCarousel from "@/utils/ProductsCardWithCarousel";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/utils/LoadingSpinner";
