@@ -1,11 +1,11 @@
-import ResetPassword from "@/components/ResetPassword";
+import ResetPasswordRenderForm from "@/components/auth/ResetPasswordRenderForm";
 import React from "react";
 
 const ResetPasswordPage = ({ params }: { params: { token: string } }) => {
   const paramsName: string = params.token;
   return (
     <>
-      <ResetPassword token={paramsName} />
+      <ResetPasswordRenderForm token={paramsName} />
     </>
   );
 };
