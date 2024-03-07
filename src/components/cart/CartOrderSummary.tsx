@@ -38,81 +38,53 @@ const CartOrderSummary = () => {
   const formattedTotalPrice = totalProductPrice.toLocaleString("en-US");
 
   return (
-    <Flex justifyContent="center">
-      <Flex
-        align="center"
-        flexDir="column"
-        minH="600px"
-        w="400px"
-        border="1px solid"
-        borderColor="gray.100"
-        borderRadius="lg"
-        boxShadow="lg"
-        py={4}
-      >
-        <Text as="h1" fontSize="4xl" fontWeight="semibold" mb="1em">
+    <Flex>
+      <Flex flexDir="column" p={10} gap={10}>
+        <Text
+          fontSize={["14px", "16px", "18px"]}
+          fontWeight="normal"
+          color="gray.600"
+        >
           Order Summary
         </Text>
         <List
           display="flex"
-          alignItems="center"
           flexDir="column"
-          minW="full"
-          gap={4}
+          gap={5}
+          w="full"
+          h="full"
+          fontSize={["12px", "14px", "16px"]}
         >
-          <Flex
-            minH="80px"
-            minW="300px"
-            boxShadow="md"
-            borderRadius="sm"
-            borderBottom="1px solid"
-            borderColor="cyan.600"
-            justifyContent="space-around"
-            align="center"
-          >
-            <ListItem>Discount</ListItem>
+          <Flex gap={50}>
+            <ListItem fontWeight="normal" color="gray.500">
+              Discount
+            </ListItem>
             <Text>0,00$</Text>
           </Flex>
-          <Flex
-            minH="80px"
-            minW="300px"
-            boxShadow="md"
-            borderRadius="sm"
-            borderBottom="1px solid"
-            borderColor="cyan.600"
-            justifyContent="space-around"
-            align="center"
-          >
-            <ListItem>Delivery</ListItem>
+          <Flex gap={50}>
+            <ListItem fontWeight="normal" color="gray.500">
+              Delivery
+            </ListItem>
             <Text>0,00$</Text>
           </Flex>
-          <Flex
-            minH="80px"
-            minW="300px"
-            boxShadow="md"
-            borderRadius="sm"
-            borderBottom="1px solid"
-            borderColor="cyan.600"
-            justifyContent="space-around"
-            align="center"
-          >
-            <ListItem>Subtotal</ListItem>
+          <Flex gap={50}>
+            <ListItem fontWeight="normal" color="gray.500">
+              Subtotal
+            </ListItem>
             <Text>{formattedSubTotal}.00$</Text>
           </Flex>
           <Flex
-            minH="80px"
-            minW="300px"
-            boxShadow="md"
-            borderRadius="sm"
+            justifyContent="space-between"
             borderBottom="1px solid"
-            borderColor="cyan.600"
-            justifyContent="space-around"
-            align="center"
+            borderColor="gray.300"
+            gap={50}
           >
-            <ListItem>Total</ListItem>
+            <ListItem fontWeight="normal" color="gray.500">
+              Total
+            </ListItem>
             <Text>{formattedTotalPrice}.00$</Text>
           </Flex>
-          <Flex>
+          <Flex justify="end">
             <CartButtonCheckout />
           </Flex>
         </List>

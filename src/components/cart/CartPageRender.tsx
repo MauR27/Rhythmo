@@ -45,16 +45,10 @@ const CartPageRender = () => {
     <Flex
       minH="calc(100vh - 15rem)"
       flexDir={isLargerThan580 ? "row" : "column"}
-      justify="center"
+      justify={isLargerThan580 ? "center" : ""}
     >
       <Flex m="20px 20px 0 20px">
-        <Flex
-          boxShadow="md"
-          borderRadius={5}
-          p="5px 5px 5px 5px"
-          flexDir="column"
-          w="1000px"
-        >
+        <Flex p="5px 5px 5px 5px" flexDir="column" w="1100px">
           <Flex justify="space-between" align="center">
             <Text
               fontSize={["16px", "18px", "20px"]}
@@ -118,7 +112,7 @@ const CartPageRender = () => {
           </Flex>
         </Flex>
       </Flex>
-      <Flex pt="20px">
+      <Flex>
         <CartOrderSummary />
       </Flex>
     </Flex>

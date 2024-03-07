@@ -32,18 +32,17 @@ const CartButtonCheckout = () => {
   return (
     <Flex>
       <Button
-        borderRadius="none"
-        bg="white"
-        p={0}
-        m={0}
-        w={100}
+        borderRadius={3}
+        bg="#E1A538"
+        w={["60px", "80px", "100px"]}
+        h={["30px", "35px", "40px"]}
+        fontSize={["10px", "12px", "14px"]}
         boxShadow="md"
         _hover={{
-          bg: "cyan.600",
-          color: "white",
+          bg: "#D59620",
         }}
         _active={{
-          bg: "cyan.300",
+          bg: "#E1A538",
         }}
         onClick={handleCheckout}
       >
