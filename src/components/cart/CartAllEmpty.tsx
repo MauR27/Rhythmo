@@ -47,10 +47,9 @@ const CartAllEmpty = () => {
         _hover={{
           bg: "brand.cyan",
           color: "white",
-          borderRadius: 5,
+          borderRadius: 2,
         }}
         variant="ghost"
-        // size={["xs", "sm", "md"]}
         p={1}
         h={["20px", "25px", "30px"]}
         fontSize={["10px", "12px", "14px"]}
