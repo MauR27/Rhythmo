@@ -5,22 +5,26 @@ import {
   Card,
   CardBody,
   CardFooter,
+  CardHeader,
+  Divider,
+  Flex,
   Grid,
   GridItem,
   Heading,
   Icon,
   Image,
-  Link,
   Spinner,
   Stack,
   Text,
   Tooltip,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import CartRemoveSingleProduct from "./CartRemoveSingleProduct";
 import { CiSearch } from "react-icons/ci";
 import CartProductQuantityControl from "./CartProductQuantityControl";
 import CartAllEmpty from "./CartAllEmpty";
 import LoadingSpinner from "@/utils/LoadingSpinner";
+import { Link } from "@chakra-ui/next-js";
 
 type TIsloading = {
   isLoading: boolean;
@@ -28,88 +32,49 @@ type TIsloading = {
 };
 
 const CartProductsRender: FC<TIsloading> = ({ isLoading, cart }) => {
+  const [isLargerThan580] = useMediaQuery("(min-width: 580px)");
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
       {cart.map((product: any) => (
-        <Grid
-          pl="1em"
-          templateColumns="repeat(5, 1fr)"
-          key={product._id}
-          py={2}
-          borderBottom="1px solid"
-          borderColor="gray.200"
-        >
-          <GridItem colSpan={2}>
+        <Flex key={product._id} borderBottom="1px solid" borderColor="gray.200">
+          <Flex flex={1}>
             <Card
+              minH="100px"
               overflow="hidden"
               variant="unstyled"
               size="sm"
-              p={2}
-              direction="row"
+              direction={isLargerThan580 ? "row" : "column-reverse"}
+              gap={2}
             >
-              <Image
-                alt={product.images[0]}
-                src={product.images[0]}
-                maxW="150px"
-                maxH="150px"
-                objectFit="cover"
-              />
-              <Stack>
-                <CardBody>
-                  <Heading as="h1" size="sm" fontWeight="semibold">
-                    {product.name}
-                  </Heading>
-                  <Text fontWeight="normal" mt={2}>
-                    {product.brand}
-                  </Text>
-                </CardBody>
-                <CardFooter>
-                  <CartRemoveSingleProduct _id={product._id} />
-                  <Tooltip
-                    hasArrow
-                    label="Full view"
-                    bg="white"
-                    color="black"
-                    fontSize="xs"
-                  >
-                    <Button
-                      as={Link}
-                      href={`/instrument/${product.productId}`}
-                      borderRadius="none"
-                      bg="white"
-                      p={0}
-                      m={0}
-                      boxShadow="md"
-                      _hover={{
-                        bg: "cyan.600",
-                        ".searchIcon": {
-                          color: "white",
-                        },
-                      }}
-                      _active={{
-                        bg: "cyan.300",
-                      }}
-                    >
-                      <Icon
-                        as={CiSearch}
-                        w={[6, 7]}
-                        h={[6, 7]}
-                        color="black"
-                        className="searchIcon"
-                      />
-                    </Button>
-                  </Tooltip>
-                </CardFooter>
-              </Stack>
+              <CardHeader>
+                <Image
+                  alt={product.name}
+                  src={product.images[0]}
+                  maxW={["60px", "80px", "100px"]}
+                  maxH={["60px", "80px", "100px"]}
+                  objectFit="cover"
+                />
+              </CardHeader>
+              <CardBody>
+                <Heading fontSize={["8px", "10px", "12px"]} fontWeight="bold">
+                  {product.name}
+                </Heading>
+                <Text
+                  fontWeight="normal"
+                  mt={2}
+                  fontSize={["8px", "10px", "12px"]}
+                >
+                  {product.brand}
+                </Text>
+              </CardBody>
             </Card>
-          </GridItem>
-          <CartProductQuantityControl cart={product} />
-        </Grid>
+          </Flex>
+          <Flex flex={1} gap={2}>
+            <CartProductQuantityControl cart={product} />
+          </Flex>
+        </Flex>
       ))}
-      <Box>
-        <CartAllEmpty />
-      </Box>
     </>
   );
 };

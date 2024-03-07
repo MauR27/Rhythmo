@@ -2,12 +2,16 @@ import {
   Button,
   Flex,
   GridItem,
+  Icon,
   Spinner,
   Text,
   useToast,
 } from "@chakra-ui/react";
 import { FC, useContext, useEffect, useState } from "react";
 import GlobalContext from "@/context/GlobalContext";
+import CartRemoveSingleProduct from "./CartRemoveSingleProduct";
+import { TfiPlus } from "react-icons/tfi";
+import { TfiMinus } from "react-icons/tfi";
 
 type TProductsCart = {
   cart: {
@@ -112,54 +116,50 @@ const CartProductQuantityControl: FC<TProductsCart> = ({ cart }) => {
 
   return (
     <>
-      <GridItem colSpan={1} alignContent="center">
-        <Flex align="center" h="full" justify="center">
-          <Text>{cart.price}$</Text>
-        </Flex>
-      </GridItem>
-      <GridItem colSpan={1} alignContent="center">
-        <Flex align="center" h="full" justify="center">
+      <Flex
+        align="center"
+        justify="center"
+        flex={1}
+        fontSize={["10px", "12px", "14px"]}
+      >
+        <Text>{cart.price}$</Text>
+      </Flex>
+      <Flex flex={1} justify="center" fontSize={["10px", "12px", "14px"]}>
+        <Flex align="center" gap={2}>
           {restIsLoading ? (
-            <Button
-              isDisabled
-              onClick={() => decrementAmount(cart.productId)}
-              variant="ghost"
-            >
-              <Spinner size="xs" />
-            </Button>
+            <Spinner size="sm" color="gray" />
           ) : (
-            <Button
+            <Icon
+              w={[2, 3, 4]}
+              h={[2, 3, 4]}
+              _hover={{ color: "red", cursor: "pointer" }}
+              as={TfiMinus}
               onClick={() => decrementAmount(cart.productId)}
-              variant="ghost"
-            >
-              -
-            </Button>
+            />
           )}
 
           <Text>{number}</Text>
           {addIsLoading ? (
-            <Button
-              isDisabled
-              onClick={() => incrementAmount(cart.productId)}
-              variant="ghost"
-            >
-              <Spinner size="xs" />
-            </Button>
+            <Spinner size="sm" color="gray" />
           ) : (
-            <Button
+            <Icon
+              w={[2, 3, 4]}
+              h={[2, 3, 4]}
+              _hover={{ color: "green", cursor: "pointer" }}
+              as={TfiPlus}
               onClick={() => incrementAmount(cart.productId)}
-              variant="ghost"
-            >
-              +
-            </Button>
+            />
           )}
         </Flex>
-      </GridItem>
-      <GridItem colSpan={1} alignContent="center">
-        <Flex align="center" h="full" justify="center">
+      </Flex>
+      <Flex alignContent="center" flex={1} justify="center">
+        <Flex align="center" fontSize={["10px", "12px", "14px"]}>
           <Text>{quantityItemPrice.toLocaleString("en-US")}.00$</Text>
         </Flex>
-      </GridItem>
+      </Flex>
+      <Flex flex={1} justify="center" align="center">
+        <CartRemoveSingleProduct _id={cart._id} />
+      </Flex>
     </>
   );
 };

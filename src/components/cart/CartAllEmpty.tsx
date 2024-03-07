@@ -39,7 +39,25 @@ const CartAllEmpty = () => {
   };
   return (
     <section>
-      <Button onClick={onOpen}>Clear cart</Button>
+      <Button
+        onClick={onOpen}
+        borderRadius={2}
+        bg="brand.cyan2"
+        color="white"
+        _hover={{
+          bg: "brand.cyan",
+          color: "white",
+          borderRadius: 5,
+        }}
+        variant="ghost"
+        // size={["xs", "sm", "md"]}
+        p={1}
+        h={["20px", "25px", "30px"]}
+        fontSize={["10px", "12px", "14px"]}
+        fontWeight="normal"
+      >
+        Clear cart
+      </Button>
       <AlertDialog
         motionPreset="slideInBottom"
         // @ts-ignore
@@ -56,7 +74,7 @@ const CartAllEmpty = () => {
           <AlertDialogBody>
             Are you sure you want to clear all cart?
           </AlertDialogBody>
-          <AlertDialogFooter>
+          <AlertDialogFooter gap={2}>
             <Button
               // @ts-ignore
               ref={cancelRef}
@@ -66,17 +84,13 @@ const CartAllEmpty = () => {
             </Button>
             <Button
               onClick={handleClearCart}
-              variant="ghost"
-              borderRadius="none"
-              boxShadow="md"
-              mr={2}
+              bg="#DD2626"
+              color="white"
+              size={["xs", "sm", "md"]}
+              fontWeight="normal"
+              borderRadius={5}
               _hover={{
-                color: "white",
-                bg: "cyan.600",
-                borderRadius: "none",
-              }}
-              _active={{
-                bg: "cyan.300",
+                bg: "#BA1B1B",
               }}
             >
               Clear

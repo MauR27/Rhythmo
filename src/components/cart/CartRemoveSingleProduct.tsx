@@ -10,9 +10,11 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
+  Icon,
   useDisclosure,
 } from "@chakra-ui/react";
 import { FC, useContext, useRef } from "react";
+import { TfiTrash } from "react-icons/tfi";
 
 type TProductId = {
   _id: string;
@@ -47,7 +49,13 @@ const CartRemoveSingleProduct: FC<TProductId> = ({ _id }) => {
 
   return (
     <section>
-      <Button onClick={onOpen}>Discard</Button>
+      <Icon
+        onClick={onOpen}
+        as={TfiTrash}
+        h={[3, 4, 5]}
+        w={[3, 4, 5]}
+        _hover={{ color: "red", cursor: "pointer" }}
+      />
       <AlertDialog
         motionPreset="slideInBottom"
         // @ts-ignore
@@ -64,8 +72,17 @@ const CartRemoveSingleProduct: FC<TProductId> = ({ _id }) => {
           <AlertDialogBody>
             Are you sure you want to remove this product from your cart?
           </AlertDialogBody>
-          <AlertDialogFooter>
+          <AlertDialogFooter gap={2}>
             <Button
+              borderRadius={5}
+              _hover={{
+                bg: "brand.cyan2",
+                color: "white",
+                borderRadius: 5,
+              }}
+              variant="ghost"
+              size={["xs", "sm", "md"]}
+              fontWeight="normal"
               // @ts-ignore
               ref={cancelRef}
               onClick={onClose}
@@ -74,17 +91,13 @@ const CartRemoveSingleProduct: FC<TProductId> = ({ _id }) => {
             </Button>
             <Button
               onClick={fetchRemoveItem}
-              variant="ghost"
-              borderRadius="none"
-              boxShadow="md"
-              mr={2}
+              bg="#DD2626"
+              color="white"
+              size={["xs", "sm", "md"]}
+              fontWeight="normal"
+              borderRadius={5}
               _hover={{
-                color: "white",
-                bg: "cyan.600",
-                borderRadius: "none",
-              }}
-              _active={{
-                bg: "cyan.300",
+                bg: "#BA1B1B",
               }}
             >
               Remove

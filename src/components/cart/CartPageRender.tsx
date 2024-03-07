@@ -9,15 +9,18 @@ import {
   List,
   ListItem,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useEffect, useContext, useState } from "react";
 import CartProductsRender from "./CartProductsRender";
 import GlobalContext from "@/context/GlobalContext";
 import CartOrderSummary from "./CartOrderSummary";
+import CartAllEmpty from "./CartAllEmpty";
 
 const CartPageRender = () => {
   const { setCart, cart } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLargerThan580] = useMediaQuery("(min-width: 1380px)");
 
   useEffect(() => {
     (async () => {
@@ -39,49 +42,86 @@ const CartPageRender = () => {
   }, [setCart]);
 
   return (
-    <Grid minH="calc(100vh - 11rem)" templateColumns="repeat(3, 1fr)">
-      <GridItem colSpan={2}>
-        <Text as="h1" fontSize="4xl" fontWeight="semibold" ml="1em">
-          Products Cart
-        </Text>
-        <Box>
-          <List display="flex" justifyContent="space-between">
-            <ListItem flex={2} pl="1em" fontSize="1.2em" fontWeight="normal">
-              Item Added
-            </ListItem>
-            <ListItem
-              flex={1}
-              textAlign="center"
-              fontSize="1em"
-              fontWeight="light"
+    <Flex
+      minH="calc(100vh - 15rem)"
+      flexDir={isLargerThan580 ? "row" : "column"}
+      justify="center"
+    >
+      <Flex m="20px 20px 0 20px">
+        <Flex
+          boxShadow="md"
+          borderRadius={5}
+          p="5px 5px 5px 5px"
+          flexDir="column"
+          w="1000px"
+        >
+          <Flex justify="space-between" align="center">
+            <Text
+              fontSize={["16px", "18px", "20px"]}
+              fontWeight="normal"
+              color="gray.500"
             >
-              Price
-            </ListItem>
-            <ListItem
+              Shopping Cart
+            </Text>
+            <Flex align="center" gap={2}>
+              <Text fontSize={["10px", "12px", "16px"]} color="gray.500">
+                {cart.length} items
+              </Text>
+              <CartAllEmpty />
+            </Flex>
+          </Flex>
+          <Divider m="20px 0 20px 0" borderColor="gray" />
+          <Flex mb={5}>
+            <Flex flex={1} fontSize={["10px", "12px", "14px"]}>
+              <Text>Products</Text>
+            </Flex>
+            <List
+              display="flex"
               flex={1}
-              textAlign="center"
-              fontSize="1em"
-              fontWeight="light"
+              fontSize={["10px", "12px", "14px"]}
+              gap={6}
             >
-              Quantity
-            </ListItem>
-            <ListItem
-              flex={1}
-              textAlign="center"
-              fontSize="1em"
-              fontWeight="light"
-            >
-              Total
-            </ListItem>
-          </List>
-        </Box>
-        <Divider mt="1rem" borderColor="gray" />
-        <CartProductsRender isLoading={isLoading} cart={cart} />
-      </GridItem>
-      <GridItem colSpan={1} justifyContent="center" pt="30px">
+              <ListItem
+                textAlign="center"
+                fontSize="1em"
+                fontWeight="light"
+                flex={1}
+              >
+                Price
+              </ListItem>
+              <ListItem
+                textAlign="center"
+                fontSize="1em"
+                fontWeight="light"
+                flex={1}
+              >
+                Quantity
+              </ListItem>
+              <ListItem
+                textAlign="center"
+                fontSize="1em"
+                fontWeight="light"
+                flex={1}
+              >
+                Total
+              </ListItem>
+              <ListItem
+                textAlign="center"
+                fontSize="1em"
+                fontWeight="light"
+                flex={1}
+              ></ListItem>
+            </List>
+          </Flex>
+          <Flex flexDir="column" gap={2}>
+            <CartProductsRender isLoading={isLoading} cart={cart} />
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex pt="20px">
         <CartOrderSummary />
-      </GridItem>
-    </Grid>
+      </Flex>
+    </Flex>
   );
 };
 
