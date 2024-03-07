@@ -41,7 +41,7 @@ const FavoriteProductsRender = () => {
           minH="calc(100vh - 13rem)"
           p="0 10px 0 10px"
         >
-          <Text fontSize={["25px", "25px", "30px"]} textAlign="center">
+          <Text fontSize={["20px", "25px", "30px"]} textAlign="center">
             You dont have any instrument yet...
           </Text>
         </Flex>
