@@ -112,7 +112,7 @@ const CartPageRender = () => {
           </Flex>
         </Flex>
       </Flex>
-      <Flex>
+      <Flex align="end">
         <CartOrderSummary />
       </Flex>
     </Flex>
