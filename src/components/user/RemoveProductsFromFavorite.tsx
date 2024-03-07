@@ -1,7 +1,7 @@
 import GlobalContext from "@/context/GlobalContext";
 import { Flex, Icon, Tooltip } from "@chakra-ui/react";
 import React, { FC, useContext } from "react";
-import { IoHeartDislikeOutline } from "react-icons/io5";
+import { CiTrash } from "react-icons/ci";
 
 type TProductId = {
   _id: string;
@@ -50,12 +50,7 @@ const RemoveProductsFromFavorite: FC<TProductId> = ({ _id }) => {
           bg: "gray.200",
         }}
       >
-        <Icon
-          as={IoHeartDislikeOutline}
-          w={[6, 7, 8]}
-          h={[6, 7, 8]}
-          color="black"
-        >
+        <Icon as={CiTrash} w={[6, 7, 8]} h={[6, 7, 8]} color="black">
           Remove
         </Icon>
       </Flex>
