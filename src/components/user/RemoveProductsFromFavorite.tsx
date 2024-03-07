@@ -1,6 +1,7 @@
 import GlobalContext from "@/context/GlobalContext";
-import { Button } from "@chakra-ui/react";
+import { Flex, Icon, Tooltip } from "@chakra-ui/react";
 import React, { FC, useContext } from "react";
+import { IoHeartDislikeOutline } from "react-icons/io5";
 
 type TProductId = {
   _id: string;
@@ -24,23 +25,41 @@ const RemoveProductsFromFavorite: FC<TProductId> = ({ _id }) => {
   };
 
   return (
-    <Button
-      onClick={fetchRemoveItem}
-      variant="ghost"
-      borderRadius="none"
-      boxShadow="md"
-      mr={2}
-      _hover={{
-        color: "white",
-        bg: "cyan.600",
-        borderRadius: "none",
-      }}
-      _active={{
-        bg: "cyan.300",
-      }}
+    <Tooltip
+      hasArrow
+      label="Remove product"
+      bg="white"
+      color="black"
+      gutter={0}
+      fontSize="xs"
     >
-      Remove
-    </Button>
+      <Flex
+        align="center"
+        justify="center"
+        onClick={fetchRemoveItem}
+        borderRadius={10}
+        bg="white"
+        p={0}
+        m={0}
+        h={["30px", "40px", "50px"]}
+        w={["30px", "40px", "50px"]}
+        _hover={{
+          bg: "gray.100",
+        }}
+        _active={{
+          bg: "gray.200",
+        }}
+      >
+        <Icon
+          as={IoHeartDislikeOutline}
+          w={[6, 7, 8]}
+          h={[6, 7, 8]}
+          color="black"
+        >
+          Remove
+        </Icon>
+      </Flex>
+    </Tooltip>
   );
 };
 

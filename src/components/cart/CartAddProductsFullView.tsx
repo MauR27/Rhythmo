@@ -1,13 +1,13 @@
 "use client";
 
-import { Icon, useToast, Tooltip, Flex, Box, Text } from "@chakra-ui/react";
+import { Icon, useToast, Flex, Text } from "@chakra-ui/react";
 import { FC, useContext } from "react";
 import { TProduct } from "../../../types";
 import GlobalContext from "@/context/GlobalContext";
 import { FaCartShopping } from "react-icons/fa6";
 
 type TProductsProps = {
-  product: TProduct;
+  product: TProduct | undefined;
 };
 
 const CartAddProductsFullView: FC<TProductsProps> = ({ product }) => {

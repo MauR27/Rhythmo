@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  ChangeEvent,
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { ProductsResponse } from "../../../types";
 import {
   Box,
@@ -34,7 +28,6 @@ import {
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
-import { fetchItemById } from "../products/ProductsFullViewPage";
 import { useDropzone } from "react-dropzone";
 import AdminDeleteSingleProduct from "./AdminDeleteSingleProduct";
 import LoadingSpinner from "@/utils/LoadingSpinner";
@@ -70,6 +63,15 @@ const AdminRenderDashboardPage = () => {
     stripe_price_id: "",
     stripe_product_id: "",
   });
+
+  async function fetchItemById(id: string) {
+    const response = await fetch(
+      `http://localhost:3000/api/user/cart/get-products/by-id?q=${id}`
+    );
+
+    const data = await response.json();
+    return data;
+  }
 
   const toast = useToast();
 
