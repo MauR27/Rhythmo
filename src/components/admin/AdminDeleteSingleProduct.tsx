@@ -9,10 +9,15 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
+  Flex,
+  Icon,
+  Spinner,
+  Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
-import { FC, useRef } from "react";
+import { FC, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { TfiTrash } from "react-icons/tfi";
 
 type TProductId = {
   _id: string;
@@ -24,11 +29,13 @@ const AdminDeleteSingleProduct: FC<TProductId> = ({
   stripe_product_id,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLoadin, setIsLoading] = useState(false);
 
   const cancelRef = useRef();
   const router = useRouter();
   const handleDeleteProduct = async () => {
     try {
+      setIsLoading(true);
       const res = await fetch(
         "http://localhost:3000/api/admin/delete-products",
         {
@@ -43,8 +50,11 @@ const AdminDeleteSingleProduct: FC<TProductId> = ({
         }
       );
       if (res.ok) {
+        setIsLoading(false);
+        onClose();
         router.refresh();
       } else {
+        setIsLoading(false);
         throw new Error("Error to DELETE this product");
       }
     } catch (error) {
@@ -54,7 +64,28 @@ const AdminDeleteSingleProduct: FC<TProductId> = ({
 
   return (
     <section>
-      <Button onClick={onOpen}>Delete</Button>
+      <Tooltip
+        placement="top"
+        label="Delete"
+        bg="white"
+        color="black"
+        gutter={0}
+        fontSize="xs"
+      >
+        <Flex
+          align="center"
+          justify="center"
+          onClick={onOpen}
+          borderRadius={10}
+          color="gray.500"
+          _hover={{
+            color: "red",
+          }}
+        >
+          <Icon as={TfiTrash} w={[3, 4, 5]} h={[3, 4, 5]} />
+        </Flex>
+      </Tooltip>
+
       <AlertDialog
         motionPreset="slideInBottom"
         // @ts-ignore
@@ -72,7 +103,7 @@ const AdminDeleteSingleProduct: FC<TProductId> = ({
             Are you sure you want to delete this product? It will be delete for
             ever
           </AlertDialogBody>
-          <AlertDialogFooter>
+          <AlertDialogFooter gap={2}>
             <Button
               // @ts-ignore
               ref={cancelRef}
@@ -80,23 +111,23 @@ const AdminDeleteSingleProduct: FC<TProductId> = ({
             >
               No
             </Button>
-            <Button
-              onClick={handleDeleteProduct}
-              variant="ghost"
-              borderRadius="none"
-              boxShadow="md"
-              mr={2}
-              _hover={{
-                color: "white",
-                bg: "cyan.600",
-                borderRadius: "none",
-              }}
-              _active={{
-                bg: "cyan.300",
-              }}
-            >
-              Delete
-            </Button>
+            {isLoadin ? (
+              <Spinner />
+            ) : (
+              <Button
+                onClick={handleDeleteProduct}
+                borderRadius={3}
+                bg="#D11818"
+                color="white"
+                fontWeight="normal"
+                _hover={{
+                  color: "white",
+                  bg: "#AB1515",
+                }}
+              >
+                Delete
+              </Button>
+            )}
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

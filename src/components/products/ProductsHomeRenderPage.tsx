@@ -20,8 +20,10 @@ const ProductsHomeRenderPage = () => {
         );
         if (response.ok) {
           const products = await response.json();
-          products.splice(0, 3);
-          setProducts(products);
+          console.log(products);
+
+          const productsSlice = products.slice(0, 4);
+          setProducts(productsSlice);
           setIsLoading(false);
         }
       })();

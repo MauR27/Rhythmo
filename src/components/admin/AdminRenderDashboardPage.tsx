@@ -27,10 +27,18 @@ import {
   useToast,
   Textarea,
   useDisclosure,
+  Heading,
+  useMediaQuery,
+  Grid,
+  GridItem,
+  Icon,
+  Tooltip,
 } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
 import AdminDeleteSingleProduct from "./AdminDeleteSingleProduct";
 import LoadingSpinner from "@/utils/LoadingSpinner";
+import { BiSolidEdit } from "react-icons/bi";
+import { TbEdit } from "react-icons/tb";
 
 type TEditProduct = {
   name: string;
@@ -63,6 +71,7 @@ const AdminRenderDashboardPage = () => {
     stripe_price_id: "",
     stripe_product_id: "",
   });
+  const [isLargerThan580] = useMediaQuery("(min-width: 580px)");
 
   async function fetchItemById(id: string) {
     const response = await fetch(
@@ -250,28 +259,86 @@ const AdminRenderDashboardPage = () => {
   if (isLoadingProducts) return <LoadingSpinner />;
 
   return (
-    <Flex flexDir="column" gap={2}>
-      {products.map((data) => (
-        <Card key={data._id}>
-          <CardHeader>
-            <Text>{data.name}</Text>
-          </CardHeader>
-          <CardBody>
-            <Image src={data.images[0]} alt={data.name} w={40} h={40} />
-            <Text>{data.price}$</Text>
-          </CardBody>
-          <CardFooter>
-            <Button onClick={() => handleEditProduct(data._id)}>
-              Edit Product
-            </Button>
+    <Flex gap={2} minH="calc(100vh - 16rem)" mt={10} justify="center">
+      <Grid
+        templateColumns={{
+          base: "repeat(auto-fill, minmax(50%, 1fr))",
+          sm: "repeat(auto-fill, minmax(100%, 1fr))",
+          md: "repeat(2, 1fr)",
+          lg: "repeat(3, 1fr)",
+        }}
+        gap={3}
+      >
+        {products.map((data) => (
+          <GridItem key={data._id}>
+            <Card
+              p={2}
+              h="150px"
+              overflow="hidden"
+              variant="unstyled"
+              size="sm"
+              direction="row"
+              gap={2}
+              align="center"
+              _hover={{
+                boxShadow: "md",
+                cursor: "pointer",
+              }}
+            >
+              <CardHeader>
+                <Image
+                  alt={data.name}
+                  src={data.images[0]}
+                  maxW={["60px", "80px", "100px"]}
+                  maxH={["60px", "80px", "100px"]}
+                  objectFit="cover"
+                />
+              </CardHeader>
+              <CardBody>
+                <Heading fontSize={["8px", "10px", "12px"]} fontWeight="bold">
+                  {data.name}
+                </Heading>
+                <Text
+                  fontWeight="normal"
+                  mt={2}
+                  fontSize={["8px", "10px", "12px"]}
+                >
+                  {data.brand}
+                </Text>
+              </CardBody>
+              <CardFooter gap={2}>
+                <Tooltip
+                  placement="top"
+                  label="Add to cart"
+                  bg="white"
+                  color="black"
+                  gutter={0}
+                  fontSize="xs"
+                >
+                  <Flex
+                    align="center"
+                    justify="center"
+                    onClick={() => handleEditProduct(data._id)}
+                    borderRadius={10}
+                    color="gray.500"
+                    _hover={{
+                      color: "brand.cyan2",
+                    }}
+                  >
+                    <Icon as={TbEdit} w={[3, 4, 5]} h={[3, 4, 5]} />
+                  </Flex>
+                </Tooltip>
 
-            <AdminDeleteSingleProduct
-              _id={data._id}
-              stripe_product_id={data.stripe_product_id}
-            />
-          </CardFooter>
-        </Card>
-      ))}
+                <AdminDeleteSingleProduct
+                  _id={data._id}
+                  stripe_product_id={data.stripe_product_id}
+                />
+              </CardFooter>
+            </Card>
+            <Flex flex={1} gap={2}></Flex>
+          </GridItem>
+        ))}
+      </Grid>
 
       <section about="Edit_Products_Modal">
         <Modal
