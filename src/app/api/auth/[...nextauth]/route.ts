@@ -22,16 +22,21 @@ const handler = NextAuth({
       },
       async authorize(credentials, req) {
         await connectDB();
-        if (!credentials || !credentials.email || !credentials.password) {
-          return null;
-        }
+        try {
+          if (!credentials || !credentials.email || !credentials.password) {
+            throw new Error("Invalid email or password");
+          }
 
-        const user = await User.findOne({ email: credentials?.email });
+          const user = await User.findOne({ email: credentials?.email });
 
-        if (user && (await user.matchPassword(credentials?.password))) {
-          return user;
-        } else {
-          throw new Error("Invalid email or password");
+          if (user && (await user.matchPassword(credentials?.password))) {
+            return user;
+          } else {
+            throw new Error("Invalid email or password");
+          }
+        } catch (error) {
+          if (error instanceof Error)
+            throw new Error("Invalid email or password");
         }
       },
     }),

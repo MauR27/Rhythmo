@@ -84,40 +84,53 @@ const ProfileRenderPage = () => {
 
   return (
     <Box>
-      {
-        // @ts-ignore
-        user?.provider === "google" ? (
-          <form onSubmit={formik.handleSubmit}>
-            <FormControl minW="400px" mb={4}>
-              <FormLabel>Name</FormLabel>
-              <Input
-                id="name"
-                name="name"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.name}
-                variant="flushed"
-              />
-            </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Email</FormLabel>
-              <Text fontSize="sm">
-                After change the Email you have to Sign in Again for you
-                security
-              </Text>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="MonicaGeller@gmail.com"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-                variant="filled"
-              />
-            </FormControl>
+      <form onSubmit={formik.handleSubmit}>
+        <FormControl minW="400px" mb={4}>
+          <FormLabel>Name</FormLabel>
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.name}
+            variant="flushed"
+          />
+        </FormControl>
+        <FormControl mb={4}>
+          <FormLabel>Email</FormLabel>
+          <Text fontSize="sm">
+            After change the Email you have to Sign in Again for you security
+          </Text>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="MonicaGeller@gmail.com"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            variant="filled"
+          />
+        </FormControl>
 
-            <Flex justify="center">
-              <>
+        <Flex justify="center">
+          {loading ? (
+            <Spinner />
+          ) : (
+            <>
+              {formik.values.name || formik.values.email ? (
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  borderRadius="none"
+                  _hover={{
+                    bg: "cyan.600",
+                    color: "white",
+                    borderRadius: "none",
+                  }}
+                >
+                  Update
+                </Button>
+              ) : (
                 <Button
                   isDisabled
                   type="submit"
@@ -131,78 +144,11 @@ const ProfileRenderPage = () => {
                 >
                   Update
                 </Button>
-              </>
-            </Flex>
-          </form>
-        ) : (
-          <form onSubmit={formik.handleSubmit}>
-            <FormControl minW="400px" mb={4}>
-              <FormLabel>Name</FormLabel>
-              <Input
-                id="name"
-                name="name"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.name}
-                variant="flushed"
-              />
-            </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Email</FormLabel>
-              <Text fontSize="sm">
-                After change the Email you have to Sign in Again for you
-                security
-              </Text>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="MonicaGeller@gmail.com"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-                variant="filled"
-              />
-            </FormControl>
-
-            <Flex justify="center">
-              {loading ? (
-                <Spinner />
-              ) : (
-                <>
-                  {formik.values.name || formik.values.email ? (
-                    <Button
-                      type="submit"
-                      variant="ghost"
-                      borderRadius="none"
-                      _hover={{
-                        bg: "cyan.600",
-                        color: "white",
-                        borderRadius: "none",
-                      }}
-                    >
-                      Update
-                    </Button>
-                  ) : (
-                    <Button
-                      isDisabled
-                      type="submit"
-                      variant="ghost"
-                      borderRadius="none"
-                      _hover={{
-                        bg: "cyan.600",
-                        color: "white",
-                        borderRadius: "none",
-                      }}
-                    >
-                      Update
-                    </Button>
-                  )}
-                </>
               )}
-            </Flex>
-          </form>
-        )
-      }
+            </>
+          )}
+        </Flex>
+      </form>
     </Box>
   );
 };

@@ -13,7 +13,11 @@ const handler = async (req: NextRequest) => {
   ) {
     return NextResponse.redirect(new URL("/", req.url));
   }
-
+  if (
+    req.nextUrl.pathname === "/pages/profile" &&
+    session.provider === "google"
+  )
+    return NextResponse.redirect(new URL("/", req.url));
   return NextResponse.next();
 };
 export default handler;

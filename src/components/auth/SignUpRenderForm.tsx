@@ -19,6 +19,7 @@ import { FcGoogle } from "react-icons/fc";
 
 const SignUpRenderForm = () => {
   const [error, setError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const router = useRouter();
   const toast = useToast();
 
@@ -27,14 +28,9 @@ const SignUpRenderForm = () => {
 
     const formData = new FormData(e.currentTarget);
     if (formData.get("password") !== formData.get("confirmPassword")) {
-      return toast({
-        status: "error",
-        description: "Password do not match",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
+      return setPasswordError("Password do not match");
     }
+    setPasswordError("");
 
     try {
       const res = await fetch("/api/auth/register", {
@@ -134,6 +130,11 @@ const SignUpRenderForm = () => {
               name="confirmPassword"
               variant="filled"
             />
+            {passwordError && (
+              <Text color="red" fontSize={["8px", "10px", "12px"]}>
+                {passwordError}
+              </Text>
+            )}
           </FormControl>
           <Flex flexDir="column" gap={2}>
             <Flex justify="center" align="center" flexDir="column">

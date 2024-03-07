@@ -26,17 +26,18 @@ const SignInRenderForm: FC<TOnClose> = ({ onClose }) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-
-    const res = await signIn("credentials", {
-      email: formData.get("email"),
-      password: formData.get("password"),
-      redirect: false,
-    });
-
-    if (res?.error) return setError(res.error as string);
-
-    if (res?.ok) {
-      window.location.replace("/");
+    try {
+      const res = await signIn("credentials", {
+        email: formData.get("email"),
+        password: formData.get("password"),
+        redirect: false,
+      });
+      if (res?.error) return setError(res.error);
+      if (res?.ok) {
+        window.location.replace("/");
+      }
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
     }
   };
 

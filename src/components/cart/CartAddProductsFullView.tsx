@@ -4,7 +4,6 @@ import { Icon, useToast, Tooltip, Flex, Box, Text } from "@chakra-ui/react";
 import { FC, useContext } from "react";
 import { TProduct } from "../../../types";
 import GlobalContext from "@/context/GlobalContext";
-import { PiShoppingCartSimpleThin } from "react-icons/pi";
 import { FaCartShopping } from "react-icons/fa6";
 
 type TProductsProps = {
@@ -59,7 +58,6 @@ const CartAddProductsFullView: FC<TProductsProps> = ({ product }) => {
       onClick={fetchData}
       borderRadius={5}
       bg="#D6D6D6"
-      // p="0 0 0 10px"
       m={0}
       h={["40px", "45px", "50px"]}
       w={["150px", "180px", "200px"]}

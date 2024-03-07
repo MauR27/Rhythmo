@@ -55,17 +55,25 @@ const DropDownButton: FC<TAdminRole> = ({ admin }) => {
               >
                 Logout
               </MenuItem>
-              <MenuItem
-                as={Link}
-                href="/pages/profile"
-                _hover={{
-                  bg: "brand.cyan2",
-                  color: "white",
-                  textDecor: "none",
-                }}
-              >
-                Profile
-              </MenuItem>
+
+              {
+                // @ts-ignore
+                user?.provider === "google" ? (
+                  <></>
+                ) : (
+                  <MenuItem
+                    as={Link}
+                    href="/pages/profile"
+                    _hover={{
+                      bg: "brand.cyan2",
+                      color: "white",
+                      textDecor: "none",
+                    }}
+                  >
+                    Profile
+                  </MenuItem>
+                )
+              }
 
               <MenuItem
                 as={Link}
