@@ -13,15 +13,18 @@ const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
   const { setFavoriteListProductsLength } = useContext(GlobalContext);
 
   const fetchData = async () => {
-    const response = await fetch("/api/user/profile/favorite-products", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        product,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/profile/favorite-products`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          product,
+        }),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();

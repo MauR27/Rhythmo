@@ -9,7 +9,9 @@ const CartNavButton = () => {
 
   useEffect(() => {
     const fetchCartLength = async () => {
-      const response = await fetch("/api/user/cart/length");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/cart/length`
+      );
       if (response.ok) {
         const cartLength: number = await response.json();
         return setCartLength(cartLength);

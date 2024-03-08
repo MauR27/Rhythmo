@@ -27,13 +27,16 @@ const CartRemoveSingleProduct: FC<TProductId> = ({ _id }) => {
 
   const fetchRemoveItem = async () => {
     try {
-      const response = await fetch("/api/user/cart/remove-products", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ _id }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/cart/remove-products`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ _id }),
+        }
+      );
       const data = await response.json();
 
       if (response.ok) {

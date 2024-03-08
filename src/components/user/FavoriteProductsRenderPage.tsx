@@ -16,7 +16,9 @@ const FavoriteProductsRender = () => {
     try {
       setLoadingList(true);
       (async () => {
-        const response = await fetch("/api/user/profile/get-favorite-products");
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/profile/get-favorite-products`
+        );
         if (response.ok) {
           const userProductsList = await response.json();
           setFavoriteProductList(userProductsList);

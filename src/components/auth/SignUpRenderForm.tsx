@@ -30,17 +30,20 @@ const SignUpRenderForm = () => {
     setPasswordError("");
 
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          password: formData.get("password"),
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/auth/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.get("name"),
+            email: formData.get("email"),
+            password: formData.get("password"),
+          }),
+        }
+      );
 
       const data = await res.json();
 

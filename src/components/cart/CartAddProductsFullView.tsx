@@ -17,15 +17,18 @@ const CartAddProductsFullView: FC<TProductsProps> = ({ product }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("/api/user/cart/add-products", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          product,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/cart/add-products`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            product,
+          }),
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         setCartLength(data?.cart?.length || 0);

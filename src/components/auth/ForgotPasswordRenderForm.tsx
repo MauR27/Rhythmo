@@ -45,15 +45,18 @@ const ForgotPasswordRenderForm: FC<TOnClose> = ({ onClose }) => {
 
     try {
       setIsLoading(true);
-      const res = await fetch("/api/user/password/forgot", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.get("email"),
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/password/forgot`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.get("email"),
+          }),
+        }
+      );
 
       if (res.ok) {
         setError("");

@@ -29,17 +29,20 @@ const ProfileRenderPage = () => {
     onSubmit: async (values, { resetForm }) => {
       try {
         setLoading(true);
-        const fetchProfile = await fetch("/api/user/profile", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: values.email,
-            name: values.name,
-            emailVerification: user?.email,
-          }),
-        });
+        const fetchProfile = await fetch(
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/profile`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: values.email,
+              name: values.name,
+              emailVerification: user?.email,
+            }),
+          }
+        );
 
         await fetchProfile.json();
 

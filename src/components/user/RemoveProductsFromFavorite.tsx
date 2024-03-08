@@ -12,13 +12,16 @@ const RemoveProductsFromFavorite: FC<TProductId> = ({ _id }) => {
     useContext(GlobalContext);
 
   const fetchRemoveItem = async () => {
-    const response = await fetch("/api/user/profile/favorite-products/remove", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ _id }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/profile/favorite-products/remove`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ _id }),
+      }
+    );
     const data = await response.json();
     setFavoriteProductList(data?.favoriteProduct);
     setFavoriteListProductsLength(data?.favoriteProduct?.length || 0);

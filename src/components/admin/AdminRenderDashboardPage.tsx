@@ -184,22 +184,25 @@ const AdminRenderDashboardPage = () => {
       const promise = await Promise.all(singleProduct.images);
 
       if (promise) {
-        const res = await fetch("/api/admin/edit-products", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: singleProduct.name,
-            description: singleProduct.description,
-            amount: singleProduct.amount,
-            brand: singleProduct.brand,
-            images: singleProduct.images,
-            instrumentType: singleProduct.instrumentType,
-            price: singleProduct.price,
-            _id: singleProduct._id,
-            stripe_price_id: singleProduct.stripe_price_id,
-            stripe_product_id: singleProduct.stripe_product_id,
-          }),
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/admin/edit-products`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: singleProduct.name,
+              description: singleProduct.description,
+              amount: singleProduct.amount,
+              brand: singleProduct.brand,
+              images: singleProduct.images,
+              instrumentType: singleProduct.instrumentType,
+              price: singleProduct.price,
+              _id: singleProduct._id,
+              stripe_price_id: singleProduct.stripe_price_id,
+              stripe_product_id: singleProduct.stripe_product_id,
+            }),
+          }
+        );
 
         if (res.ok) {
           setIsLoadingSend(false);

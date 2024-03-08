@@ -18,7 +18,9 @@ const ProductsFilterByTypeRender: FC<TProducts> = ({ params }) => {
     try {
       setIsLoading(true);
       (async () => {
-        const response = await fetch(`/api/products/by-type?q=${params}`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/products/by-type?q=${params}`
+        );
         if (response.ok) {
           const products: ProductsResponse = await response.json();
 

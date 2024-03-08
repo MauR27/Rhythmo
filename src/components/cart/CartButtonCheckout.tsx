@@ -15,15 +15,18 @@ const CartButtonCheckout = () => {
   });
 
   const handleCheckout = async () => {
-    const fetchStripe = await fetch("/api/checkout", {
-      method: "POST",
-      body: JSON.stringify({
-        cartCheckout,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const fetchStripe = await fetch(
+      `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/checkout`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          cartCheckout,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await fetchStripe.json();
     window.location.href = data.url;

@@ -29,15 +29,18 @@ const ResetPasswordRenderForm: FC<TParamsResetPasswordToken> = ({ token }) => {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const res = await fetch("/api/user/password/verify-token", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            token: token,
-          }),
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/password/verify-token`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              token: token,
+            }),
+          }
+        );
 
         if (res.ok) {
           setError("");
@@ -69,17 +72,20 @@ const ResetPasswordRenderForm: FC<TParamsResetPasswordToken> = ({ token }) => {
     const formData = new FormData(e.currentTarget);
 
     try {
-      const res = await fetch("/api/user/password/reset", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          password: formData.get("password"),
-          //   @ts-ignore
-          email: user,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/password/reset`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password: formData.get("password"),
+            //   @ts-ignore
+            email: user,
+          }),
+        }
+      );
 
       if (res.ok) {
         setError("");
