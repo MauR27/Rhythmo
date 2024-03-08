@@ -5,7 +5,8 @@ const handler = async (req: NextRequest) => {
   try {
     const session = await getToken({
       req,
-      secret: "123123123123",
+      secret: process.env.NEXTAUTH_SECRET,
+      cookieName: '"next-auth.session-token"',
     });
     console.log("session", session);
 
