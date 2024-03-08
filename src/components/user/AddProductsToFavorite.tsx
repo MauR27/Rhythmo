@@ -16,6 +16,7 @@ const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/profile/favorite-products`,
       {
+        cache: "no-store",
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
