@@ -1,5 +1,6 @@
 "use client";
 
+import { statusError } from "@/utils/errors";
 import {
   Button,
   Flex,
@@ -29,7 +30,7 @@ const ProfileRenderPage = () => {
     onSubmit: async (values, { resetForm }) => {
       try {
         setLoading(true);
-        const fetchProfile = await fetch(
+        const response = await fetch(
           `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/profile`,
           {
             method: "PUT",
@@ -44,36 +45,26 @@ const ProfileRenderPage = () => {
           }
         );
 
-        await fetchProfile.json();
-
-        if (fetchProfile?.ok) {
-          if (formik.values.email) {
-            if (user?.email !== formik.values.email) {
-              signOut();
-            }
+        await response.json();
+        const errors = statusError(response.status);
+        if (formik.values.email) {
+          if (user?.email !== formik.values.email) {
+            signOut();
           }
-          resetForm({
-            values: {
-              name: "",
-              email: "",
-            },
-          });
-          toast({
-            status: "success",
-            description: "Profile Updated",
-            duration: 3000,
-            isClosable: true,
-            position: "top",
-          });
-        } else {
-          return toast({
-            status: "error",
-            description: fetchProfile.statusText,
-            duration: 3000,
-            isClosable: true,
-            position: "top",
-          });
         }
+        resetForm({
+          values: {
+            name: "",
+            email: "",
+          },
+        });
+        toast({
+          status: errors.status,
+          description: errors.message,
+          duration: 3000,
+          isClosable: true,
+          position: "top",
+        });
       } catch (error) {
         if (error instanceof Error) {
           throw new Error(error.message);

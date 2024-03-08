@@ -3,6 +3,7 @@ import React, { FC, useContext } from "react";
 import { TProduct } from "../../../types";
 import { PiHeartThin } from "react-icons/pi";
 import GlobalContext from "@/context/GlobalContext";
+import { statusError } from "@/utils/errors";
 
 type TProductsProps = {
   product: TProduct;
@@ -11,36 +12,6 @@ type TProductsProps = {
 const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
   const toast = useToast();
   const { setFavoriteListProductsLength } = useContext(GlobalContext);
-
-  const statusError = (status: number) => {
-    let responseStatus: { status: AlertStatus; message: string } = {
-      message: "",
-      status: "info",
-    };
-    switch (status) {
-      case 201:
-        responseStatus = {
-          status: "error",
-          message: "Item marked as Favorite!",
-        };
-        break;
-      case 409:
-        responseStatus = {
-          status: "success",
-          message: "You already have this Item in your Favorite List!",
-        };
-        break;
-      case 400:
-        responseStatus = {
-          status: "success",
-          message: "You have to Login first",
-        };
-        break;
-      default:
-        break;
-    }
-    return responseStatus;
-  };
 
   const fetchData = async () => {
     const response = await fetch(

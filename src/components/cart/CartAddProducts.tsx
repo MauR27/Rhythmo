@@ -5,6 +5,7 @@ import { FC, useContext } from "react";
 import { TProduct } from "../../../types";
 import GlobalContext from "@/context/GlobalContext";
 import { PiShoppingCartSimpleThin } from "react-icons/pi";
+import { statusError } from "@/utils/errors";
 
 type TProductsProps = {
   product: TProduct;
@@ -29,25 +30,18 @@ const CartAddProducts: FC<TProductsProps> = ({ product }) => {
           }),
         }
       );
-      if (response.ok) {
-        const data = await response.json();
-        setCartLength(data?.cart?.length || 0);
-        toast({
-          status: "success",
-          description: response?.statusText,
-          duration: 3000,
-          isClosable: true,
-          position: "top",
-        });
-      } else {
-        toast({
-          status: "error",
-          description: response?.statusText,
-          duration: 3000,
-          isClosable: true,
-          position: "top",
-        });
-      }
+      const data = await response.json();
+      setCartLength(data?.cart?.length || 0);
+
+      const errors = statusError(response.status);
+
+      toast({
+        status: errors.status,
+        description: errors.message,
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message);

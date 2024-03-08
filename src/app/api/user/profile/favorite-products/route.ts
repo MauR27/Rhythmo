@@ -25,7 +25,7 @@ export async function PUT(req: Request) {
     if (!session) {
       return NextResponse.json(
         { message: "You have to Login first" },
-        { status: 400, statusText: "You have to Login first" }
+        { status: 400 }
       );
     } else {
       const userEmail = session.user?.email;
@@ -53,14 +53,12 @@ export async function PUT(req: Request) {
         await user.save();
         return NextResponse.json(user, {
           status: 201,
-          statusText: "Item marked as Favorite!!",
         });
       } else {
         return NextResponse.json(
           { message: "You already have this Item in your Favorite List!!" },
           {
             status: 409,
-            statusText: "You already have this Item in your Favorite List!!",
           }
         );
       }

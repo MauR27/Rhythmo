@@ -3,6 +3,7 @@ import React, { FC, useContext } from "react";
 import { TProduct } from "../../../types";
 import { PiHeartThin } from "react-icons/pi";
 import GlobalContext from "@/context/GlobalContext";
+import { statusError } from "@/utils/errors";
 
 type TProductsProps = {
   product: TProduct | undefined;
@@ -26,26 +27,17 @@ const AddProductsToFavoriteFullView: FC<TProductsProps> = ({ product }) => {
       }
     );
 
-    if (response.ok) {
-      const data = await response.json();
-      setFavoriteListProductsLength(data?.favoriteProduct?.length || 0);
+    const data = await response.json();
+    setFavoriteListProductsLength(data?.favoriteProduct?.length || 0);
+    const errors = statusError(response.status);
 
-      toast({
-        status: "success",
-        description: response?.statusText,
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
-    } else {
-      toast({
-        status: "error",
-        description: response?.statusText,
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
-    }
+    toast({
+      status: errors.status,
+      description: errors.message,
+      duration: 3000,
+      isClosable: true,
+      position: "top",
+    });
   };
 
   return (

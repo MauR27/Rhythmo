@@ -18,12 +18,12 @@ export async function PUT(req: Request) {
 
       await user.save();
 
-      return NextResponse.json(user, { status: 200 });
+      return NextResponse.json(user, { status: 204 });
     }
   } catch (error) {
     return NextResponse.json(
       { message: "Email already exist", error: error },
-      { status: 400, statusText: "Email already exist" }
+      { status: 405 }
     );
   }
 }
