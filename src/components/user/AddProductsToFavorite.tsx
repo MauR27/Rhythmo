@@ -1,4 +1,4 @@
-import { Flex, Icon, Tooltip, useToast } from "@chakra-ui/react";
+import { AlertStatus, Flex, Icon, Tooltip, useToast } from "@chakra-ui/react";
 import React, { FC, useContext } from "react";
 import { TProduct } from "../../../types";
 import { PiHeartThin } from "react-icons/pi";
@@ -11,6 +11,36 @@ type TProductsProps = {
 const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
   const toast = useToast();
   const { setFavoriteListProductsLength } = useContext(GlobalContext);
+
+  const statusError = (status: number) => {
+    let responseStatus: { status: AlertStatus; message: string } = {
+      message: "",
+      status: "info",
+    };
+    switch (status) {
+      case 201:
+        responseStatus = {
+          status: "error",
+          message: "Item marked as Favorite!",
+        };
+        break;
+      case 409:
+        responseStatus = {
+          status: "success",
+          message: "You already have this Item in your Favorite List!",
+        };
+        break;
+      case 400:
+        responseStatus = {
+          status: "success",
+          message: "You have to Login first",
+        };
+        break;
+      default:
+        break;
+    }
+    return responseStatus;
+  };
 
   const fetchData = async () => {
     const response = await fetch(
@@ -26,29 +56,20 @@ const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
         }),
       }
     );
-    console.log(response);
 
-    if (response.ok) {
-      const data = await response.json();
-      setFavoriteListProductsLength(data?.favoriteProduct?.length || 0);
-      console.log(response);
+    const data = await response.json();
 
-      toast({
-        status: "success",
-        description: response.statusText,
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
-    } else {
-      toast({
-        status: "error",
-        description: response.statusText,
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
-    }
+    const errors = statusError(response.status);
+
+    setFavoriteListProductsLength(data?.favoriteProduct?.length || 0);
+
+    toast({
+      status: errors.status,
+      description: errors.message,
+      duration: 3000,
+      isClosable: true,
+      position: "top",
+    });
   };
 
   return (
