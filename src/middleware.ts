@@ -23,5 +23,5 @@ const handler = async (req: NextRequest) => {
 export default handler;
 
 export const config = {
-  matcher: ["/pages/profile/:path*", "/pages/cart"],
+  matcher: ["/pages/profile/:path*", "/admin/:path*"],
 };
