@@ -1,7 +1,7 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-const handler = async (req: NextRequest) => {
+const handler = async (req: any) => {
   const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   if (!session) {
@@ -23,9 +23,5 @@ const handler = async (req: NextRequest) => {
 export default handler;
 
 export const config = {
-  matcher: [
-    "/pages/profile/:path*",
-    "/admin/:path*",
-    `${process.env.NEXT_PUBLIC_URL_ADDRESS}/pages/cart`,
-  ],
+  matcher: ["/pages/profile/:path*", "/admin/:path*", "/pages/cart"],
 };
