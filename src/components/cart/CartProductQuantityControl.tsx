@@ -1,12 +1,4 @@
-import {
-  Button,
-  Flex,
-  GridItem,
-  Icon,
-  Spinner,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
+import { Flex, Icon, Spinner, Text, useToast } from "@chakra-ui/react";
 import { FC, useContext, useEffect, useState } from "react";
 import GlobalContext from "@/context/GlobalContext";
 import CartRemoveSingleProduct from "./CartRemoveSingleProduct";

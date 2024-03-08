@@ -17,8 +17,8 @@ export async function POST(req: Request) {
           quantity: item.quantity,
         };
       }),
-      success_url: "http://localhost:3000/pages/success",
-      cancel_url: "http://localhost:3000/pages/cart",
+      success_url: `${process.env.NEXT_PUBLIC_URL_ADDRESS}/pages/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_URL_ADDRESS}/pages/cart`,
     });
     return NextResponse.json({ url: session.url });
   } catch (error) {

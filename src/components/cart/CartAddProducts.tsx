@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Icon, useToast, Tooltip, Flex } from "@chakra-ui/react";
+import { Icon, useToast, Tooltip, Flex } from "@chakra-ui/react";
 import { FC, useContext } from "react";
 import { TProduct } from "../../../types";
 import GlobalContext from "@/context/GlobalContext";

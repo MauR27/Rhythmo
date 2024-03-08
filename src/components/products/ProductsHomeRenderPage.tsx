@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Image, Spinner, Flex } from "@chakra-ui/react";
+import { Box, Image, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { ProductsResponse } from "../../../types";
 import FooterPageRender from "../FooterPageRender";
@@ -16,7 +16,7 @@ const ProductsHomeRenderPage = () => {
       setIsLoading(true);
       (async () => {
         const response = await fetch(
-          "http://localhost:3000/api/products/get-all"
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/products/get-all`
         );
         if (response.ok) {
           const products = await response.json();

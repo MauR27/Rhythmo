@@ -37,7 +37,7 @@ const AdminDeleteSingleProduct: FC<TProductId> = ({
     try {
       setIsLoading(true);
       const res = await fetch(
-        "http://localhost:3000/api/admin/delete-products",
+        `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/admin/delete-products`,
         {
           method: "PUT",
           headers: {

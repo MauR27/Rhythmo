@@ -1,11 +1,8 @@
 "use client";
 
 import {
-  Box,
   Divider,
   Flex,
-  Grid,
-  GridItem,
   List,
   ListItem,
   Text,
@@ -27,7 +24,7 @@ const CartPageRender = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          "http://localhost:3000/api/user/cart/get-products"
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/cart/get-products`
         );
         const userCart = await response.json();
 

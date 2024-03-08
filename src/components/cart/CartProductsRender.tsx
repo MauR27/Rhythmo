@@ -1,30 +1,16 @@
 import { FC } from "react";
 import {
-  Box,
-  Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
-  Divider,
   Flex,
-  Grid,
-  GridItem,
   Heading,
-  Icon,
   Image,
-  Spinner,
-  Stack,
   Text,
-  Tooltip,
   useMediaQuery,
 } from "@chakra-ui/react";
-import CartRemoveSingleProduct from "./CartRemoveSingleProduct";
-import { CiSearch } from "react-icons/ci";
-import CartProductQuantityControl from "./CartProductQuantityControl";
-import CartAllEmpty from "./CartAllEmpty";
 import LoadingSpinner from "@/utils/LoadingSpinner";
-import { Link } from "@chakra-ui/next-js";
+import CartProductQuantityControl from "./CartProductQuantityControl";
 
 type TIsloading = {
   isLoading: boolean;

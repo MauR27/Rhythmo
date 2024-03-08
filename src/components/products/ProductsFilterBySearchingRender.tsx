@@ -21,7 +21,7 @@ const ProductsFilterBySearchingRender: FC<TParamsSearch> = ({ params }) => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `http://localhost:3000/api/products/by-search?q=${params}`
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/products/by-search?q=${params}`
         );
         const products: ProductsResponse = await response.json();
 

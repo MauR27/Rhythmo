@@ -1,9 +1,7 @@
 import { Badge, Icon } from "@chakra-ui/react";
-import { PiShoppingCartSimpleThin } from "react-icons/pi";
 import { useContext, useEffect } from "react";
 import GlobalContext from "@/context/GlobalContext";
 import { Link } from "@chakra-ui/next-js";
-import { FiShoppingCart } from "react-icons/fi";
 import { LiaShoppingCartSolid } from "react-icons/lia";
 
 const CartNavButton = () => {

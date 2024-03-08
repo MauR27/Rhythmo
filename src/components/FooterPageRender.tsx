@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Flex, Icon, Link, List, ListItem, Text } from "@chakra-ui/react";
+import { Flex, Icon, Text } from "@chakra-ui/react";
 import {
   IoLogoInstagram,
   IoLogoFacebook,

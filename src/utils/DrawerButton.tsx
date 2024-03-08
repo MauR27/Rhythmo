@@ -10,7 +10,6 @@ import {
   List,
   ListItem,
   Text,
-  styled,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";

@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, FormEvent, useEffect, useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 import {
   Box,
@@ -13,8 +13,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { Link } from "@chakra-ui/next-js";
-import { TUserSchema } from "@/models/users";
 
 type TParamsResetPasswordToken = {
   token: string;
@@ -120,7 +118,6 @@ const ResetPasswordRenderForm: FC<TParamsResetPasswordToken> = ({ token }) => {
                 <Button
                   type="submit"
                   variant="ghost"
-                  //   isDisabled={error.length > 0}
                   borderRadius="none"
                   _hover={{
                     bg: "cyan.600",

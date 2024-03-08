@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Icon, Tooltip, useToast } from "@chakra-ui/react";
-import React, { FC, useContext, useEffect } from "react";
+import { Flex, Icon, Tooltip, useToast } from "@chakra-ui/react";
+import React, { FC, useContext } from "react";
 import { TProduct } from "../../../types";
 import { PiHeartThin } from "react-icons/pi";
 import GlobalContext from "@/context/GlobalContext";

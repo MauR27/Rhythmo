@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Flex, Icon, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Icon, Image } from "@chakra-ui/react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import Slider from "react-slick";
 

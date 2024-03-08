@@ -28,7 +28,6 @@ import {
   Textarea,
   useDisclosure,
   Heading,
-  useMediaQuery,
   Grid,
   GridItem,
   Icon,
@@ -36,8 +35,6 @@ import {
 } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
 import AdminDeleteSingleProduct from "./AdminDeleteSingleProduct";
-import LoadingSpinner from "@/utils/LoadingSpinner";
-import { BiSolidEdit } from "react-icons/bi";
 import { TbEdit } from "react-icons/tb";
 import { RxCross1 } from "react-icons/rx";
 
@@ -72,11 +69,10 @@ const AdminRenderDashboardPage = () => {
     stripe_price_id: "",
     stripe_product_id: "",
   });
-  const [isLargerThan580] = useMediaQuery("(min-width: 580px)");
 
   async function fetchItemById(id: string) {
     const response = await fetch(
-      `http://localhost:3000/api/user/cart/get-products/by-id?q=${id}`
+      `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/cart/get-products/by-id?q=${id}`
     );
 
     const data = await response.json();
@@ -90,7 +86,7 @@ const AdminRenderDashboardPage = () => {
       setIsLoadingProducts(true);
       (async () => {
         const response = await fetch(
-          "http://localhost:3000/api/products/get-all"
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/products/get-all`
         );
         if (response.ok) {
           const data = await response.json();

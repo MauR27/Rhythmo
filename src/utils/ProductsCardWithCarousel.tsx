@@ -1,15 +1,12 @@
 import React, { FC } from "react";
 import { ProductsResponse } from "../../types";
 import {
-  Badge,
-  Box,
   Card,
   CardBody,
   CardFooter,
   Flex,
   Heading,
   Icon,
-  Image,
   Stack,
   Text,
   Tooltip,

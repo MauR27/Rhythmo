@@ -22,7 +22,7 @@ const ProductsFullViewPage: FC<TParams> = ({ params }) => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:3000/api/user/cart/get-products/by-id?q=${params}`
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/cart/get-products/by-id?q=${params}`
         );
         if (response.ok) {
           const data = await response.json();

@@ -116,7 +116,7 @@ const AddProductsRenderForm = () => {
         const promise = await Promise.all(formik.values.images);
         if (promise) {
           const res = await fetch(
-            "http://localhost:3000/api/admin/add-products",
+            `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/admin/add-products`,
             {
               method: "POST",
               headers: {

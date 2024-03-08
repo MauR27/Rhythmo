@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { ProductsResponse } from "../../../types";
-import { Box, Flex, Spinner } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import ProductsCardWithCarousel from "@/utils/ProductsCardWithCarousel";
 import LoadingSpinner from "@/utils/LoadingSpinner";
 
@@ -15,7 +15,7 @@ const ProductsRenderAllPage = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:3000/api/products/get-all`
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/products/get-all`
         );
 
         if (response.ok) {
