@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,7 +5,7 @@ const handler = async (req: NextRequest) => {
   try {
     const session = await getToken({
       req,
-      secret: process.env.NEXTAUTH_SECRET,
+      secret: "123123123123",
     });
     console.log("session", session);
 
