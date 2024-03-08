@@ -20,7 +20,6 @@ const ProductsHomeRenderPage = () => {
         );
         if (response.ok) {
           const products = await response.json();
-          console.log(products);
 
           const productsSlice = products.slice(0, 4);
           setProducts(productsSlice);

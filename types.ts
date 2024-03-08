@@ -42,5 +42,5 @@ export type TFormikIinitialValues = {
   brand: string;
   images: string[];
   instrumentType: string;
-  amount: number;
+  amount: string;
 };

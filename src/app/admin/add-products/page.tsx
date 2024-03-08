@@ -5,6 +5,7 @@ import {
   Button,
   Flex,
   FormLabel,
+  Icon,
   Image,
   Input,
   List,
@@ -20,6 +21,7 @@ import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import * as yup from "yup";
 import { TFormikIinitialValues } from "../../../../types";
+import { RxCross1 } from "react-icons/rx";
 
 const AddProductsRenderForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -34,7 +36,7 @@ const AddProductsRenderForm = () => {
       brand: "",
       images: [],
       instrumentType: "",
-      amount: 0,
+      amount: "",
     },
     validationSchema: yup.object({
       productName: yup
@@ -50,10 +52,16 @@ const AddProductsRenderForm = () => {
       brand: yup.string().max(15, "Must be 30 caracters or less").required(),
       images: yup.array(),
       instrumentType: yup.string().required(),
-      amount: yup.number().required(),
+      amount: yup
+        .number()
+        .required("Please set a number")
+        .typeError("Please set a number"),
     }),
 
-    onSubmit: async (values: TFormikIinitialValues) => {
+    onSubmit: async (
+      values: TFormikIinitialValues,
+      { resetForm }: { resetForm: () => void }
+    ) => {
       setIsLoading(true);
 
       //  Uploading Images to cloudinary ↓↓
@@ -67,7 +75,7 @@ const AddProductsRenderForm = () => {
 
           if (files.length > 0) {
             const formData = new FormData();
-            const images = formik.values.images;
+            const images: string[] = formik.values.images;
             const url: string = process.env.NEXT_PUBLIC_CLOUDINARY_URL || "";
 
             for (let i: number = 0; i < files.length; i++) {
@@ -82,6 +90,7 @@ const AddProductsRenderForm = () => {
               if (response.ok) {
                 const data = await response.json();
                 const imageUrl: string = data.secure_url;
+
                 images.push(imageUrl);
 
                 formik.setFieldValue("images", data.secure_url);
@@ -133,6 +142,7 @@ const AddProductsRenderForm = () => {
               status: "success",
               position: "top",
             });
+            resetForm();
           } else {
             setIsLoading(false);
           }
@@ -172,13 +182,24 @@ const AddProductsRenderForm = () => {
 
   return (
     <>
-      <Flex minH="100vh" justifyContent="center" alignItems="center">
-        <form onSubmit={formik.handleSubmit}>
-          <Flex flexDir="column" gap={4}>
+      <Flex
+        minH="100vh"
+        mt={10}
+        justifyContent="center"
+        alignItems="center"
+        mb={10}
+      >
+        <form onSubmit={formik.handleSubmit} style={{ width: "1000px" }}>
+          <Flex flexDir="column" gap={4} minW="100%">
             <Flex flexDir="column">
-              <FormLabel>Product name</FormLabel>
+              <FormLabel fontSize={["12px", "14px", "16px"]} color="gray.400">
+                Product name
+              </FormLabel>
 
               <Input
+                fontSize={["12px", "14px", "16px"]}
+                size={["xs", "sm", "md"]}
+                variant="flushed"
                 placeholder="Product Name"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -191,8 +212,13 @@ const AddProductsRenderForm = () => {
               )}
             </Flex>
             <Flex flexDir="column">
-              <FormLabel>Price</FormLabel>
+              <FormLabel fontSize={["12px", "14px", "16px"]} color="gray.400">
+                Price
+              </FormLabel>
               <Input
+                fontSize={["12px", "14px", "16px"]}
+                size={["xs", "sm", "md"]}
+                variant="flushed"
                 placeholder="Price"
                 onBlur={formik.handleBlur}
                 onChange={(e) => {
@@ -218,9 +244,14 @@ const AddProductsRenderForm = () => {
               )}
             </Flex>
             <Flex flexDir="column">
-              <FormLabel>Description of products</FormLabel>
+              <FormLabel fontSize={["12px", "14px", "16px"]} color="gray.400">
+                Description of products
+              </FormLabel>
 
               <Textarea
+                fontSize={["12px", "14px", "16px"]}
+                size={["xs", "sm", "md"]}
+                variant="flushed"
                 placeholder="Description"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -232,9 +263,14 @@ const AddProductsRenderForm = () => {
               )}
             </Flex>
             <Flex flexDir="column">
-              <FormLabel>Brands</FormLabel>
+              <FormLabel fontSize={["12px", "14px", "16px"]} color="gray.400">
+                Brands
+              </FormLabel>
 
               <Input
+                fontSize={["12px", "14px", "16px"]}
+                size={["xs", "sm", "md"]}
+                variant="flushed"
                 placeholder="Brand"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -246,68 +282,118 @@ const AddProductsRenderForm = () => {
                 <Text>{formik.errors.brand}</Text>
               )}
             </Flex>
-            <Box p="16" border="1px solid gray" borderRadius="md">
-              <FormLabel>Images</FormLabel>
-
-              <Box {...getRootProps()}>
+            <section about="Drop_Box">
+              <FormLabel fontSize={["12px", "14px", "16px"]} color="gray.400">
+                Images
+              </FormLabel>
+              <Flex
+                flexDir="column"
+                justify="center"
+                position="relative"
+                minH="400px"
+                border="1px solid gray"
+                borderRadius="md"
+                zIndex={1}
+                _hover={{
+                  cursor: "pointer",
+                }}
+                {...getRootProps()}
+              >
                 <input {...getInputProps()} />
                 {isDragActive ? (
-                  <Text>Drop the files here ...</Text>
+                  <Text
+                    position="relative"
+                    textAlign="center"
+                    fontSize={["12px", "14px", "16px"]}
+                    color="gray.400"
+                  >
+                    Drop the files here...
+                  </Text>
                 ) : (
-                  <Text>
+                  <Text
+                    position="relative"
+                    textAlign="center"
+                    fontSize={["12px", "14px", "16px"]}
+                    color="gray.400"
+                  >
                     Drag and drop some files here, or click to select files
                   </Text>
                 )}
-              </Box>
-              <List display="flex" gap={2}>
-                {files.map((file: any) => (
-                  <ListItem key={file.name}>
-                    <Image
-                      src={file.preview}
-                      alt="image"
-                      width={100}
-                      height={100}
-                      onLoad={() => {
-                        URL.revokeObjectURL(file.preview);
-                      }}
-                    />
-                    <Button type="button" onClick={() => removeFile(file.name)}>
-                      X
-                    </Button>
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-            <Box>
-              <FormLabel>Type of instrument</FormLabel>
 
-              <Select
-                placeholder="Select option"
-                value={formik.values.instrumentType}
-                onChange={(e) =>
-                  formik.setFieldValue("instrumentType", e.target.value)
-                }
-                onBlur={() => formik.handleBlur}
-              >
-                <option value="Electric-Guitars">Electric Guitars</option>
-                <option value="Electric-Bass">Electric Bass</option>
-                <option value="Electric-Drums">Electric Drums</option>
-                <option value="Acoustic-Drums">Acoustic Drums</option>
-              </Select>
-              {formik.touched.instrumentType &&
-                formik.errors.instrumentType && (
-                  <p>{formik.errors.instrumentType}</p>
-                )}
-            </Box>
+                <List
+                  display="flex"
+                  gap={2}
+                  justifyContent="center"
+                  flexWrap="wrap"
+                  position="relative"
+                >
+                  {files.map((file: any) => (
+                    <ListItem key={file.name}>
+                      <Image
+                        objectFit="cover"
+                        src={file.preview}
+                        alt="image"
+                        width={["80px", "100px", "120px"]}
+                        height={["80px", "100px", "120px"]}
+                        onLoad={() => {
+                          URL.revokeObjectURL(file.preview);
+                        }}
+                      />
+                      <Icon
+                        as={RxCross1}
+                        onClick={() => removeFile(file.name)}
+                        _hover={{
+                          color: "red.200",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Flex>
+            </section>
+            <section about="Select type of products">
+              <Box>
+                <FormLabel fontSize={["12px", "14px", "16px"]} color="gray.400">
+                  Type of instrument
+                </FormLabel>
+
+                <Select
+                  fontSize={["12px", "14px", "16px"]}
+                  size={["xs", "sm", "md"]}
+                  variant="flushed"
+                  placeholder="Select option"
+                  value={formik.values.instrumentType}
+                  onChange={(e) =>
+                    formik.setFieldValue("instrumentType", e.target.value)
+                  }
+                  onBlur={() => formik.handleBlur}
+                >
+                  <option value="Electric-Guitars">Electric Guitars</option>
+                  <option value="Electric-Bass">Electric Bass</option>
+                  <option value="Electric-Drums">Electric Drums</option>
+                  <option value="Acoustic-Drums">Acoustic Drums</option>
+                </Select>
+                {formik.touched.instrumentType &&
+                  formik.errors.instrumentType && (
+                    <p>{formik.errors.instrumentType}</p>
+                  )}
+              </Box>
+            </section>
             <Flex flexDir="column">
-              <FormLabel>Amount of products</FormLabel>
+              <FormLabel fontSize={["12px", "14px", "16px"]} color="gray.400">
+                Amount of products
+              </FormLabel>
 
               <Input
+                fontSize={["12px", "14px", "16px"]}
+                size={["xs", "sm", "md"]}
+                variant="flushed"
                 placeholder="Amount"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.amount}
-                type="number"
+                type="text"
                 name="amount"
               />
               {formik.touched.amount && formik.errors.amount && (
@@ -315,19 +401,20 @@ const AddProductsRenderForm = () => {
               )}
             </Flex>
             <Flex justifyContent="center">
-              {isLoading ? (
-                <Spinner />
-              ) : (
+              {!isLoading ? (
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   type="submit"
-                  bg="blue.100"
-                  textColor="black"
-                  px="4"
-                  py="2"
+                  bg="brand.cyan2"
+                  textColor="white"
+                  _hover={{
+                    bg: "brand.cyan",
+                  }}
                 >
                   send
                 </Button>
+              ) : (
+                <Spinner />
               )}
             </Flex>
           </Flex>

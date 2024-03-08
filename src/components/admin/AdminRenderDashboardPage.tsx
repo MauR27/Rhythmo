@@ -39,6 +39,7 @@ import AdminDeleteSingleProduct from "./AdminDeleteSingleProduct";
 import LoadingSpinner from "@/utils/LoadingSpinner";
 import { BiSolidEdit } from "react-icons/bi";
 import { TbEdit } from "react-icons/tb";
+import { RxCross1 } from "react-icons/rx";
 
 type TEditProduct = {
   name: string;
@@ -97,7 +98,9 @@ const AdminRenderDashboardPage = () => {
           setIsLoadingProducts(false);
         }
       })();
-    } catch (error) {}
+    } catch (error) {
+      if (error instanceof Error) throw new Error(error.message);
+    }
 
     if (singleProduct && Array.isArray(singleProduct.images)) {
       setFiles(
@@ -113,7 +116,6 @@ const AdminRenderDashboardPage = () => {
     try {
       const data = await fetchItemById(id);
       setSingleProduct(data);
-
       onOpen();
     } catch (error) {
       if (error instanceof Error) {
@@ -125,6 +127,7 @@ const AdminRenderDashboardPage = () => {
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    e.preventDefault();
     const { name, value }: any = e.target;
 
     setSingleProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
@@ -256,7 +259,6 @@ const AdminRenderDashboardPage = () => {
       };
     });
   };
-  if (isLoadingProducts) return <LoadingSpinner />;
 
   return (
     <Flex gap={2} minH="calc(100vh - 16rem)" mt={10} justify="center">
@@ -349,7 +351,9 @@ const AdminRenderDashboardPage = () => {
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Edit Product</ModalHeader>
+            <ModalHeader fontSize={["12px", "14px", "16px"]}>
+              Edit Product
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Flex
@@ -361,9 +365,17 @@ const AdminRenderDashboardPage = () => {
                 <form onSubmit={handleSubmit} style={{ width: "100%" }}>
                   <Flex flexDir="column" gap={4} minW="100%">
                     <Flex flexDir="column">
-                      <FormLabel>Product name</FormLabel>
+                      <FormLabel
+                        fontSize={["12px", "14px", "16px"]}
+                        color="gray.400"
+                      >
+                        Product name
+                      </FormLabel>
 
                       <Input
+                        fontSize={["12px", "14px", "16px"]}
+                        size={["xs", "sm", "md"]}
+                        variant="flushed"
                         type="text"
                         name="name"
                         value={singleProduct?.name}
@@ -371,8 +383,16 @@ const AdminRenderDashboardPage = () => {
                       />
                     </Flex>
                     <Flex flexDir="column">
-                      <FormLabel>Price</FormLabel>
+                      <FormLabel
+                        fontSize={["12px", "14px", "16px"]}
+                        color="gray.400"
+                      >
+                        Price
+                      </FormLabel>
                       <Input
+                        fontSize={["12px", "14px", "16px"]}
+                        size={["xs", "sm", "md"]}
+                        variant="flushed"
                         onChange={(e) => {
                           const numericValue = parseFloat(
                             e.target.value.replace(/,/g, "")
@@ -397,9 +417,17 @@ const AdminRenderDashboardPage = () => {
                       />
                     </Flex>
                     <Flex flexDir="column">
-                      <FormLabel>Description of products</FormLabel>
+                      <FormLabel
+                        fontSize={["12px", "14px", "16px"]}
+                        color="gray.400"
+                      >
+                        Description of products
+                      </FormLabel>
 
                       <Textarea
+                        fontSize={["12px", "14px", "16px"]}
+                        size={["xs", "sm", "md"]}
+                        variant="flushed"
                         placeholder="Description"
                         onChange={handleInputChange}
                         value={singleProduct?.description}
@@ -407,9 +435,17 @@ const AdminRenderDashboardPage = () => {
                       />
                     </Flex>
                     <Flex flexDir="column">
-                      <FormLabel>Brands</FormLabel>
+                      <FormLabel
+                        fontSize={["12px", "14px", "16px"]}
+                        color="gray.400"
+                      >
+                        Brands
+                      </FormLabel>
 
                       <Input
+                        fontSize={["12px", "14px", "16px"]}
+                        size={["xs", "sm", "md"]}
+                        variant="flushed"
                         placeholder="Brand"
                         onChange={handleInputChange}
                         value={singleProduct?.brand}
@@ -418,48 +454,92 @@ const AdminRenderDashboardPage = () => {
                       />
                     </Flex>
                     <section about="Drop_Box">
-                      <Box p="16" border="1px solid gray" borderRadius="md">
-                        <FormLabel>Images</FormLabel>
+                      <FormLabel
+                        fontSize={["12px", "14px", "16px"]}
+                        color="gray.400"
+                      >
+                        Images
+                      </FormLabel>
+                      <Flex
+                        flexDir="column"
+                        justify="center"
+                        position="relative"
+                        minH="400px"
+                        border="1px solid gray"
+                        borderRadius="md"
+                        zIndex={1}
+                        _hover={{
+                          cursor: "pointer",
+                        }}
+                        {...getRootProps()}
+                      >
+                        <input {...getInputProps()} />
+                        {isDragActive ? (
+                          <Text
+                            position="relative"
+                            textAlign="center"
+                            fontSize={["12px", "14px", "16px"]}
+                            color="gray.400"
+                          >
+                            Drop the files here...
+                          </Text>
+                        ) : (
+                          <Text
+                            position="relative"
+                            textAlign="center"
+                            fontSize={["12px", "14px", "16px"]}
+                            color="gray.400"
+                          >
+                            Drag and drop some files here, or click to select
+                            files
+                          </Text>
+                        )}
 
-                        <Box {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          {isDragActive ? (
-                            <Text>Drop the files here ...</Text>
-                          ) : (
-                            <Text>
-                              Drag and drop some files here, or click to select
-                              files
-                            </Text>
-                          )}
-                        </Box>
-                        <List display="flex" gap={2}>
+                        <List
+                          display="flex"
+                          gap={2}
+                          justifyContent="center"
+                          flexWrap="wrap"
+                          position="relative"
+                        >
                           {files.map((file: any) => (
                             <ListItem key={file.name}>
                               <Image
+                                objectFit="cover"
                                 src={file.preview}
                                 alt="image"
-                                width={100}
-                                height={100}
+                                width={["80px", "100px", "120px"]}
+                                height={["80px", "100px", "120px"]}
                                 onLoad={() => {
                                   URL.revokeObjectURL(file.preview);
                                 }}
                               />
-                              <Button
-                                type="button"
+                              <Icon
+                                as={RxCross1}
                                 onClick={() => removeFile(file.name)}
-                              >
-                                X
-                              </Button>
+                                _hover={{
+                                  color: "red.200",
+                                  cursor: "pointer",
+                                }}
+                              />
                             </ListItem>
                           ))}
                         </List>
-                      </Box>
+                      </Flex>
                     </section>
                     <section about="Select type of products">
                       <Box>
-                        <FormLabel>Type of instrument</FormLabel>
+                        <FormLabel
+                          fontSize={["12px", "14px", "16px"]}
+                          color="gray.400"
+                        >
+                          Type of instrument
+                        </FormLabel>
 
                         <Select
+                          fontSize={["12px", "14px", "16px"]}
+                          size={["xs", "sm", "md"]}
+                          variant="flushed"
                           placeholder="Select option"
                           value={singleProduct?.instrumentType}
                           onChange={(e) => {
@@ -480,9 +560,17 @@ const AdminRenderDashboardPage = () => {
                       </Box>
                     </section>
                     <Flex flexDir="column">
-                      <FormLabel>Amount of products</FormLabel>
+                      <FormLabel
+                        fontSize={["12px", "14px", "16px"]}
+                        color="gray.400"
+                      >
+                        Amount of products
+                      </FormLabel>
 
                       <Input
+                        fontSize={["12px", "14px", "16px"]}
+                        size={["xs", "sm", "md"]}
+                        variant="flushed"
                         placeholder="Amount"
                         onChange={handleInputChange}
                         value={singleProduct?.amount}
@@ -493,12 +581,13 @@ const AdminRenderDashboardPage = () => {
                     <Flex justifyContent="center">
                       {!isLoadingSend ? (
                         <Button
-                          variant="ghost"
+                          variant="outline"
                           type="submit"
-                          bg="blue.100"
-                          textColor="black"
-                          px="4"
-                          py="2"
+                          bg="brand.cyan2"
+                          textColor="white"
+                          _hover={{
+                            bg: "brand.cyan",
+                          }}
                         >
                           send
                         </Button>

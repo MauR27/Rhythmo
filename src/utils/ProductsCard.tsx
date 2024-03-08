@@ -32,6 +32,7 @@ const ProductsCard: FC<TProductsArray> = ({ products }) => {
             <Card
               key={index}
               maxW={["200px", "250px", "xs"]}
+              minW={["200px", "250px", "xs"]}
               borderRadius={5}
               boxShadow="none"
               _hover={{
