@@ -32,7 +32,7 @@ const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
 
       toast({
         status: "success",
-        description: "hola",
+        description: response.statusText,
         duration: 3000,
         isClosable: true,
         position: "top",
@@ -40,7 +40,7 @@ const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
     } else {
       toast({
         status: "error",
-        description: response?.statusText,
+        description: response.statusText,
         duration: 3000,
         isClosable: true,
         position: "top",
