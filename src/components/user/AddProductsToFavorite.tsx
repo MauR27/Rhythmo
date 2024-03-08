@@ -29,6 +29,7 @@ const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
     if (response.ok) {
       const data = await response.json();
       setFavoriteListProductsLength(data?.favoriteProduct?.length || 0);
+      console.log(response);
 
       toast({
         status: "success",
