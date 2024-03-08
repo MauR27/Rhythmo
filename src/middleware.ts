@@ -23,5 +23,9 @@ const handler = async (req: NextRequest) => {
 export default handler;
 
 export const config = {
-  matcher: ["/pages/profile/:path*", "/admin/:path*"],
+  matcher: [
+    "/pages/profile/:path*",
+    "/admin/:path*",
+    `${process.env.NEXT_PUBLIC_URL_ADDRESS}/pages/cart`,
+  ],
 };
