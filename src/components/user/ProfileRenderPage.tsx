@@ -30,7 +30,7 @@ const ProfileRenderPage = () => {
     onSubmit: async (values, { resetForm }) => {
       try {
         setLoading(true);
-        const fetchProfile = await fetch("/api/profile", {
+        const fetchProfile = await fetch("/api/user/profile", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -83,10 +83,12 @@ const ProfileRenderPage = () => {
   });
 
   return (
-    <Box>
-      <form onSubmit={formik.handleSubmit}>
-        <FormControl minW="400px" mb={4}>
-          <FormLabel>Name</FormLabel>
+    <Flex minH="100vh" justify="center" m="20px 10px 0 10px">
+      <form onSubmit={formik.handleSubmit} style={{ width: "500px" }}>
+        <FormControl mb={4}>
+          <FormLabel fontSize={["12px", "14px", "16px"]} color="gray.400">
+            Name
+          </FormLabel>
           <Input
             id="name"
             name="name"
@@ -94,12 +96,16 @@ const ProfileRenderPage = () => {
             onChange={formik.handleChange}
             value={formik.values.name}
             variant="flushed"
+            size={["xs", "sm", "md"]}
           />
         </FormControl>
         <FormControl mb={4}>
-          <FormLabel>Email</FormLabel>
-          <Text fontSize="sm">
-            After change the Email you have to Sign in Again for you security
+          <FormLabel fontSize={["12px", "14px", "16px"]} color="gray.400">
+            Email
+          </FormLabel>
+          <Text fontSize={["8px", "10px", "12px"]} color="gray.400">
+            After changing the e-mail address you will be logged out for your
+            security.
           </Text>
           <Input
             id="email"
@@ -109,6 +115,7 @@ const ProfileRenderPage = () => {
             onChange={formik.handleChange}
             value={formik.values.email}
             variant="filled"
+            size={["xs", "sm", "md"]}
           />
         </FormControl>
 
@@ -121,12 +128,12 @@ const ProfileRenderPage = () => {
                 <Button
                   type="submit"
                   variant="ghost"
-                  borderRadius="none"
+                  borderRadius={5}
                   _hover={{
-                    bg: "cyan.600",
+                    bg: "brand.cyan2",
                     color: "white",
-                    borderRadius: "none",
                   }}
+                  size={["xs", "sm", "md"]}
                 >
                   Update
                 </Button>
@@ -135,12 +142,12 @@ const ProfileRenderPage = () => {
                   isDisabled
                   type="submit"
                   variant="ghost"
-                  borderRadius="none"
+                  borderRadius={5}
                   _hover={{
-                    bg: "cyan.600",
+                    bg: "brand.cyan2",
                     color: "white",
-                    borderRadius: "none",
                   }}
+                  size={["xs", "sm", "md"]}
                 >
                   Update
                 </Button>
@@ -149,7 +156,7 @@ const ProfileRenderPage = () => {
           )}
         </Flex>
       </form>
-    </Box>
+    </Flex>
   );
 };
 
