@@ -1,3 +1,5 @@
+"use server";
+
 import { NextResponse } from "next/server";
 import User from "@/models/users";
 import { getServerSession } from "next-auth";
@@ -7,6 +9,8 @@ export async function GET(req: Request) {
   try {
     await connectDB();
     const session = await getServerSession();
+    console.log(session);
+
     const userEmail = session?.user?.email;
 
     const user = await User.findOne({ email: userEmail });
