@@ -29,7 +29,7 @@ const CartNavButton = () => {
           color="brand.gray"
           w={[6, 7, 8]}
           h={[6, 7, 8]}
-          _hover={{ color: "brand.cyan" }}
+          _hover={{ color: "brand.cyan2" }}
           transition=".3s"
         />
         <Badge
@@ -37,8 +37,9 @@ const CartNavButton = () => {
           bg="brand.cyan2"
           color="white"
           borderRadius="full"
-          right="5"
-          top="8"
+          right={"20px"}
+          top={["35px", "33px", "30px"]}
+          fontSize={["8px", "10px", "12px"]}
         >
           {cartLength}
         </Badge>
