@@ -10,9 +10,13 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Spinner,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { statusError } from "@/utils/errors";
+import LoadingSpinner from "@/utils/LoadingSpinner";
 
 type TParamsResetPasswordToken = {
   token: string;
@@ -22,9 +26,11 @@ const ResetPasswordRenderForm: FC<TParamsResetPasswordToken> = ({ token }) => {
   const [error, setError] = useState("");
   const [verified, setVerified] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
   const { data: session, status: sessionStatus } = useSession();
+  const toast = useToast();
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -45,7 +51,6 @@ const ResetPasswordRenderForm: FC<TParamsResetPasswordToken> = ({ token }) => {
         if (res.ok) {
           setError("");
           setVerified(true);
-
           const userData = await res.json();
           setUserData(userData);
         } else {
@@ -72,6 +77,7 @@ const ResetPasswordRenderForm: FC<TParamsResetPasswordToken> = ({ token }) => {
     const formData = new FormData(e.currentTarget);
 
     try {
+      setIsLoading(true);
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/password/reset`,
         {
@@ -86,13 +92,21 @@ const ResetPasswordRenderForm: FC<TParamsResetPasswordToken> = ({ token }) => {
           }),
         }
       );
-
+      const errors = statusError(res.status);
       if (res.ok) {
+        setIsLoading(false);
+        toast({
+          description: errors.message,
+          status: errors.status,
+          duration: 3000,
+          isClosable: true,
+          position: "top",
+        });
         setError("");
         return router.replace("/");
       } else {
-        setError(res.statusText);
-        return setError(res.statusText);
+        setIsLoading(false);
+        setError(errors.message);
       }
     } catch (error) {
       console.log(error);
@@ -100,7 +114,7 @@ const ResetPasswordRenderForm: FC<TParamsResetPasswordToken> = ({ token }) => {
   };
 
   if (sessionStatus === "loading" || !verified) {
-    return <h1>Loading...</h1>;
+    return <LoadingSpinner />;
   }
 
   return (
@@ -109,7 +123,6 @@ const ResetPasswordRenderForm: FC<TParamsResetPasswordToken> = ({ token }) => {
         <Flex align="center" justify="center" h="calc(100vh - 11rem)">
           <Box w="20%">
             <form onSubmit={handleSubmit}>
-              {error && <Text> {error}</Text>}
               <FormLabel>Reset password</FormLabel>
               <FormControl mb={4}>
                 <FormLabel>Email</FormLabel>
@@ -119,20 +132,30 @@ const ResetPasswordRenderForm: FC<TParamsResetPasswordToken> = ({ token }) => {
                   name="password"
                   variant="filled"
                 />
+                {error && (
+                  <Text fontSize={["8px", "10px", "12px"]} color="red">
+                    {" "}
+                    {error}
+                  </Text>
+                )}
               </FormControl>
               <Flex justify="center">
-                <Button
-                  type="submit"
-                  variant="ghost"
-                  borderRadius="none"
-                  _hover={{
-                    bg: "cyan.600",
-                    color: "white",
-                    borderRadius: "none",
-                  }}
-                >
-                  Reset password
-                </Button>
+                {isLoading ? (
+                  <Spinner />
+                ) : (
+                  <Button
+                    type="submit"
+                    variant="ghost"
+                    borderRadius="5"
+                    bg="brand.cyan2"
+                    color="white"
+                    _hover={{
+                      bg: "cyan.600",
+                    }}
+                  >
+                    Reset password
+                  </Button>
+                )}
               </Flex>
             </form>
           </Box>

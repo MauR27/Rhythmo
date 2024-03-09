@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   if (!password || password.length < 6)
     return NextResponse.json(
       { message: "Password must be at least 6 caracteres" },
-      { status: 400, statusText: "Password must be at least 6 caracteres" }
+      { status: 401, statusText: "Password must be at least 6 caracteres" }
     );
 
   try {
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     if (user)
       return NextResponse.json(
         { message: "Email already in use" },
-        { status: 409, statusText: "Email already in use" }
+        { status: 402, statusText: "Email already in use" }
       );
 
     const newLocalUser = await User.create({
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
         {
           message: "Invalid user data",
         },
-        { status: 400 }
+        { status: 403 }
       );
     } else {
       return NextResponse.json(
@@ -51,9 +51,9 @@ export async function POST(req: Request) {
     if (error instanceof Error) {
       return NextResponse.json(
         {
-          message: error.message,
+          message: "Invalid user data",
         },
-        { status: 400, statusText: error.message }
+        { status: 403 }
       );
     }
   }

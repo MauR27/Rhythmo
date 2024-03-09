@@ -52,22 +52,22 @@ const CartAddProductsFullView: FC<TProductsProps> = ({ product }) => {
       align="center"
       onClick={fetchData}
       borderRadius={5}
-      bg="#D6D6D6"
+      bg="#096C00"
       m={0}
       h={["40px", "45px", "50px"]}
       w={["150px", "180px", "200px"]}
       _hover={{
-        bg: "#E0E0E0",
+        bg: "green",
         cursor: "pointer",
       }}
       _active={{
-        bg: "gray.200",
+        bg: "green.600",
       }}
     >
       <Flex
         align="center"
         justify="center"
-        bg="#CCCCCC"
+        bg="green"
         w="50px"
         h="full"
         borderTopLeftRadius={5}

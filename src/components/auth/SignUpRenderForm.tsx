@@ -9,27 +9,30 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Spinner,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
+import { statusError } from "@/utils/errors";
 
 const SignUpRenderForm = () => {
   const [error, setError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const toast = useToast();
 
   const handleSubmir = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
+    setError("");
     if (formData.get("password") !== formData.get("confirmPassword")) {
       return setPasswordError("Password do not match");
     }
     setPasswordError("");
 
     try {
+      setIsLoading(true);
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/auth/register`,
         {
@@ -47,15 +50,20 @@ const SignUpRenderForm = () => {
 
       const data = await res.json();
 
+      const errors = statusError(res.status);
+
       await signIn("credentials", {
         email: data.email,
         password: formData.get("password"),
         redirect: false,
       });
       if (res.ok) {
+        setIsLoading(false);
+        setError("");
         return router.push("/");
       } else {
-        return setError(res.statusText);
+        setIsLoading(false);
+        setError(errors.message);
       }
     } catch (error) {
       console.log(error);
@@ -154,7 +162,11 @@ const SignUpRenderForm = () => {
               </Button>
             </Flex>
             <Flex align="center" justify="center" fontWeight="bold">
-              <Text fontSize={["10px", "12px", "14px"]}>Or</Text>
+              {isLoading ? (
+                <Spinner />
+              ) : (
+                <Text fontSize={["10px", "12px", "14px"]}>Or</Text>
+              )}
             </Flex>
             <Flex justify="center" align="center" flexDir="column">
               <Button

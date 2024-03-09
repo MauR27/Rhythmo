@@ -9,6 +9,7 @@ import {
   Flex,
   FormControl,
   Input,
+  Spinner,
   Text,
 } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
@@ -21,20 +22,26 @@ type TOnClose = {
 const SignInRenderForm: FC<TOnClose> = ({ onClose }) => {
   const [error, setError] = useState("");
   const [forgotPasswordRender, setForgotPasswordRender] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
     try {
+      setIsLoading(true);
       const res = await signIn("credentials", {
         email: formData.get("email"),
         password: formData.get("password"),
         redirect: false,
       });
-      if (res?.error) return setError(res.error);
       if (res?.ok) {
+        setIsLoading(false);
         window.location.replace("/");
+      }
+      if (res?.error) {
+        setError(res.error);
+        setIsLoading(false);
       }
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
@@ -104,7 +111,12 @@ const SignInRenderForm: FC<TOnClose> = ({ onClose }) => {
               </Flex>
               <Flex align="center" justify="space-between" fontWeight="bold">
                 <Divider w="180px" />
-                <Text fontSize={["10px", "12px", "14px"]}>Or</Text>
+                {isLoading ? (
+                  <Spinner size="md" />
+                ) : (
+                  <Text fontSize={["10px", "12px", "14px"]}>Or</Text>
+                )}
+
                 <Divider w="180px" />
               </Flex>
               <Flex justify="center" align="center" flexDir="column">
