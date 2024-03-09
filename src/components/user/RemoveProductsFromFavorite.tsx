@@ -1,7 +1,7 @@
 import GlobalContext from "@/context/GlobalContext";
 import { Flex, Icon, Tooltip } from "@chakra-ui/react";
 import React, { FC, useContext } from "react";
-import { CiTrash } from "react-icons/ci";
+import { PiHeartFill } from "react-icons/pi";
 
 type TProductId = {
   _id: string;
@@ -48,14 +48,18 @@ const RemoveProductsFromFavorite: FC<TProductId> = ({ _id }) => {
         w={["30px", "40px", "50px"]}
         _hover={{
           bg: "gray.100",
+          cursor: "pointer",
         }}
         _active={{
           bg: "gray.200",
         }}
       >
-        <Icon as={CiTrash} w={[6, 7, 8]} h={[6, 7, 8]} color="black">
-          Remove
-        </Icon>
+        <Icon
+          as={PiHeartFill}
+          w={[6, 7, 8]}
+          h={[6, 7, 8]}
+          color="brand.cyan2"
+        />
       </Flex>
     </Tooltip>
   );

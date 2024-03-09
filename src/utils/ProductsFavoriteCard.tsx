@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { ProductsResponse } from "../../types";
 import {
-  Badge,
   Box,
   Card,
   CardBody,
@@ -52,15 +51,6 @@ const ProductsFavoriteCard: FC<TProductsArray> = ({ products }) => {
                 },
               }}
             >
-              <Badge
-                color="white"
-                fontWeight="bold"
-                bgColor="cyan.600"
-                position="absolute"
-                fontSize={["8px", "10px", "12px"]}
-              >
-                new
-              </Badge>
               <CardBody>
                 <Box position="relative" width="full" overflow="hidden">
                   <Image

@@ -51,17 +51,28 @@ export async function PUT(req: Request) {
         user.favoriteProduct.push(...favoriteCartProducts);
 
         await user.save();
-        return NextResponse.json(user, {
-          status: 201,
-        });
-      } else {
         return NextResponse.json(
-          { message: "You already have this Item in your Favorite List!!" },
+          { user },
           {
-            status: 409,
+            status: 201,
           }
         );
+      } else {
+        user.favoriteProduct = user.favoriteProduct.filter(
+          (data: any) => data.productId !== product._id
+        );
       }
+      await user.save();
+
+      return NextResponse.json(
+        {
+          user,
+          message: "Remove from favorite...",
+        },
+        {
+          status: 409,
+        }
+      );
     }
   } catch (error) {
     if (error instanceof Error) {

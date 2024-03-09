@@ -4,8 +4,8 @@ import { FC, useEffect, useState } from "react";
 import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import { TProduct } from "../../../types";
 import CartAddProductsFullView from "../cart/CartAddProductsFullView";
-import AddProductsToFavoriteFullView from "../user/AddProductsToFavoriteFullView";
 import LoadingSpinner from "@/utils/LoadingSpinner";
+import AddProductsToFavorite from "../user/AddProductsToFavorite";
 
 type TParams = {
   params: string;
@@ -90,7 +90,7 @@ const ProductsFullViewPage: FC<TParams> = ({ params }) => {
           </Box>
           <Flex align="center" gap={2}>
             <CartAddProductsFullView product={products} />
-            <AddProductsToFavoriteFullView product={products} />
+            <AddProductsToFavorite product={products} />
           </Flex>
         </Flex>
       </Flex>

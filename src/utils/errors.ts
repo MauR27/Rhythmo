@@ -33,7 +33,7 @@ export const statusError = (status: number) => {
     case 409:
       responseStatus = {
         status: "info",
-        message: "You already have this Item in your Favorite List!",
+        message: "Remove from favorite...",
       };
       break;
     case 400:

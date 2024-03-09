@@ -9,7 +9,6 @@ export async function GET(req: Request) {
   try {
     await connectDB();
     const session = await getServerSession();
-    console.log(session);
 
     const userEmail = session?.user?.email;
 

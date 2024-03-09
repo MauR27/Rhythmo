@@ -8,7 +8,6 @@ const handler = async (req: NextRequest) => {
       secret: process.env.NEXTAUTH_SECRET,
       secureCookie: true,
     });
-    console.log("session", session);
 
     if (!session) {
       return NextResponse.redirect(new URL("/", req.url));
