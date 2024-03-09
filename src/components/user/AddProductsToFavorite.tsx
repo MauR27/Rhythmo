@@ -5,6 +5,7 @@ import { PiHeartThin } from "react-icons/pi";
 import GlobalContext from "@/context/GlobalContext";
 import { statusError } from "@/utils/errors";
 import { PiHeartFill } from "react-icons/pi";
+import { useSession } from "next-auth/react";
 
 type TProductsProps = {
   product: TProduct | undefined;
@@ -14,18 +15,28 @@ const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
   const toast = useToast();
   const { setFavoriteListProductsLength } = useContext(GlobalContext);
   const [likedProducts, setLikedProducts] = useState<string[]>([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/profile/get-favorite-products`
-      );
-      const data = await response.json();
-      return setLikedProducts(data.map((item: any) => item.productId));
+      if (session) {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/profile/get-favorite-products`
+        );
+        const data = await response.json();
+        return setLikedProducts(data.map((item: any) => item.productId));
+      }
     })();
-  }, []);
+  }, [session]);
 
   const fetchData = async (productId: string) => {
+    if (session) {
+      if (likedProducts.includes(productId)) {
+        setLikedProducts(likedProducts.filter((id) => id !== productId));
+      } else {
+        setLikedProducts([...likedProducts, productId]);
+      }
+    }
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_URL_ADDRESS}/api/user/profile/favorite-products`,
       {
@@ -39,12 +50,6 @@ const AddProductsToFavorite: FC<TProductsProps> = ({ product }) => {
         }),
       }
     );
-
-    if (likedProducts.includes(productId)) {
-      setLikedProducts(likedProducts.filter((id) => id !== productId));
-    } else {
-      setLikedProducts([...likedProducts, productId]);
-    }
 
     const data = await response.json();
 
